@@ -27,6 +27,10 @@ int main() {
     sf::CircleShape shape(100.f);
     shape.setFillColor(sf::Color::Green);
 	window.setFramerateLimit(60);
+	sf::Texture enemyTexture; 
+	enemyTexture.loadFromFile("res/sprites/enemy1.png");
+	sf::Sprite enemy;
+	enemy.setTexture(enemyTexture);
 
     while (window.isOpen()) {
         sf::Event event;
@@ -34,9 +38,9 @@ int main() {
 			handleEvents(event, window);
         }
 
-        window.clear();
+        window.clear(sf::Color::White);
 		if(drawCircle)
-			window.draw(shape);
+			window.draw(enemy);
         window.display();
     }
 
