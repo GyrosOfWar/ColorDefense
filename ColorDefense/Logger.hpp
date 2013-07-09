@@ -1,3 +1,5 @@
+#ifndef LOGGER
+#define LOGGER
 #pragma once
 #include <string>
 
@@ -23,14 +25,16 @@ public:
 	void debug(const char* text);
 	void info(const char* text);
 	void error(const char* text);
+	void setLevel(LEVELS lvl);
+	void setConsole(bool console);
 
 
 private:
 	static Logger* instance;
-	
+	bool console;
 	LEVELS level;
 
-	void setLevel(LEVELS lvl);
+	
 
 	FILE *logfile;
 	Logger(void);
@@ -40,4 +44,5 @@ private:
 
 };
 
-Logger* Logger::instance = 0;
+
+#endif

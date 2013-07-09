@@ -2,13 +2,12 @@
 #include "Logger.hpp"
 #include <string>
 
-using namespace std;
-
 
 Logger::Logger(void)
 {
-	logfile = fopen("log.log", "w");
+	fopen_s(&logfile, "log.log", "w");
 	setLevel(LEVELS::INFO);
+	console = true;
 }
 
 
@@ -32,29 +31,43 @@ void Logger::del(void) {
 void Logger::textOut(const char* text) {
 	fprintf(logfile, text);
 	fflush(logfile);
+	if(console) printf(text);
 }
 
 
 void Logger::info(const char* text) {
-	if(level >= LEVELS::INFO) {
+	if(level <= LEVELS::INFO) {
+		textOut("INFO: ");
 		textOut(text);
+		textOut("\n");
 	}
 
 }
 
 void Logger::debug(const char* text) {
-	if(level >= LEVELS::DEBUG) {
+	if(level <= LEVELS::DEBUG) {
+		textOut("DEBUG: ");
 		textOut(text);
+		textOut("\n");
 	}
 }
 
 	
 void Logger::error(const char* text) {
-	if(level >= LEVELS::ERROR) {
-			textOut(text);
-		}
+	if(level <= LEVELS::ERROR) {
+		textOut("ERROR: ");
+		textOut(text);
+		textOut("\n");
+	}
 }
 
 void Logger::setLevel(LEVELS lvl) {
 	this->level = lvl;
 }
+
+void Logger::setConsole(bool console) {
+	this->console = console;
+}
+
+
+Logger* Logger::instance = 0;
