@@ -167,3 +167,4 @@ $RECYCLE.BIN/
 *.exe
 *.dll
 *.obj
+*.tlog

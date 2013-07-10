@@ -1,10 +1,9 @@
 #include "stdafx.h"
 #include <iostream>
 #include <SFML/Graphics.hpp>
-#include <algorithm>
 
-const int xSize = 400;
-const int ySize = 300;
+const int xSize = 800;
+const int ySize = 600;
 const int numCellsX = 16;
 const int numCellsY = 12;
 const int cellSizeX = xSize / numCellsX;
@@ -13,11 +12,12 @@ const int cellSizeY = ySize / numCellsY;
 bool debugDraw = true;
 sf::Vector2f circlePos(0, 0);
 
+// Clamps the value x to the interval [a, b] (if x < a: x = a, if x > b: b, else a)
 inline float clamp(float x, float a, float b) {
 	return x < a ? a : (x > b ? b : x);
 }
 
-
+// Handles keyboard and mouse inputs
 void handleEvents(sf::Event& e, sf::Window& window) {
 	switch (e.type) {
 		case sf::Event::Closed:
