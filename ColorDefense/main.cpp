@@ -1,13 +1,17 @@
 #include "stdafx.h"
+#include "Logger.hpp"
 #include <iostream>
 #include <SFML/Graphics.hpp>
 
 const int xSize = 800;
 const int ySize = 600;
+// Don't change, at least for now (level files have 16x12 cells currently)
 const int numCellsX = 16;
 const int numCellsY = 12;
+// Requires that xSize % numCellsX == 0, or else there's a gap to the side
 const int cellSizeX = xSize / numCellsX;
 const int cellSizeY = ySize / numCellsY;
+Logger* logger = Logger::get();
 
 bool debugDraw = true;
 sf::Vector2f circlePos(0, 0);
@@ -50,6 +54,7 @@ void handleEvents(sf::Event& e, sf::Window& window) {
 		}
 }
 
+// Draws cell boundaries as small rectangles for debugging purposes
 void drawCells(sf::RenderWindow& window) {
 	for(int i = 0; i < xSize; i += cellSizeX) {
 		for(int j = 0; j < ySize; j  += cellSizeY) {
@@ -68,6 +73,9 @@ int main() {
 	enemyTexture.loadFromFile("res/sprites/enemy1.png");
 	sf::Sprite enemy;
 	auto size = enemyTexture.getSize();
+	logger->setLevel(INFO);
+	logger->setConsole(true);
+	logger->debug("test test");
 	float scaleFactorX = cellSizeX / (float) size.x;
 	float scaleFactorY = cellSizeY / (float) size.y;
 	enemy.setTexture(enemyTexture);
