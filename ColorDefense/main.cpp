@@ -47,6 +47,7 @@ void handleEvents(sf::Event& e, sf::Window& window) {
 					break;
 				case sf::Keyboard::Space:
 					debugDraw = !debugDraw; break;
+				default: break;
 				}
 			break;
 		default:
