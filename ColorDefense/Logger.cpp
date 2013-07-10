@@ -5,7 +5,11 @@
 
 Logger::Logger(void)
 {
+	#ifdef WIN32
 	fopen_s(&logfile, "log.log", "w");
+	#else
+	logfile = fopen("log.log", "w");
+	#endif
 	setLevel(LEVELS::INFO);
 	console = true;
 }
