@@ -3,8 +3,8 @@
 #include <SFML/Graphics.hpp>
 #include <algorithm>
 
-const int xSize = 800;
-const int ySize = 600;
+const int xSize = 400;
+const int ySize = 300;
 const int numCellsX = 16;
 const int numCellsY = 12;
 const int cellSizeX = xSize / numCellsX;
@@ -67,8 +67,11 @@ int main() {
 	sf::Texture enemyTexture; 
 	enemyTexture.loadFromFile("res/sprites/enemy1.png");
 	sf::Sprite enemy;
+	auto size = enemyTexture.getSize();
+	float scaleFactorX = cellSizeX / (float) size.x;
+	float scaleFactorY = cellSizeY / (float) size.y;
 	enemy.setTexture(enemyTexture);
-
+	enemy.setScale(scaleFactorX, scaleFactorY);
     while (window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {
