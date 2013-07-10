@@ -80,13 +80,13 @@ void loadLevel(const std::string& path) {
 	levelImg.loadFromFile(path);
 	unsigned int N = levelImg.getSize().x;
 	unsigned int M = levelImg.getSize().y;
-	for(int i = 0; i < N; i++) {
-		for(int j = 0; i < M; j++) {
+	for(unsigned int i = 0; i < N; i++) {
+		for(unsigned int j = 0; j < M; j++) {\
 			sf::Color c = levelImg.getPixel(i, j);
 			if(c == sf::Color::Black)
 				logger->info("Buildable tile");
 			if(c == sf::Color::White)
-				logger->info("Walkable tile");
+				logger->info("Walkable tile");\
 			if(c == sf::Color::Green)
 				logger->info("Start tile");
 			if(c == sf::Color::Red)
