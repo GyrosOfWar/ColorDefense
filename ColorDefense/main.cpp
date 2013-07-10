@@ -75,9 +75,30 @@ inline sf::Vector2f convertToPixelCoords(int x, int y) {
 	return sf::Vector2f(x * cellSizeX, y * cellSizeY);
 }
 
+void loadLevel(const std::string& path) {
+	sf::Image levelImg;
+	levelImg.loadFromFile(path);
+	unsigned int N = levelImg.getSize().x;
+	unsigned int M = levelImg.getSize().y;
+	for(int i = 0; i < N; i++) {
+		for(int j = 0; i < M; j++) {
+			sf::Color c = levelImg.getPixel(i, j);
+			if(c == sf::Color::Black)
+				logger->info("Buildable tile");
+			if(c == sf::Color::White)
+				logger->info("Walkable tile");
+			if(c == sf::Color::Green)
+				logger->info("Start tile");
+			if(c == sf::Color::Red)
+				logger->info("End tile");
+		}
+	}
+}
+
 int main() {
 	sf::RenderWindow window(sf::VideoMode(xSize, ySize), "ColorDefense", sf::Style::Default, sf::ContextSettings(24, 8, 4));
 	window.setFramerateLimit(60);
+	loadLevel("res/levels/level1.png");
 
 	sf::Texture tower1Texture; 
 	tower1Texture.loadFromFile("res/sprites/tower1.png");
