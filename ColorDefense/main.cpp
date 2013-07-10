@@ -66,20 +66,29 @@ void drawCells(sf::RenderWindow& window) {
 	}
 }
 
+inline sf::Vector2i convertToCellCoords(float x, float y) {
+	return sf::Vector2i((int) x / cellSizeX, (int) y / cellSizeY);
+}
+
+inline sf::Vector2f convertToPixelCoords(int x, int y) {
+	return sf::Vector2f(x * cellSizeX, y * cellSizeY);
+}
+
 int main() {
-    sf::RenderWindow window(sf::VideoMode(xSize, ySize), "ColorDefense");
+	sf::RenderWindow window(sf::VideoMode(xSize, ySize), "ColorDefense", sf::Style::Default, sf::ContextSettings(24, 8, 4));
 	window.setFramerateLimit(60);
-	sf::Texture enemyTexture; 
-	enemyTexture.loadFromFile("res/sprites/enemy1.png");
-	sf::Sprite enemy;
-	auto size = enemyTexture.getSize();
-	logger->setLevel(INFO);
-	logger->setConsole(true);
-	logger->debug("test test");
-	float scaleFactorX = cellSizeX / (float) size.x;
-	float scaleFactorY = cellSizeY / (float) size.y;
-	enemy.setTexture(enemyTexture);
-	enemy.setScale(scaleFactorX, scaleFactorY);
+
+	sf::Texture tower1Texture; 
+	tower1Texture.loadFromFile("res/sprites/tower1.png");
+	sf::Sprite tower;
+	tower.setTexture(tower1Texture);
+	tower.setPosition(convertToPixelCoords(15, 11));
+	
+	sf::CircleShape enemy = sf::CircleShape((cellSizeX / 2) - 2.0f);
+	enemy.setFillColor(sf::Color::Blue);
+	enemy.setOutlineColor(sf::Color::Black);
+	enemy.setOutlineThickness(2.0f);
+
     while (window.isOpen()) {
         sf::Event event;
         while (window.pollEvent(event)) {
@@ -87,10 +96,11 @@ int main() {
         }
 
         window.clear(sf::Color::White);
-		enemy.setPosition(circlePos);
+		enemy.setPosition(circlePos + sf::Vector2f(2.0f, 2.0f));
 		if(debugDraw)
 			drawCells(window);
 		window.draw(enemy);
+		window.draw(tower);
         window.display();
     }
 

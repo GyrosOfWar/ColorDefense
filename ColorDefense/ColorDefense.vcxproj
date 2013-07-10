@@ -95,7 +95,7 @@
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <Image Include="res\sprites\enemy1.png" />
+    <Image Include="res\sprites\tower1.png" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
