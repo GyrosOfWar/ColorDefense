@@ -56,7 +56,7 @@ void enemy::updateTexture(void) {
 	color_real = sf::Color::Color(r,g,b);
 	shape.setFillColor(color_real);
 	
-	shape.setPosition(x_pos,y_pos);
+	shape.setPosition(x_pos + 2.0f ,y_pos + 2.0f);
 	
 }
 

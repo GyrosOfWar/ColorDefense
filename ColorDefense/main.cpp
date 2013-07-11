@@ -20,9 +20,7 @@ const int cellSizeX = xSize / numCellsX;
 const int cellSizeY = ySize / numCellsY;
 
 bool drawCircle = true;
-
 Logger* logger = Logger::get();
-
 bool debugDraw = true;
 sf::Vector2f circlePos(0, 0);
 
@@ -89,7 +87,6 @@ int main() {
 	sf::RenderWindow window(sf::VideoMode(xSize, ySize), "ColorDefense", sf::Style::Default, sf::ContextSettings(24, 8, 4));
 	window.setFramerateLimit(60);
 
-
 	sf::Texture tower1Texture; 
 	tower1Texture.loadFromFile("res/sprites/tower1.png");
 	sf::Sprite tower;
@@ -100,11 +97,6 @@ int main() {
 	enemyx.setFillColor(sf::Color::Blue);
 	enemyx.setOutlineColor(sf::Color::Black);
 	enemyx.setOutlineThickness(2.0f);
-
-	/*sf::Texture enemyTexture; 
-	enemyTexture.loadFromFile("res/sprites/enemy1.png");
-	sf::Sprite enemy;
-	enemy.setTexture(enemyTexture);*/
 
 	/** random enemy*/
 	enemy x = enemy(0x000000);
