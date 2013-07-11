@@ -2,7 +2,7 @@
 #define LOGGER
 #pragma once
 #include <string>
-namespace game {
+
 
 using namespace std;
 enum COLORS {
@@ -47,4 +47,3 @@ private:
 
 
 #endif
-}

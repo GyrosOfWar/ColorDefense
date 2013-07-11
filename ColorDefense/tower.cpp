@@ -39,3 +39,8 @@ int tower::getColor(void) {
 void tower::setColor(int color) {
 	this->color = color;
 }
+
+
+sf::Shape* tower::getShape(void) {
+	return shape;
+}

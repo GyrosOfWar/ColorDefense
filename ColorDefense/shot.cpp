@@ -3,8 +3,9 @@
 
 using namespace game;
 
-shot::shot(void)
+shot::shot(int color)
 {
+	this->color = color;
 }
 
 
@@ -36,4 +37,8 @@ enemy* shot::getTarget(void) {
 }
 void shot::setTarget(enemy* target) {
 	this->target = target;
+}
+
+sf::Shape* shot::getShape(void) {
+	return shape;
 }

@@ -1,4 +1,5 @@
 #pragma once
+#include <SFML/Graphics.hpp>
 namespace game {
 class tower
 {
@@ -16,12 +17,15 @@ public:
 	int getColor(void);
 	void setColor(int color);
 
+	sf::Shape* getShape(void);
+
 private:
 	int shooting_rate;
 	int x_pos;
 	int y_pos;
 	int color;
 	//grafik
+	sf::Shape* shape;
 };
 
 }

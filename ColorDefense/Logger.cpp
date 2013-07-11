@@ -1,7 +1,7 @@
 #include "stdafx.h"
 #include "Logger.hpp"
 #include <string>
-using namespace game;
+
 
 Logger::Logger(void)
 {

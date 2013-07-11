@@ -12,3 +12,4 @@ blocked_tile::blocked_tile(void)
 blocked_tile::~blocked_tile(void)
 {
 }
+

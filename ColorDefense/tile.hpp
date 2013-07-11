@@ -12,8 +12,8 @@ public:
 	sf::Sprite* getSprite(void);
 	void setSprite(sf::Sprite* sprite);
 protected:
-	static bool passable;
-	static bool buildable;
+	bool passable;
+	bool buildable;
 	sf::Texture texture; 
 	sf::Sprite sprite;
 };

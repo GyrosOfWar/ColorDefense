@@ -5,7 +5,7 @@ class shot
 
 {
 public:
-	shot(void);
+	shot(int color);
 	~shot(void);
 	int getColor(void);
 	void setColor(int color);
@@ -15,12 +15,14 @@ public:
 	void setY(int y);
 	enemy* getTarget(void);
 	void setTarget(enemy* target);
+	sf::Shape* getShape(void);
 
 private:
 	int color;
 	int x_pos;
 	int y_pos;
 	enemy* target;
+	sf::Shape* shape;
 
 
 };

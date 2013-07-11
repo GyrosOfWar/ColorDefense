@@ -12,3 +12,4 @@ passable_tile::passable_tile(void)
 passable_tile::~passable_tile(void)
 {
 }
+

@@ -4,6 +4,7 @@ using namespace game;
 
 wave::wave(void)
 {
+	finished = false;
 }
 
 
@@ -13,12 +14,14 @@ wave::~wave(void)
 
 
 enemy* wave::spawn(void) {
+	enemy* out;
 	if(it != this->end()) {
-		return *it++;
+		out = *it++;
+		if(it == this->end()) finished = true;
+		return out;
 	}
 	else  {
-		finished = true;
-		return *it++;
+		return NULL;
 	}
 }
 void wave::ready(void) {

@@ -96,10 +96,10 @@ int main() {
 	tower.setTexture(tower1Texture);
 	tower.setPosition(convertToPixelCoords(15, 11));
 	
-	sf::CircleShape enemy = sf::CircleShape((cellSizeX / 2) - 2.0f);
-	enemy.setFillColor(sf::Color::Blue);
-	enemy.setOutlineColor(sf::Color::Black);
-	enemy.setOutlineThickness(2.0f);
+	sf::CircleShape enemyx = sf::CircleShape((cellSizeX / 2) - 2.0f);
+	enemyx.setFillColor(sf::Color::Blue);
+	enemyx.setOutlineColor(sf::Color::Black);
+	enemyx.setOutlineThickness(2.0f);
 
 	/*sf::Texture enemyTexture; 
 	enemyTexture.loadFromFile("res/sprites/enemy1.png");
@@ -107,17 +107,23 @@ int main() {
 	enemy.setTexture(enemyTexture);*/
 
 	/** random enemy*/
-	enemy x = enemy(0x00ff00);
+	enemy x = enemy(0x000000);
 	wave y;
 	y.insert(y.end(),&x);
 
 	int i = 0;
 	y.ready();
-	if(!y.isFinished()) logger->debug("not finished");
+	enemy* z = NULL;
+	while(!y.isFinished())  {
+		logger->debug("not finished");
 
-	enemy* z = y.spawn();
+		z = y.spawn();
+	}
 	if(y.isFinished()) logger->debug("finished");
 
+	z->setX(500);
+	z->setY(500);
+	z->updateTexture();
 
     while (window.isOpen()) {
 		
@@ -128,22 +134,32 @@ int main() {
 
         window.clear(sf::Color::White);
 
-		enemy.setPosition(circlePos + sf::Vector2f(2.0f, 2.0f));
+		enemyx.setPosition(circlePos + sf::Vector2f(2.0f, 2.0f));
 		if(debugDraw)
 			drawCells(window);
-		window.draw(enemy);
+		window.draw(enemyx);
 		window.draw(tower);
 
 		if(drawCircle)
-			window.draw(*x.getSprite());
+			window.draw(*z->getShape());
 
         window.display();
 		
 		/** change color, just as demonstration*/
 		i++;
+		if(i == 150) {
+			z->setColor(z->getColor() + 0x0000ff);
+			z->updateTexture();
+			
+		}
 		if(i == 300) {
-			x.setColor(0xff0000);
-			x.updateTexture();
+			z->setColor(z->getColor() + 0x00ff00);
+			z->updateTexture();
+		}
+
+		if(i == 450) {
+			z->setColor(z->getColor() + 0xff0000);
+			z->updateTexture();
 		}
     }
 
