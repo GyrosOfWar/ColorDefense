@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "wave.hpp"
-
+using namespace game;
 
 wave::wave(void)
 {

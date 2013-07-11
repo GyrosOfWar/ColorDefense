@@ -2,7 +2,11 @@
 #include "tile.hpp"
 #include <list>
 #include "wave.hpp"
+<<<<<<< HEAD
 
+=======
+namespace game {
+>>>>>>> Classes
 class level
 {
 public:
@@ -21,3 +25,4 @@ private:
 	bool finished;
 };
 
+}

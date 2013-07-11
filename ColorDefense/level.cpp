@@ -1,8 +1,12 @@
 #include "stdafx.h"
 #include "level.hpp"
+<<<<<<< HEAD
 #include "Logger.hpp"
 
 level::level(void) { }
+=======
+using namespace game;
+>>>>>>> Classes
 
 level::~level(void) { }
 
