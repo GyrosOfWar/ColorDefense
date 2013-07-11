@@ -1,5 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
+namespace game {
+
 class tile
 {
 public:
@@ -16,3 +18,4 @@ protected:
 	sf::Sprite sprite;
 };
 
+}

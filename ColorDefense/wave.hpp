@@ -1,6 +1,7 @@
 #include <list>
 #include "enemy.hpp"
 #pragma once
+namespace game {
 class wave : public std::list<enemy*>
 {
 public:
@@ -16,3 +17,4 @@ private:
 	bool finished;
 };
 
+}

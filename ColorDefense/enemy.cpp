@@ -6,6 +6,7 @@
 #include <iomanip>  
 
 using namespace std;
+using namespace game;
 
 enemy::enemy(int color)
 {
@@ -52,4 +53,20 @@ void enemy::setColor(int color){
 
 int enemy::getColor(void) {
 	return color;
+}
+
+int enemy::getX(void) {
+	return this->x_pos;
+}
+
+int enemy::getY(void) {
+	return this->y_pos;
+}
+
+void enemy::setX(int x) {
+	this->x_pos = x;
+}
+
+void enemy::setY(int y) {
+	this->y_pos = y;
 }

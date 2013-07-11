@@ -5,6 +5,7 @@
 #include <sstream>
 #include <string>
 #include "wave.hpp"
+using namespace game;
 
 const int xSize = 800;
 const int ySize = 600;

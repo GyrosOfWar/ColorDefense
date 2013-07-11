@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "tile.hpp"
-
+using namespace game;
 
 bool tile::isPassable(void) {
 	return this->passable;

@@ -1,6 +1,6 @@
 #include "stdafx.h"
 #include "level.hpp"
-
+using namespace game;
 
 level::level(void)
 {
