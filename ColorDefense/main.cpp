@@ -29,19 +29,15 @@ void handleEvents(sf::Event& e, sf::Window& window) {
 }
 
 int main() {
-    sf::RenderWindow window(sf::VideoMode(xSize, ySize), "ColorDefense");
+	sf::RenderWindow window(sf::VideoMode(xSize, ySize), "ColorDefense", sf::Style::Default, sf::ContextSettings(24, 8, 4));
+	window.setFramerateLimit(60);
     sf::CircleShape shape(100.f);
     shape.setFillColor(sf::Color::Green);
-	window.setFramerateLimit(60);
-	/*sf::Texture enemyTexture; 
-	enemyTexture.loadFromFile("res/sprites/enemy1.png");
-	sf::Sprite enemy;
-	enemy.setTexture(enemyTexture);*/
 
 	/** random enemy*/
 	enemy x = enemy(0x00ff00);
 	wave y;
-	y.insert(y.end(),&x);
+	y.insert(y.end(), &x);
 
 	int i = 0;
 	y.ready();

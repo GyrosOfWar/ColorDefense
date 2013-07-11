@@ -1,15 +1,10 @@
 #include "stdafx.h"
 #include "level.hpp"
+#include "Logger.hpp"
 
+level::level(void) { }
 
-level::level(void)
-{
-}
-
-
-level::~level(void)
-{
-}
+level::~level(void) { }
 
 wave* level::getNextWave(void) {
 	if(it != waves.end()) {
@@ -20,9 +15,11 @@ wave* level::getNextWave(void) {
 		return *it++;
 	}
 }
+
 tile** level::getMap(void) {
 	return map;
 }
+
 int level::getLvlno(void) {
 	return lvlno;
 }
@@ -32,6 +29,7 @@ bool level::isFinished(void) {
 }
 
 bool level::loadFromFile(const std::string& path) {
+	Logger *logger = Logger::get();
 	sf::Image levelImg;
 	if(!levelImg.loadFromFile(path))
 		return false;
@@ -44,7 +42,7 @@ bool level::loadFromFile(const std::string& path) {
 			if(c == sf::Color::Black)
 				logger->info("Buildable tile");
 			if(c == sf::Color::White)
-				logger->info("Walkable tile");\
+				logger->info("Walkable tile");
 			if(c == sf::Color::Green)
 				logger->info("Start tile");
 			if(c == sf::Color::Red)

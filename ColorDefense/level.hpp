@@ -2,6 +2,7 @@
 #include "tile.hpp"
 #include <list>
 #include "wave.hpp"
+
 class level
 {
 public:
@@ -11,7 +12,7 @@ public:
 	tile** getMap(void);
 	int getLvlno(void);
 	bool isFinished(void);
-	bool loadFromFile(const std::string& path)
+	bool loadFromFile(const std::string& path);
 private:
 	tile** map;
 	std::list<wave*> waves;

@@ -7,19 +7,14 @@
 
 using namespace std;
 
-enemy::enemy(int color)
-{
-
+enemy::enemy(int color) {
 	this->color = color;
-
 	updateTexture();
 	sprite.setTexture(texture);
 }
 
 
-enemy::~enemy(void)
-{
-}
+enemy::~enemy(void) { }
 
 void enemy::updateTexture(void) {
 	string path = "res/sprites/";
@@ -29,11 +24,8 @@ void enemy::updateTexture(void) {
 	stringstream ss;
 	ss << setfill('0') << setw(6) << std::hex << this->color;
 
-
 	color = ss.str();
-
 	string final = path + color + end;
-
 	this->texture.loadFromFile(final);
 	
 }
