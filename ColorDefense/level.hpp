@@ -12,13 +12,13 @@ public:
 	tile** getMap(void);
 	int getLvlno(void);
 	bool isFinished(void);
+	bool loadFromFile(const std::string& path);
 private:
 	tile** map;
 	std::list<wave*> waves;
 	int lvlno;
 	std::list<wave*>::iterator it;
 	bool finished;
-
 };
 
 }

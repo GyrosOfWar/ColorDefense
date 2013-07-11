@@ -10,7 +10,6 @@ bool tile::isBuildable(void) {
 	return this->buildable;
 }
 
-
 sf::Texture* tile::getTexture(void) {
 	return &texture;
 }
