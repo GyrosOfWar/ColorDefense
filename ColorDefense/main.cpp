@@ -2,15 +2,25 @@
 #include "Logger.hpp"
 #include <iostream>
 #include <SFML/Graphics.hpp>
+#include "enemy.hpp"
+#include "Logger.hpp"
+#include <sstream>
+#include <string>
+#include "wave.hpp"
+using namespace game;
 
 const int xSize = 800;
 const int ySize = 600;
+
 // Don't change, at least for now (level files have 16x12 cells currently)
 const int numCellsX = 16;
 const int numCellsY = 12;
 // Requires that xSize % numCellsX == 0, or else there's a gap to the side
 const int cellSizeX = xSize / numCellsX;
 const int cellSizeY = ySize / numCellsY;
+
+bool drawCircle = true;
+
 Logger* logger = Logger::get();
 
 bool debugDraw = true;
@@ -79,6 +89,7 @@ int main() {
 	sf::RenderWindow window(sf::VideoMode(xSize, ySize), "ColorDefense", sf::Style::Default, sf::ContextSettings(24, 8, 4));
 	window.setFramerateLimit(60);
 
+
 	sf::Texture tower1Texture; 
 	tower1Texture.loadFromFile("res/sprites/tower1.png");
 	sf::Sprite tower;
@@ -90,19 +101,50 @@ int main() {
 	enemy.setOutlineColor(sf::Color::Black);
 	enemy.setOutlineThickness(2.0f);
 
+	/*sf::Texture enemyTexture; 
+	enemyTexture.loadFromFile("res/sprites/enemy1.png");
+	sf::Sprite enemy;
+	enemy.setTexture(enemyTexture);*/
+
+	/** random enemy*/
+	enemy x = enemy(0x00ff00);
+	wave y;
+	y.insert(y.end(),&x);
+
+	int i = 0;
+	y.ready();
+	if(!y.isFinished()) logger->debug("not finished");
+
+	enemy* z = y.spawn();
+	if(y.isFinished()) logger->debug("finished");
+
+
     while (window.isOpen()) {
+		
         sf::Event event;
         while (window.pollEvent(event)) {
 			handleEvents(event, window);
         }
 
         window.clear(sf::Color::White);
+
 		enemy.setPosition(circlePos + sf::Vector2f(2.0f, 2.0f));
 		if(debugDraw)
 			drawCells(window);
 		window.draw(enemy);
 		window.draw(tower);
+
+		if(drawCircle)
+			window.draw(*x.getSprite());
+
         window.display();
+		
+		/** change color, just as demonstration*/
+		i++;
+		if(i == 300) {
+			x.setColor(0xff0000);
+			x.updateTexture();
+		}
     }
 
     return 0;
