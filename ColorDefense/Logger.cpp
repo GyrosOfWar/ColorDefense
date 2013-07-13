@@ -4,11 +4,10 @@
 Logger::Logger(void) {
 	// Open file log.log with write access 
 	// and append to the already existing content
-	logfile.open("log.log", ios::out | ios::app); 
+	logfile.open(FILENAME, ios::out | ios::app); 
 	setLevel(LEVELS::INFO);
 	console = true;
-	fileSize = getFileLength("log.log");
-	cout << fileSize << endl;
+	fileSize = getFileLength(FILENAME);
 }
 
 
@@ -40,6 +39,12 @@ void Logger::del(void) {
 
 void Logger::textOut(const string& text) {
 	// TODO flush output, maybe?
+	// Clear the log file
+	if(fileSize > MAX_FILESIZE) {
+		logfile.close();
+		logfile.open(FILENAME, ios::out);
+		fileSize = 0;
+	}
 	logfile << text;
 	if(console) cout << text;
 	fileSize += text.length();
@@ -48,8 +53,8 @@ void Logger::textOut(const string& text) {
 
 void Logger::info(const string& text) {
 	if(level <= LEVELS::INFO) {
-		//textOut(getTimeStamp());
-		//textOut(": ");
+		textOut(getTimeStamp());
+		textOut(": ");
 		textOut("INFO: ");
 		textOut(text);
 		textOut("\n");
@@ -59,8 +64,8 @@ void Logger::info(const string& text) {
 
 void Logger::debug(const string& text) {
 	if(level <= LEVELS::DEBUG) {
-		//textOut(getTimeStamp());
-		//textOut(": ");
+		textOut(getTimeStamp());
+		textOut(": ");
 		textOut("DEBUG: ");
 		textOut(text);
 		textOut("\n");
@@ -70,8 +75,8 @@ void Logger::debug(const string& text) {
 	
 void Logger::error(const string& text) {
 	if(level <= LEVELS::ERROR) {
-		//textOut(getTimeStamp());
-		//textOut(": ");
+		textOut(getTimeStamp());
+		textOut(": ");
 		textOut("ERROR: ");
 		textOut(text);
 		textOut("\n");
@@ -86,10 +91,13 @@ void Logger::setConsole(bool console) {
 	this->console = console;
 }
 
-void Logger::getTimeStamp(const ostream& output) {
-	time_t now = time(NULL);
-	//output << put_time(localtime(&now), "%F");
-	// TODO
+string Logger::getTimeStamp() {
+	time_t now = time(nullptr);
+	tm* tm = localtime(&now);
+	auto result = put_time(tm, "%d.%m.%y %H:%M");
+	std::stringstream ss;
+	ss << result;
+	return ss.str();
 }
 
 Logger* Logger::instance = nullptr;

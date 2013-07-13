@@ -106,21 +106,20 @@ int main() {
 	/** random enemy*/
 	enemy x = enemy(0x000000);
 	wave y;
-	y.insert(y.end(),&x);
+	y.insert(y.end(), x);
 
 	int i = 0;
 	y.ready();
-	enemy* z = NULL;
+	enemy z (0);
 	while(!y.isFinished())  {
 		logger->debug("not finished");
-
 		z = y.spawn();
 	}
 	if(y.isFinished()) logger->debug("finished");
 
-	z->setX(500);
-	z->setY(500);
-	z->updateTexture();
+	z.setX(500);
+	z.setY(500);
+	z.updateTexture();
 
     while (window.isOpen()) {
 		
@@ -138,25 +137,25 @@ int main() {
 		window.draw(tower);
 
 		if(drawCircle)
-			window.draw(*z->getShape());
+			window.draw(*z.getShape());
 
         window.display();
 		
 		/** change color, just as demonstration*/
 		i++;
 		if(i == 150) {
-			z->setColor(z->getColor() + 0x0000ff);
-			z->updateTexture();
+			z.setColor(z.getColor() + 0x0000ff);
+			z.updateTexture();
 			
 		}
 		if(i == 300) {
-			z->setColor(z->getColor() + 0x00ff00);
-			z->updateTexture();
+			z.setColor(z.getColor() + 0x00ff00);
+			z.updateTexture();
 		}
 
 		if(i == 450) {
-			z->setColor(z->getColor() + 0xff0000);
-			z->updateTexture();
+			z.setColor(z.getColor() + 0xff0000);
+			z.updateTexture();
 		}
     }
 

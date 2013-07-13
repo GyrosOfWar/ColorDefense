@@ -1,12 +1,12 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "stdafx.h"
-#include "enemy.hpp"
 #include <string>
 #include "Logger.hpp"
 #include <sstream>
 #include <iomanip>  
 #include <iostream>
+
 namespace game {
 class enemy
 {

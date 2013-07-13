@@ -24,6 +24,7 @@ enum LEVELS {
 	DEBUG,	
 	ERROR
 };
+static const string FILENAME = "log.log";
 
 class Logger {
 public:
@@ -37,23 +38,21 @@ public:
 	void setConsole(bool console);
 
 private:
-	static const int MAX_FILESIZE = 1024 * 1024; // 1MB
-	static Logger* instance;
-	bool console;
-	LEVELS level;
-	long fileSize;
-
-	ofstream logfile;
 	Logger(void);
 	~Logger(void);
+
+	static const size_t MAX_FILESIZE = 1024 * 1024; // 1MB
+	static Logger* instance;
+
+	bool console;
+	LEVELS level;
+	size_t fileSize;
+	ofstream logfile;
+
 	void textOut(const string& text);
 	void textOut(const string& text, COLORS color); // no need atm
-
 	long getFileLength(const string& path);
-
-	void Logger::getTimeStamp(const ostream& output);
-
+	string getTimeStamp();
 };
-
 
 #endif

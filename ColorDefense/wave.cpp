@@ -2,19 +2,12 @@
 #include "wave.hpp"
 using namespace game;
 
-wave::wave(void)
-{
+wave::wave(void) {
 	finished = false;
 }
 
-
-wave::~wave(void)
-{
-}
-
-
-enemy* wave::spawn(void) {
-	enemy* out;
+enemy wave::spawn(void) {
+	enemy out (0);
 	if(it != this->end()) {
 		out = *it++;
 		if(it == this->end()) finished = true;
@@ -24,6 +17,7 @@ enemy* wave::spawn(void) {
 		return NULL;
 	}
 }
+
 void wave::ready(void) {
 	it = this->begin();
 }

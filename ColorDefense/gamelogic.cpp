@@ -7,7 +7,6 @@ gamelogic::gamelogic(void)
 {
 }
 
-
 gamelogic::~gamelogic(void)
 {
 }

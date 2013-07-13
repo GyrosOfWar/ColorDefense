@@ -20,7 +20,7 @@ wave* level::getNextWave(void) {
 	}
 }
 
-tile** level::getMap(void) {
+vector<tile> level::getMap(void) {
 	return map;
 }
 
@@ -47,11 +47,11 @@ bool level::loadFromFile(const std::string& path) {
 		for(unsigned int j = 0; j < M; j++) {\
 			sf::Color c = levelImg.getPixel(i, j);
 			if(c == sf::Color::Black) {
-				map[mapIdx++] = new buildable_tile();
+				map.push_back(buildable_tile());
 				logger->info("Buildable tile");
 			}
 			if(c == sf::Color::White) {
-				map[mapIdx++] = new passable_tile();
+				map.push_back(passable_tile());
 				logger->info("Passable tile");
 			}
 			if(c == sf::Color::Green) {

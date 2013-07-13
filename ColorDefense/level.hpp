@@ -9,15 +9,16 @@ public:
 	level(void);
 	~level(void);
 	wave* getNextWave(void);
-	tile** getMap(void);
+	vector<tile> getMap(void);
 	int getLvlno(void);
 	bool isFinished(void);
 	bool loadFromFile(const std::string& path);
 private:
-	tile** map;
-	std::list<wave*> waves;
+	//tile** map;
+	vector<tile> map;
+	list<wave*> waves;
 	int lvlno;
-	std::list<wave*>::iterator it;
+	list<wave*>::iterator it;
 	bool finished;
 };
 

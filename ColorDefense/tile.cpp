@@ -10,15 +10,9 @@ bool tile::isBuildable(void) {
 	return this->buildable;
 }
 
-sf::Texture* tile::getTexture(void) {
-	return &texture;
+sf::Sprite tile::getSprite(void) {
+	return sprite;
 }
-void tile::setTexture(sf::Texture* texture) {
-	this->texture = *texture;
-}
-sf::Sprite* tile::getSprite(void) {
-	return &sprite;
-}
-void tile::setSprite(sf::Sprite* sprite) {
-	this->sprite = *sprite;
+void tile::setSprite(sf::Sprite sprite) {
+	this->sprite = sprite;
 }
