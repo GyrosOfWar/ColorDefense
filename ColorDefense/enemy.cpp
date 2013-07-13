@@ -41,18 +41,8 @@ void enemy::updateTexture(void) {
 
 	color_real = sf::Color(r,g,b);
 	shape.setFillColor(color_real);
-	
-	shape.setPosition(x_pos,y_pos);
-	
+	shape.setPosition(static_cast<float>(position.x), static_cast<float>(position.y));
 }
-
-/*sf::Texture* enemy::getTexture(void) {
-	return &texture;
-}
-
-sf::Sprite* enemy::getSprite(void) {
-	return &sprite;
-}*/
 
 void enemy::setColor(int color){
 	this->color = color;
@@ -62,20 +52,17 @@ int enemy::getColor(void) {
 	return color;
 }
 
-int enemy::getX(void) {
-	return this->x_pos;
+sf::Vector2i enemy::getPosition() {
+	return position;
 }
 
-int enemy::getY(void) {
-	return this->y_pos;
+void enemy::setPosition(sf::Vector2i vec) {
+	this->position = vec;
 }
 
-void enemy::setX(int x) {
-	this->x_pos = x;
-}
-
-void enemy::setY(int y) {
-	this->y_pos = y;
+void enemy::setPosition(int x, int y) {
+	this->position.x = x;
+	this->position.y = y;
 }
 
 sf::CircleShape* enemy::getShape(void) {

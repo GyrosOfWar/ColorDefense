@@ -12,8 +12,8 @@ Class for the gamelogic
 using std::list;
 
 namespace game {
-const int SCREENHEIGHT = 800;
-const int SCREENWIDTH = 600;
+const int SCREENHEIGHT = 600;
+const int SCREENWIDTH = 800;
 const int CELLX = 16;
 const int CELLY = 12;
 const int TILEHEIGHT = SCREENHEIGHT/CELLY;

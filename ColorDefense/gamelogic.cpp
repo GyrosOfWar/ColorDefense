@@ -44,15 +44,15 @@ void gamelogic::move_enemy(enemy& enemy) {
 	//nächstes feld auswählen und bewegungschritt ausrechnen
 	//gegner pos updaten, dann updateTexture callen (updateTexture noch umbenennen!)
 	//enemy am zielfeld auswerten, aus liste entfernen
-    //auto x = enemy.position.x;
-    //auto y = enemy.position.y;
-    //tile neighbors[8] = tile[] { field(x-1, y-1), field(x-1, y), field(x-1, y+1) } // etc.
-    //tile selected;
-    //for(int i = 0; i < 8; i++) {
-    //    if(neighbors[i].isPassable() && neighbors[i] != enemy.getLastPosition()) {
-    //        selected = neighbors[i];
-    //    }
-    //}
+    auto x = enemy.position.x;
+    auto y = enemy.position.y;
+    tile neighbors[8] = tile[] { field(x-1, y-1), field(x-1, y), field(x-1, y+1) } // etc.
+    tile selected;
+    for(int i = 0; i < 8; i++) {
+       if(neighbors[i].isPassable() && neighbors[i] != enemy.getLastPosition()) {
+           selected = neighbors[i];
+       }
+    }
 
 }
 

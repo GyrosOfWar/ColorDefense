@@ -15,24 +15,17 @@ public:
 	~enemy(void);
 
 	void updateTexture(void); //sets texture to the colorvalue
-	
-	//sf::Texture* getTexture(void); //returns texture
-	//sf::Sprite* getSprite(void); //returns sprite
 	void setColor(int color); //sets the color
 	int getColor(void); //returns color
-	int getX(void);
-	int getY(void);
-	void setX(int x);
-	void setY(int y);
+	sf::Vector2i getPosition(void);
+	void setPosition(sf::Vector2i);
+	void setPosition(int x, int y);
 
 	sf::CircleShape* getShape(void);
 
 private:
 	int color;
-	/*sf::Texture texture; 
-	sf::Sprite sprite;*/
-	int x_pos;
-	int y_pos;
+	sf::Vector2i position;
 	sf::Color color_real;
 
 	sf::CircleShape shape;

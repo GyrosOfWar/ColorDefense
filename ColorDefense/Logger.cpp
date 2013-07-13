@@ -94,7 +94,11 @@ void Logger::setConsole(bool console) {
 string Logger::getTimeStamp() {
 	time_t now = time(nullptr);
 	tm* tm = localtime(&now);
+	#ifdef WIN32
 	auto result = put_time(tm, "%d.%m.%y %H:%M");
+	#else
+	auto result = "N/A";
+	#endif
 	std::stringstream ss;
 	ss << result;
 	return ss.str();

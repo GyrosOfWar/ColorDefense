@@ -10,7 +10,7 @@ using namespace game;
 
 level::~level(void) { }
 
-wave* level::getNextWave(void) {
+wave level::getNextWave(void) {
 	if(it != waves.end()) {
 		return *it++;
 	}
@@ -42,7 +42,6 @@ bool level::loadFromFile(const std::string& path) {
 	
 	unsigned int N = levelImg.getSize().x;
 	unsigned int M = levelImg.getSize().y;
-	unsigned int mapIdx = 0;
 	for(unsigned int i = 0; i < N; i++) {
 		for(unsigned int j = 0; j < M; j++) {\
 			sf::Color c = levelImg.getPixel(i, j);
@@ -55,9 +54,11 @@ bool level::loadFromFile(const std::string& path) {
 				logger->info("Passable tile");
 			}
 			if(c == sf::Color::Green) {
+				map.push_back(passable_tile());
 				logger->info("Start tile");
 			}
 			if(c == sf::Color::Red)
+				map.push_back(passable_tile());
 				logger->info("End tile");
 		}
 	}
