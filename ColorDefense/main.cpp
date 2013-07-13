@@ -84,7 +84,11 @@ inline sf::Vector2f convertToPixelCoords(int x, int y) {
 }
 
 int main() {
-	sf::RenderWindow window(sf::VideoMode(xSize, ySize), "ColorDefense", sf::Style::Default, sf::ContextSettings(24, 8, 4));
+	sf::RenderWindow window(
+		sf::VideoMode(xSize, ySize),
+		"ColorDefense", 
+		sf::Style::Default, 
+		sf::ContextSettings(24, 8, 4)); // depth buffer size, stencil buffer size, number of AA samples
 	window.setFramerateLimit(60);
 
 	sf::Texture tower1Texture; 
@@ -97,6 +101,7 @@ int main() {
 	enemyx.setFillColor(sf::Color::Blue);
 	enemyx.setOutlineColor(sf::Color::Black);
 	enemyx.setOutlineThickness(2.0f);
+	enemyx.setOrigin(-2.0f, -2.0f);
 
 	/** random enemy*/
 	enemy x = enemy(0x000000);
@@ -126,7 +131,7 @@ int main() {
 
         window.clear(sf::Color::White);
 
-		enemyx.setPosition(circlePos + sf::Vector2f(2.0f, 2.0f));
+		enemyx.setPosition(circlePos);
 		if(debugDraw)
 			drawCells(window);
 		window.draw(enemyx);

@@ -1,34 +1,20 @@
 #include "stdafx.h"
 #include "enemy.hpp"
-#include <string>
-#include "Logger.hpp"
-#include <sstream>
-#include <iomanip>  
-#include <iostream>
 
 using namespace std;
 using namespace game;
 
-enemy::enemy(int color)
-{
-
+enemy::enemy(int color) {
 	this->color = color;
-
 	updateTexture();
-	//sprite.setTexture(texture);
-
 	shape = sf::CircleShape((50 / 2) - 2.0f);
 	shape.setFillColor(color_real);
 	shape.setOutlineColor(sf::Color::Black);
 	shape.setOutlineThickness(2.0f);
-
-
+	shape.setOrigin(-2.0f, -2.0f);
 }
 
-
-enemy::~enemy(void)
-{
-}
+enemy::~enemy(void) { }
 
 void enemy::updateTexture(void) {
 	/*string path = "res/sprites/";
@@ -53,10 +39,10 @@ void enemy::updateTexture(void) {
 	g %= 0x100;
 	int b = this->color % 0x100;
 
-	color_real = sf::Color::Color(r,g,b);
+	color_real = sf::Color(r,g,b);
 	shape.setFillColor(color_real);
 	
-	shape.setPosition(x_pos + 2.0f ,y_pos + 2.0f);
+	shape.setPosition(x_pos,y_pos);
 	
 }
 
