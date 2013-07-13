@@ -100,6 +100,7 @@ int main() {
 	enemy x = enemy(0x000000);
 	wave y;
 	y.insert(y.end(), x);
+	
 
 	int i = 0;
 	y.ready();

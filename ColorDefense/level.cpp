@@ -5,8 +5,21 @@
 #include "passable_tile.hpp"
 #include "blocked_tile.hpp"
 #include "tile.hpp"
+#include "gamelogic.hpp"
 
 using namespace game;
+
+level::level(string levelFilePath, string tilesPath) {
+	map = vector<tile>();
+	waves = list<wave>();
+	it = waves.begin();
+	finished = false;
+	//level_tile_map = tile_map();
+	if(!loadFromFile(levelFilePath))
+		throw "Failed to open level file.";
+	
+	
+}
 
 level::~level(void) { }
 
@@ -64,3 +77,9 @@ bool level::loadFromFile(const std::string& path) {
 	}
 	return true;
 }
+
+bool level::fillTileMap(const string& path) {
+	//level_tile_map.load(path, sf::Vector2u(TILEWIDTH, TILEHEIGHT), )
+	return false;
+}
+
