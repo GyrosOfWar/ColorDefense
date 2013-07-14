@@ -76,6 +76,84 @@ inline sf::Vector2f convertToPixelCoords(int x, int y) {
 	return sf::Vector2f(x * TILEWIDTH, y * TILEHEIGHT);
 }
 
+//int main() {
+//	sf::RenderWindow window(
+//		sf::VideoMode(SCREENWIDTH, SCREENHEIGHT),
+//		"ColorDefense", 
+//		sf::Style::Default, 
+//		sf::ContextSettings(24, 8, 4)); // depth buffer size, stencil buffer size, number of AA samples
+//	window.setFramerateLimit(60);
+//
+//	sf::Texture tower1Texture; 
+//	tower1Texture.loadFromFile("res/sprites/tower1.png");
+//	sf::Sprite tower;
+//	tower.setTexture(tower1Texture);
+//	tower.setPosition(convertToPixelCoords(15, 11));
+//	
+//	sf::CircleShape enemyx = sf::CircleShape((TILEWIDTH / 2) - 2.0f);
+//	enemyx.setFillColor(sf::Color::Blue);
+//	enemyx.setOutlineColor(sf::Color::Black);
+//	enemyx.setOutlineThickness(2.0f);
+//	enemyx.setOrigin(-2.0f, -2.0f);
+//
+//	/** random enemy*/
+//	enemy x = enemy(0x000000);
+//	wave y;
+//	y.insert(y.end(), x);
+//	
+//
+//	int i = 0;
+//	y.ready();
+//	enemy z (0);
+//	while(!y.isFinished())  {
+//		logger->debug("not finished");
+//		z = y.spawn();
+//	}
+//	if(y.isFinished()) logger->debug("finished");
+//	z.setPosition(500, 500);
+//	z.updateTexture();
+//
+//    while (window.isOpen()) {
+//		
+//        sf::Event event;
+//        while (window.pollEvent(event)) {
+//			handleEvents(event, window);
+//        }
+//
+//        window.clear(sf::Color::White);
+//
+//		enemyx.setPosition(circlePos);
+//		if(debugDraw)
+//			drawCells(window);
+//		window.draw(enemyx);
+//		window.draw(tower);
+//
+//		if(drawCircle)
+//			window.draw(*z.getShape());
+//
+//        window.display();
+//		
+//		/** change color, just as demonstration*/
+//		i++;
+//		if(i == 150) {
+//			z.setColor(z.getColor() + 0x0000ff);
+//			z.updateTexture();
+//			
+//		}
+//		if(i == 300) {
+//			z.setColor(z.getColor() + 0x00ff00);
+//			z.updateTexture();
+//		}
+//
+//		if(i == 450) {
+//			z.setColor(z.getColor() + 0xff0000);
+//			z.updateTexture();
+//		}
+//    }
+//
+//    return 0;
+//}
+
 int main() {
 	sf::RenderWindow window(
 		sf::VideoMode(SCREENWIDTH, SCREENHEIGHT),
@@ -84,72 +162,14 @@ int main() {
 		sf::ContextSettings(24, 8, 4)); // depth buffer size, stencil buffer size, number of AA samples
 	window.setFramerateLimit(60);
 
-	sf::Texture tower1Texture; 
-	tower1Texture.loadFromFile("res/sprites/tower1.png");
-	sf::Sprite tower;
-	tower.setTexture(tower1Texture);
-	tower.setPosition(convertToPixelCoords(15, 11));
-	
-	sf::CircleShape enemyx = sf::CircleShape((TILEWIDTH / 2) - 2.0f);
-	enemyx.setFillColor(sf::Color::Blue);
-	enemyx.setOutlineColor(sf::Color::Black);
-	enemyx.setOutlineThickness(2.0f);
-	enemyx.setOrigin(-2.0f, -2.0f);
+	gamelogic gl;
 
-	/** random enemy*/
-	enemy x = enemy(0x000000);
-	wave y;
-	y.insert(y.end(), x);
-	
-
-	int i = 0;
-	y.ready();
-	enemy z (0);
-	while(!y.isFinished())  {
-		logger->debug("not finished");
-		z = y.spawn();
+	while(window.isOpen()) {
+		sf::Event e;
+		while(window.pollEvent(e)) {
+			handleEvents(e, window);
+		}
+		window.clear(sf::Color::White);
+		window.draw(gl.getLevel().getTileMap());
 	}
-	if(y.isFinished()) logger->debug("finished");
-	z.setPosition(500, 500);
-	z.updateTexture();
-
-    while (window.isOpen()) {
-		
-        sf::Event event;
-        while (window.pollEvent(event)) {
-			handleEvents(event, window);
-        }
-
-        window.clear(sf::Color::White);
-
-		enemyx.setPosition(circlePos);
-		if(debugDraw)
-			drawCells(window);
-		window.draw(enemyx);
-		window.draw(tower);
-
-		if(drawCircle)
-			window.draw(*z.getShape());
-
-        window.display();
-		
-		/** change color, just as demonstration*/
-		i++;
-		if(i == 150) {
-			z.setColor(z.getColor() + 0x0000ff);
-			z.updateTexture();
-			
-		}
-		if(i == 300) {
-			z.setColor(z.getColor() + 0x00ff00);
-			z.updateTexture();
-		}
-
-		if(i == 450) {
-			z.setColor(z.getColor() + 0xff0000);
-			z.updateTexture();
-		}
-    }
-
-    return 0;
 }

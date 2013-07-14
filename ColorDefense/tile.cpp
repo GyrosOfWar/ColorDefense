@@ -16,3 +16,7 @@ sf::Sprite tile::getSprite(void) {
 void tile::setSprite(sf::Sprite sprite) {
 	this->sprite = sprite;
 }
+
+int tile::getTileNumber(void) const {
+	return this->tileNumber;
+}

@@ -4,6 +4,7 @@
 #include <list>
 #include "shot.hpp"
 #include "wave.hpp"
+#include <sstream>
 
 /*
 Class for the gamelogic
@@ -19,6 +20,9 @@ const int CELLY = 12;
 const int TILEHEIGHT = SCREENHEIGHT/CELLY;
 const int TILEWIDTH = SCREENWIDTH/CELLX;
 const int FPS = 10;
+const string BASE_PATH = "res/levels/level";
+const string TILES_SUFFIX = "tiles.png";
+const string LEVELFILE_SUFFIX = "lvl.png";
 
 class gamelogic
 {
@@ -31,7 +35,8 @@ public:
 	void set_on_field(enemy& enemy);
 	void move_enemy(enemy& enemy);
 	void move_shot(shot& shot);
-
+	void loadLevel(int n);
+	level getLevel();
 private:
 	level lvl;
 	wave current_wave;

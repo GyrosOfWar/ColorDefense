@@ -11,25 +11,45 @@ using namespace game;
 
 level::level(string levelFilePath, string tilesPath) {
 	map = vector<tile>();
-	waves = list<wave>();
-	it = waves.begin();
+	waves = vector<wave>();
+	//it = waves.begin();
+	currentWaveNum = 0;
 	finished = false;
-	//level_tile_map = tile_map();
+	level_tile_map = tile_map();
+	// FIXME
+	lvlno = 0;
 	if(!loadFromFile(levelFilePath))
 		throw "Failed to open level file.";
-	
-	
+	if(!fillTileMap(tilesPath))
+		throw "Failed to open tile file.";
+}
+
+level::level(void) {
 }
 
 level::~level(void) { }
 
+// Error: Incompatible iterators (?)
 wave level::getNextWave(void) {
-	if(it != waves.end()) {
-		return *it++;
+	//if(it != waves.end()) {
+	//	return *it++;
+	//}
+	//else  {
+	//	finished = true;
+	//	return *it++;
+	//}
+
+	// FIXME
+	if(waves.empty()) {
+		return wave();
 	}
-	else  {
+	if(currentWaveNum < waves.size()-1) {
+		currentWaveNum++;
+		return waves[currentWaveNum];
+	}
+	else {
 		finished = true;
-		return *it++;
+		return waves[currentWaveNum];
 	}
 }
 
@@ -48,7 +68,6 @@ bool level::isFinished(void) {
 // Loads a level from an image located at path.
 // Returns true on success, false otherwise.
 bool level::loadFromFile(const std::string& path) {
-	Logger *logger = Logger::get();
 	sf::Image levelImg;
 	if(!levelImg.loadFromFile(path))
 		return false;
@@ -56,30 +75,30 @@ bool level::loadFromFile(const std::string& path) {
 	unsigned int N = levelImg.getSize().x;
 	unsigned int M = levelImg.getSize().y;
 	for(unsigned int i = 0; i < N; i++) {
-		for(unsigned int j = 0; j < M; j++) {\
+		for(unsigned int j = 0; j < M; j++) {
 			sf::Color c = levelImg.getPixel(i, j);
-			if(c == sf::Color::Black) {
+			if(c == BUILDABLE_TILE) {
 				map.push_back(buildable_tile());
-				logger->info("Buildable tile");
 			}
-			if(c == sf::Color::White) {
+			if(c == PASSABLE_TILE) {
 				map.push_back(passable_tile());
-				logger->info("Passable tile");
 			}
-			if(c == sf::Color::Green) {
+			if(c == START_TILE) {
 				map.push_back(passable_tile());
-				logger->info("Start tile");
 			}
-			if(c == sf::Color::Red)
+			if(c == END_TILE) {
 				map.push_back(passable_tile());
-				logger->info("End tile");
+			}
 		}
 	}
+	cout << map.size() << endl; // = 190, should be 192
 	return true;
 }
 
 bool level::fillTileMap(const string& path) {
-	//level_tile_map.load(path, sf::Vector2u(TILEWIDTH, TILEHEIGHT), )
-	return false;
+	return level_tile_map.load(path, sf::Vector2u(TILEWIDTH, TILEHEIGHT), map, CELLX, CELLY);
 }
 
+tile_map level::getTileMap() { 
+	return level_tile_map;
+}

@@ -6,6 +6,7 @@ buildable_tile::buildable_tile(void)
 {
 	passable = false;
 	buildable = true;
+	tileNumber = 1;
 }
 
 

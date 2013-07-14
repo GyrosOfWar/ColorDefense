@@ -3,7 +3,15 @@
 
 // Taken from http://www.sfml-dev.org/tutorials/2.0/graphics-vertex-array.php
 
-bool tile_map::load(const std::string& tileset, sf::Vector2u tileSize, const int* tiles, unsigned int width, unsigned int height)
+tile_map::tile_map() {
+	m_vertices = sf::VertexArray();
+	m_tileset = sf::Texture();
+}
+
+tile_map::~tile_map() {
+}
+
+bool tile_map::load(const std::string& tileset, sf::Vector2u tileSize, const std::vector<tile>& tiles, unsigned int width, unsigned int height)
 {
     // load the tileset texture
     if (!m_tileset.loadFromFile(tileset))
@@ -18,7 +26,7 @@ bool tile_map::load(const std::string& tileset, sf::Vector2u tileSize, const int
         for (unsigned int j = 0; j < height; ++j)
         {
             // get the current tile number
-            int tileNumber = tiles[i + j * width];
+			int tileNumber = tiles[i + j * width].getTileNumber();
 
             // find its position in the tileset texture
             int tu = tileNumber % (m_tileset.getSize().x / tileSize.x);
