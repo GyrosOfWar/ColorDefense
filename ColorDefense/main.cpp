@@ -161,9 +161,9 @@ int main() {
 	int i = 0;
 	while(window.isOpen()) {
 		if(i % 80 == 0) {
-			//cout << "Moving enemy! Old position: " << test.getPosition().x << " " << test.getPosition().y << endl;
+			cout << "Moving enemy! Old position: " << test.getPosition().x << " " << test.getPosition().y << endl;
 			gl.move_enemy(test);
-			//cout << "New position: " << test.getPosition().x << " " << test.getPosition().y << endl;
+			cout << "New position: " << test.getPosition().x << " " << test.getPosition().y << endl;
 		}
 		sf::Event e;
 		while(window.pollEvent(e)) {

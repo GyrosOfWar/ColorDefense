@@ -42,7 +42,7 @@ void gamelogic::set_on_field(enemy enemy) {
 	//gegner aufs feld setzten
 	//gegner position = startposition
 	//enemy in liste
-//	enemy.setPosition(lvl.getStartPos());
+	//	enemy.setPosition(lvl.getStartPos());
 	enemies.push_back(enemy);
 }
 
@@ -52,29 +52,40 @@ void gamelogic::move_enemy(enemy& enemy) {
 	//enemy am zielfeld auswerten, aus liste entfernen
 
 	// (1, 1) and (0, 1) have the same neighbors because of this.. fix
-	auto x = clamp(enemy.getPosition().x, 1, CELLX-1);
-	auto y = clamp(enemy.getPosition().y, 1, CELLY-1);
-	tile neighbors[8];
-	neighbors[0] = lvl.getTileAt(x-1, y-1);
-	neighbors[1] = lvl.getTileAt(x-1, y);
-	neighbors[2] = lvl.getTileAt(x-1, y+1);
-	neighbors[3] = lvl.getTileAt(x, y-1);
-	neighbors[4] = lvl.getTileAt(x, y+1);
-	neighbors[5] = lvl.getTileAt(x+1, y-1);
-	neighbors[6] = lvl.getTileAt(x+1, y);
-	neighbors[7] = lvl.getTileAt(x+1, y+1);
-	sf::Vector2i selectedPos(-1.0f, -1.0f);
+	auto x = enemy.getPosition().x;
+	auto y = enemy.getPosition().y;
+	vector<tile*> neighbors = getNeighbors(x, y);
 	for(int i = 0; i < 8; i++) {
 		auto p = sf::Vector2i(i / 3, i % 3);
+		auto cur = neighbors[i];
+		
 		cout << p.x << " " << p.y << endl;
-		if(neighbors[i].isPassable() && p != enemy.getLastPosition()) {
-			cout << "Picked: " << p.x << " " << p.y << endl << endl;
+		if(cur != nullptr && cur->isPassable() && p != enemy.getLastPosition()) {
 			//selectedPos = p;
-			enemy.setPosition(selectedPos);
+			enemy.setPosition(p);
 			enemy.updateTexture();
 			return;
 		}
 	}
+	cout << endl;
+}
+
+vector<tile*> gamelogic::getNeighbors(int x, int y) {
+	vector<tile*> ret;
+	int start_x = x-1;
+	int start_y = y-1;
+	int end_x = x+1;
+	int end_y = y+1;
+	for(int i = start_x; i <= end_x; i++) {
+		for(int j = start_y; j <= end_y; j++) {
+			if(i > 0 && j > 0 && i < (CELLX-1) && j < (CELLY-1))
+				ret.push_back(&lvl.getTileAt(i, j));
+			else
+				ret.push_back(nullptr);
+		}
+	}
+
+	return ret;
 }
 
 void gamelogic::move_shot(const shot& shot) {

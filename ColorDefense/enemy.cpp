@@ -20,23 +20,6 @@ enemy::enemy(int color) {
 enemy::~enemy(void) { }
 
 void enemy::updateTexture(void) {
-	/*string path = "res/sprites/";
-	string color;
-	string end = ".png";
-
-	stringstream ss;
-	ss << setfill('0') << setw(6) << std::hex << this->color;
-
-
-	/*color = ss.str();
-
-	string final = path + color + end;
-
-	this->texture.loadFromFile(final);
-	
-	sprite.setPosition(x_pos,y_pos);
-	*/
-
 	int r = this->color >> 16;
 	int g = this->color >> 8;
 	g %= 0x100;
@@ -44,7 +27,7 @@ void enemy::updateTexture(void) {
 
 	color_real = sf::Color(r,g,b);
 	shape.setFillColor(color_real);
-	shape.setPosition(position.x, position.y);
+	shape.setPosition(convertToPixelCoords(position.x, position.y));
 }
 
 void enemy::setColor(int color) {
