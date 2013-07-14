@@ -155,15 +155,13 @@ int main() {
 	//auto pos = convertToCellCoords(500, 500);
 	//test.setPosition(pos.x, pos.y);
 	gl.set_on_field(test);
-	test.setPosition(1, 0);
+	test.setPosition(1, 0, false);
 	//cout << "position: " << test.getPosition().x << " " << test.getPosition().y << endl;
 	//gl.move_enemy(test);
 	int i = 0;
 	while(window.isOpen()) {
-		if(i % 80 == 0) {
-			cout << "Moving enemy! Old position: " << test.getPosition().x << " " << test.getPosition().y << endl;
+		if(i == 100) {
 			gl.move_enemy(test);
-			cout << "New position: " << test.getPosition().x << " " << test.getPosition().y << endl;
 		}
 		sf::Event e;
 		while(window.pollEvent(e)) {

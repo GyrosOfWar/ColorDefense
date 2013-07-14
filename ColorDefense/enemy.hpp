@@ -19,9 +19,8 @@ public:
 	int getColor(void) const; //returns color
 	sf::Vector2i getPosition(void) const;
 	sf::Vector2i getLastPosition(void) const;
-	void setPosition(sf::Vector2i);
-	void setPosition(int x, int y);
-
+	void setPosition(sf::Vector2i vec, bool setLastPosition);
+	void setPosition(int x, int y, bool setLastPosition);
 	sf::CircleShape getShape(void);
 
 private:

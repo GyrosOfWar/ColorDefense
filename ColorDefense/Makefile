@@ -1,5 +1,6 @@
 CC = clang++
 CPPFLAGS = -Wall -std=c++11 -g
+OBJECTFILES = main.o Logger.o stdafx.o enemy.o wave.o level.o tile.o passable_tile.o buildable_tile.o blocked_tile.o tile_map.o util.o gamelogic.o shot.o
 
 default: all
 
@@ -33,8 +34,20 @@ buildable_tile.o: buildable_tile.cpp buildable_tile.hpp
 blocked_tile.o: blocked_tile.cpp blocked_tile.hpp
 	$(CC) $(CPPFLAGS) -c blocked_tile.cpp
 
-all: main.o Logger.o stdafx.o enemy.o wave.o level.o tile.o passable_tile.o buildable_tile.o blocked_tile.o
-	$(CC) main.o stdafx.o Logger.o level.o wave.o enemy.o tile.o passable_tile.o buildable_tile.o blocked_tile.o -o ColorDefense -lsfml-graphics -lsfml-window -lsfml-system
+tile_map.o: tile_map.cpp tile_map.hpp
+	$(CC) $(CPPFLAGS) -c tile_map.cpp
+
+util.o: util.cpp util.hpp
+	$(CC) $(CPPFLAGS) -c util.cpp
+
+gamelogic.o: gamelogic.cpp gamelogic.hpp
+	$(CC) $(CPPFLAGS) -c gamelogic.cpp
+
+shot.o: shot.cpp shot.hpp
+	$(CC) $(CPPFLAGS) -c shot.cpp
+
+all: $(OBJECTFILES)
+	$(CC) $(OBJECTFILES) -o ColorDefense -lsfml-graphics -lsfml-window -lsfml-system
 
 clean: 
 	rm -f *.o ColorDefense

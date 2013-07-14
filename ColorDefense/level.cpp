@@ -105,3 +105,11 @@ tile_map level::getTileMap() {
 tile level::getTileAt(int i, int j) {
 	return map[i * CELLY + j];
 }
+
+sf::Vector2i level::getStartTileCoords() {
+	return startTile;
+}
+
+sf::Vector2i level::getEndTileCoords() {
+	return endTile;
+}

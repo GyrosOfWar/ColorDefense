@@ -21,8 +21,9 @@ public:
 	bool isFinished(void);
 	tile_map getTileMap();
 	tile getTileAt(int x, int y);
+	sf::Vector2i getStartTileCoords();
+	sf::Vector2i getEndTileCoords();
 private:
-	//tile** map;
 	vector<tile> map;
 	vector<wave> waves;
 	int lvlno;
@@ -30,6 +31,8 @@ private:
 	bool finished;
 	tile_map level_tile_map;
 	int currentWaveNum;
+	sf::Vector2i startTile;
+	sf::Vector2i endTile;
 	
 	bool loadFromFile(const std::string& path);
 	bool fillTileMap(const std::string& path);

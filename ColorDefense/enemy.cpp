@@ -41,14 +41,16 @@ int enemy::getColor(void) const {
 sf::Vector2i enemy::getPosition() const {
 	return position;
 }
-void enemy::setPosition(sf::Vector2i vec) {
-	this->lastPosition = this->position;
+void enemy::setPosition(sf::Vector2i vec, bool setLastPosition) {
+	if(setLastPosition) {
+		this->lastPosition = position;
+	}
 	this->shape.setPosition(convertToPixelCoords(vec.x, vec.y));
 	this->position = vec;
 }
 
-void enemy::setPosition(int x, int y) {
-	this->setPosition(sf::Vector2i(x, y));
+void enemy::setPosition(int x, int y, bool setLastPosition) {
+	this->setPosition(sf::Vector2i(x, y), setLastPosition);
 }
 
 sf::CircleShape enemy::getShape(void) {

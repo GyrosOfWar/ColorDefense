@@ -50,21 +50,19 @@ void gamelogic::move_enemy(enemy& enemy) {
 	//nächstes feld auswählen und bewegungschritt ausrechnen
 	//gegner pos updaten, dann updateTexture callen (updateTexture noch umbenennen!)
 	//enemy am zielfeld auswerten, aus liste entfernen
-
-	// (1, 1) and (0, 1) have the same neighbors because of this.. fix
 	auto x = enemy.getPosition().x;
 	auto y = enemy.getPosition().y;
 	vector<tile*> neighbors = getNeighbors(x, y);
+	cout << enemy.getLastPosition().x << " " << enemy.getLastPosition().y << endl;
 	for(int i = 0; i < 8; i++) {
 		auto p = sf::Vector2i(i / 3, i % 3);
 		auto cur = neighbors[i];
-		
-		cout << p.x << " " << p.y << endl;
+// 		if(p == lvl.getEndTileCoords()) {
+// 			running = false;
+// 			return;
+// 		}
 		if(cur != nullptr && cur->isPassable() && p != enemy.getLastPosition()) {
-			//selectedPos = p;
-			enemy.setPosition(p);
-			enemy.updateTexture();
-			return;
+			enemy.setPosition(p, true);
 		}
 	}
 	cout << endl;
@@ -78,8 +76,13 @@ vector<tile*> gamelogic::getNeighbors(int x, int y) {
 	int end_y = y+1;
 	for(int i = start_x; i <= end_x; i++) {
 		for(int j = start_y; j <= end_y; j++) {
-			if(i > 0 && j > 0 && i < (CELLX-1) && j < (CELLY-1))
-				ret.push_back(&lvl.getTileAt(i, j));
+			if(i >= 0 && j >= 0 && i < CELLX && j < CELLY) {
+				tile cur = lvl.getTileAt(i, j);
+				if(i == x && j == y)
+					continue;
+				cout << "(" << i << ", " << j << "): " << cur.getTileNumber() << endl;
+				ret.push_back(&cur);
+			}
 			else
 				ret.push_back(nullptr);
 		}
