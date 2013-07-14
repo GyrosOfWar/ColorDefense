@@ -163,6 +163,13 @@ int main() {
 	window.setFramerateLimit(60);
 
 	gamelogic gl;
+	auto map = gl.getLevel().getMap();
+	for(int i = 0; i < CELLY; i++) {
+		for(int j = 0; j < CELLX; j++) {
+			cout << map[i + j * CELLY].getTileNumber() << " ";
+		}
+		cout << endl;
+	}
 
 	while(window.isOpen()) {
 		sf::Event e;
