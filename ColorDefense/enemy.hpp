@@ -16,13 +16,13 @@ public:
 
 	void updateTexture(void); //sets texture to the colorvalue
 	void setColor(int color); //sets the color
-	int getColor(void); //returns color
-	sf::Vector2i getPosition(void);
-	sf::Vector2i getLastPosition(void);
+	int getColor(void) const; //returns color
+	sf::Vector2i getPosition(void) const;
+	sf::Vector2i getLastPosition(void) const;
 	void setPosition(sf::Vector2i);
 	void setPosition(int x, int y);
 
-	sf::CircleShape* getShape(void);
+	sf::CircleShape getShape(void);
 
 private:
 	int color;

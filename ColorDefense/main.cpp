@@ -151,19 +151,19 @@ int main() {
 
 	gamelogic gl;
 	enemy test(0x00ff00);
+	//cout << "position: " << test.getPosition().x << " " << test.getPosition().y << endl;
 	//auto pos = convertToCellCoords(500, 500);
 	//test.setPosition(pos.x, pos.y);
-	gl.add_enemy(test);
-	test.setPosition(1, 3);
-	sf::Shape* sh = test.getShape();
-	sh->setPosition(50, 150);
+	gl.set_on_field(test);
+	test.setPosition(1, 0);
+	//cout << "position: " << test.getPosition().x << " " << test.getPosition().y << endl;
 	//gl.move_enemy(test);
 	int i = 0;
 	while(window.isOpen()) {
-		if(i == 150) {
-			cout << "Moving enemy! Old position: " << test.getPosition().x << " " << test.getPosition().y << endl;
+		if(i % 80 == 0) {
+			//cout << "Moving enemy! Old position: " << test.getPosition().x << " " << test.getPosition().y << endl;
 			gl.move_enemy(test);
-			cout << "New position: " << test.getPosition().x << " " << test.getPosition().y << endl;
+			//cout << "New position: " << test.getPosition().x << " " << test.getPosition().y << endl;
 		}
 		sf::Event e;
 		while(window.pollEvent(e)) {
@@ -171,7 +171,7 @@ int main() {
 		}
 		window.clear(sf::Color::White);
 		window.draw(gl.getLevel().getTileMap());
-		window.draw(*test.getShape());
+		window.draw(test.getShape());
 		window.display();
 		i++;
 	}

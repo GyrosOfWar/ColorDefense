@@ -13,6 +13,8 @@ enemy::enemy(int color) {
 	shape.setOutlineColor(sf::Color::Black);
 	shape.setOutlineThickness(2.0f);
 	shape.setOrigin(-2.0f, -2.0f);
+	this->position = sf::Vector2i(0, 0);
+	this->lastPosition = sf::Vector2i(-1, -1);
 }
 
 enemy::~enemy(void) { }
@@ -45,15 +47,15 @@ void enemy::updateTexture(void) {
 	shape.setPosition(position.x, position.y);
 }
 
-void enemy::setColor(int color){
+void enemy::setColor(int color) {
 	this->color = color;
 }
 
-int enemy::getColor(void) {
+int enemy::getColor(void) const {
 	return color;
 }
 
-sf::Vector2i enemy::getPosition() {
+sf::Vector2i enemy::getPosition() const {
 	return position;
 }
 void enemy::setPosition(sf::Vector2i vec) {
@@ -63,14 +65,13 @@ void enemy::setPosition(sf::Vector2i vec) {
 }
 
 void enemy::setPosition(int x, int y) {
-	this->position.x = x;
-	this->position.y = y;
+	this->setPosition(sf::Vector2i(x, y));
 }
 
-sf::CircleShape* enemy::getShape(void) {
-	return &shape;
+sf::CircleShape enemy::getShape(void) {
+	return shape;
 }
 
-sf::Vector2i enemy::getLastPosition(void) {
+sf::Vector2i enemy::getLastPosition(void) const {
 	return lastPosition;
 }

@@ -34,14 +34,11 @@ public:
 	void update(void);
 	void set_on_field(void);
 	bool isRunning(void);
-	void set_on_field(enemy& enemy);
+	void set_on_field(enemy enemy);
 	void move_enemy(enemy& enemy);
-	void move_shot(shot& shot);
+	void move_shot(const shot& shot);
 	void loadLevel(int n);
 	level getLevel();
-	void add_enemy(enemy e);
-	inline sf::Vector2i convertToCellCoords(float x, float y);
-	inline sf::Vector2f convertToPixelCoords(int x, int y);
 private:
 	level lvl;
 	wave current_wave;

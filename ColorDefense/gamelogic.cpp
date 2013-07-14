@@ -1,6 +1,7 @@
 #pragma once
 #include "stdafx.h"
 #include "gamelogic.hpp"
+#include "util.hpp"
 
 using namespace game;
 
@@ -37,43 +38,46 @@ void gamelogic::update(void) {
 
 }
 
-void gamelogic::set_on_field(enemy& enemy) {
+void gamelogic::set_on_field(enemy enemy) {
 	//gegner aufs feld setzten
 	//gegner position = startposition
 	//enemy in liste
-
+//	enemy.setPosition(lvl.getStartPos());
+	enemies.push_back(enemy);
 }
 
 void gamelogic::move_enemy(enemy& enemy) {
 	//nächstes feld auswählen und bewegungschritt ausrechnen
 	//gegner pos updaten, dann updateTexture callen (updateTexture noch umbenennen!)
 	//enemy am zielfeld auswerten, aus liste entfernen
-	auto x = enemy.getPosition().x;
-	auto y = enemy.getPosition().y;
-	//tile neighbors[8] = tile[] { field(x-1, y-1), field(x-1, y), field(x-1, y+1) } // etc.
+
+	// (1, 1) and (0, 1) have the same neighbors because of this.. fix
+	auto x = clamp(enemy.getPosition().x, 1, CELLX-1);
+	auto y = clamp(enemy.getPosition().y, 1, CELLY-1);
 	tile neighbors[8];
-	if(x > 0 && y > 0 && x < CELLX && y < CELLY) {
-		neighbors[0] = lvl.getTileAt(x-1, y-1);
-		neighbors[1] = lvl.getTileAt(x-1, y);
-		neighbors[2] = lvl.getTileAt(x-1, y+1);
-		neighbors[3] = lvl.getTileAt(x, y-1);
-		neighbors[4] = lvl.getTileAt(x, y+1);
-		neighbors[5] = lvl.getTileAt(x+1, y-1);
-		neighbors[6] = lvl.getTileAt(x+1, y);
-		neighbors[7] = lvl.getTileAt(x+1, y+1);
-	}
-	else return;
+	neighbors[0] = lvl.getTileAt(x-1, y-1);
+	neighbors[1] = lvl.getTileAt(x-1, y);
+	neighbors[2] = lvl.getTileAt(x-1, y+1);
+	neighbors[3] = lvl.getTileAt(x, y-1);
+	neighbors[4] = lvl.getTileAt(x, y+1);
+	neighbors[5] = lvl.getTileAt(x+1, y-1);
+	neighbors[6] = lvl.getTileAt(x+1, y);
+	neighbors[7] = lvl.getTileAt(x+1, y+1);
 	sf::Vector2i selectedPos(-1.0f, -1.0f);
 	for(int i = 0; i < 8; i++) {
 		auto p = sf::Vector2i(i / 3, i % 3);
+		cout << p.x << " " << p.y << endl;
 		if(neighbors[i].isPassable() && p != enemy.getLastPosition()) {
-			selectedPos = p;
+			cout << "Picked: " << p.x << " " << p.y << endl << endl;
+			//selectedPos = p;
+			enemy.setPosition(selectedPos);
+			enemy.updateTexture();
+			return;
 		}
 	}
-	if(selectedPos.x != -1.0f) enemy.setPosition(selectedPos);
 }
 
-void gamelogic::move_shot(shot& shot) {
+void gamelogic::move_shot(const shot& shot) {
 	//shot weiterbewegen richtung enemy oder richtung sein ziel
 	//ziel davor ausrechnen, damit shot nicht bloed fliegt (gerade statt komische parabel oda so xD)
 
@@ -92,16 +96,4 @@ void gamelogic::loadLevel(int n) {
 
 level gamelogic::getLevel() {
 	return lvl;
-}
-
-void gamelogic::add_enemy(enemy e) {
-	enemies.push_back(e);
-}
-
-sf::Vector2i gamelogic::convertToCellCoords(float x, float y) {
-	return sf::Vector2i((int) x / TILEWIDTH, (int) y / TILEHEIGHT);
-}
-
-sf::Vector2f gamelogic::convertToPixelCoords(int x, int y) {
-	return sf::Vector2f(x * TILEWIDTH, y * TILEHEIGHT);
 }
