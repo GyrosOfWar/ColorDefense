@@ -68,14 +68,6 @@ void drawCells(sf::RenderWindow& window) {
 	}
 }
 
-inline sf::Vector2i convertToCellCoords(float x, float y) {
-	return sf::Vector2i((int) x / TILEWIDTH, (int) y / TILEHEIGHT);
-}
-
-inline sf::Vector2f convertToPixelCoords(int x, int y) {
-	return sf::Vector2f(x * TILEWIDTH, y * TILEHEIGHT);
-}
-
 //int main() {
 //	sf::RenderWindow window(
 //		sf::VideoMode(SCREENWIDTH, SCREENHEIGHT),
@@ -164,25 +156,29 @@ int main() {
 
 	gamelogic gl;
 	enemy test(0x00ff00);
-	test.setPosition(500, 500);
+	//auto pos = convertToCellCoords(500, 500);
+	//test.setPosition(pos.x, pos.y);
 	gl.add_enemy(test);
-	gl.move_enemy(test);
-	auto map = gl.getLevel().getMap();
-	for(int i = 0; i < CELLY; i++) {
-		for(int j = 0; j < CELLX; j++) {
-			cout << map[i + j * CELLY].getTileNumber() << " ";
-		}
-		cout << endl;
-	}
-
+	test.setPosition(1, 3);
+	sf::Shape* sh = test.getShape();
+	sh->setPosition(50, 150);
+	//gl.move_enemy(test);
+	int i = 0;
 	while(window.isOpen()) {
+		if(i == 150) {
+			cout << "Moving enemy! Old position: " << test.getPosition().x << " " << test.getPosition().y << endl;
+			gl.move_enemy(test);
+			cout << "New position: " << test.getPosition().x << " " << test.getPosition().y << endl;
+		}
 		sf::Event e;
 		while(window.pollEvent(e)) {
 			handleEvents(e, window);
 		}
 		window.clear(sf::Color::White);
 		window.draw(gl.getLevel().getTileMap());
+		window.draw(*test.getShape());
 		window.display();
+		i++;
 	}
 
 	return 0;

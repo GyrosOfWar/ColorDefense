@@ -41,7 +41,7 @@ void enemy::updateTexture(void) {
 
 	color_real = sf::Color(r,g,b);
 	shape.setFillColor(color_real);
-	shape.setPosition(static_cast<float>(position.x), static_cast<float>(position.y));
+	shape.setPosition(position.x, position.y);
 }
 
 void enemy::setColor(int color){
@@ -55,8 +55,9 @@ int enemy::getColor(void) {
 sf::Vector2i enemy::getPosition() {
 	return position;
 }
-
 void enemy::setPosition(sf::Vector2i vec) {
+	this->lastPosition = this->position;
+	this->shape.setPosition(vec.x * 50, vec.y * 50);
 	this->position = vec;
 }
 

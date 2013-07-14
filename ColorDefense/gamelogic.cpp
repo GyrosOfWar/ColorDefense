@@ -1,3 +1,4 @@
+#pragma once
 #include "stdafx.h"
 #include "gamelogic.hpp"
 
@@ -48,26 +49,28 @@ void gamelogic::move_enemy(enemy& enemy) {
 	//gegner pos updaten, dann updateTexture callen (updateTexture noch umbenennen!)
 	//enemy am zielfeld auswerten, aus liste entfernen
 	auto x = enemy.getPosition().x;
-    auto y = enemy.getPosition().y;
-    //tile neighbors[8] = tile[] { field(x-1, y-1), field(x-1, y), field(x-1, y+1) } // etc.
+	auto y = enemy.getPosition().y;
+	//tile neighbors[8] = tile[] { field(x-1, y-1), field(x-1, y), field(x-1, y+1) } // etc.
 	tile neighbors[8];
-	neighbors[0] = lvl.getTileAt(x-1, y-1);
-	neighbors[1] = lvl.getTileAt(x-1, y);
-	neighbors[2] = lvl.getTileAt(x-1, y+1);
-	neighbors[3] = lvl.getTileAt(x, y-1);
-	neighbors[4] = lvl.getTileAt(x, y+1);
-	neighbors[5] = lvl.getTileAt(x+1, y-1);
-	neighbors[6] = lvl.getTileAt(x+1, y);
-	neighbors[7] = lvl.getTileAt(x+1, y+1);
-    tile selected;
-    for(int i = 0; i < 8; i++) {
-		int x_idx = i / 3;
-		int y_idx = i % 3;
-        if(neighbors[i].isPassable() && sf::Vector2i(x_idx, y_idx) != enemy.getLastPosition()) {
-			selected = neighbors[i];
-        }
-    }
-
+	if(x > 0 && y > 0 && x < CELLX && y < CELLY) {
+		neighbors[0] = lvl.getTileAt(x-1, y-1);
+		neighbors[1] = lvl.getTileAt(x-1, y);
+		neighbors[2] = lvl.getTileAt(x-1, y+1);
+		neighbors[3] = lvl.getTileAt(x, y-1);
+		neighbors[4] = lvl.getTileAt(x, y+1);
+		neighbors[5] = lvl.getTileAt(x+1, y-1);
+		neighbors[6] = lvl.getTileAt(x+1, y);
+		neighbors[7] = lvl.getTileAt(x+1, y+1);
+	}
+	else return;
+	sf::Vector2i selectedPos(-1.0f, -1.0f);
+	for(int i = 0; i < 8; i++) {
+		auto p = sf::Vector2i(i / 3, i % 3);
+		if(neighbors[i].isPassable() && p != enemy.getLastPosition()) {
+			selectedPos = p;
+		}
+	}
+	if(selectedPos.x != -1.0f) enemy.setPosition(selectedPos);
 }
 
 void gamelogic::move_shot(shot& shot) {
@@ -93,4 +96,12 @@ level gamelogic::getLevel() {
 
 void gamelogic::add_enemy(enemy e) {
 	enemies.push_back(e);
+}
+
+sf::Vector2i gamelogic::convertToCellCoords(float x, float y) {
+	return sf::Vector2i((int) x / TILEWIDTH, (int) y / TILEHEIGHT);
+}
+
+sf::Vector2f gamelogic::convertToPixelCoords(int x, int y) {
+	return sf::Vector2f(x * TILEWIDTH, y * TILEHEIGHT);
 }

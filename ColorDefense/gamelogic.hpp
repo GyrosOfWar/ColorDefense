@@ -38,14 +38,14 @@ public:
 	void loadLevel(int n);
 	level getLevel();
 	void add_enemy(enemy e);
+	inline sf::Vector2i convertToCellCoords(float x, float y);
+	inline sf::Vector2f convertToPixelCoords(int x, int y);
 private:
 	level lvl;
 	wave current_wave;
-	// FIELD = variable fürs spielfeld (window.. oder zumindest pointer drauf)
 	list<enemy> enemies;
 	list<shot> shots;
 	bool running;
-
 };
 
 }

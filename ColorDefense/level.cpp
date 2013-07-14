@@ -91,7 +91,6 @@ bool level::loadFromFile(const std::string& path) {
 			}
 		}
 	}
-	cout << map.size() << endl; // = 190, should be 192
 	return true;
 }
 
