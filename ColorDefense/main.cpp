@@ -171,5 +171,8 @@ int main() {
 		}
 		window.clear(sf::Color::White);
 		window.draw(gl.getLevel().getTileMap());
+		window.display();
 	}
+
+	return 0;
 }

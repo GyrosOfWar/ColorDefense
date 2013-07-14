@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "tile_map.hpp"
+#include <iostream>
 
 // Taken from http://www.sfml-dev.org/tutorials/2.0/graphics-vertex-array.php
 
@@ -46,6 +47,9 @@ bool tile_map::load(const std::string& tileset, sf::Vector2u tileSize, const std
             quad[1].texCoords = sf::Vector2f((tu + 1) * tileSize.x, tv * tileSize.y);
             quad[2].texCoords = sf::Vector2f((tu + 1) * tileSize.x, (tv + 1) * tileSize.y);
             quad[3].texCoords = sf::Vector2f(tu * tileSize.x, (tv + 1) * tileSize.y);
+			//for(int i = 0; i < 4; i++) {
+			//	std::cout << "quad[" << i << "].texCoords = " << quad[i].texCoords.x << " " << quad[0].texCoords.y << std::endl;
+			//}
         }
 
     return true;
