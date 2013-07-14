@@ -84,9 +84,11 @@ bool level::loadFromFile(const std::string& path) {
 				map.push_back(passable_tile());
 			}
 			if(c == START_TILE) {
+				startTile = sf::Vector2i(i, j);
 				map.push_back(passable_tile());
 			}
 			if(c == END_TILE) {
+				endTile = sf::Vector2i(i, j);
 				map.push_back(passable_tile());
 			}
 		}

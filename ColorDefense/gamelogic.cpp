@@ -57,12 +57,17 @@ void gamelogic::move_enemy(enemy& enemy) {
 	for(int i = 0; i < 8; i++) {
 		auto p = sf::Vector2i(i / 3, i % 3);
 		auto cur = neighbors[i];
-// 		if(p == lvl.getEndTileCoords()) {
-// 			running = false;
-// 			return;
-// 		}
-		if(cur != nullptr && cur->isPassable() && p != enemy.getLastPosition()) {
-			enemy.setPosition(p, true);
+		// 		if(p == lvl.getEndTileCoords()) {
+		// 			running = false;
+		// 			return;
+		// 		}
+		bool notNull = cur != nullptr;
+		if(notNull) {
+			bool isPassable = cur->isPassable();
+			bool notLastPos = p != enemy.getLastPosition();
+			if(notNull && isPassable && notLastPos) {
+				enemy.setPosition(p, true);
+			}
 		}
 	}
 	cout << endl;
@@ -80,14 +85,13 @@ vector<tile*> gamelogic::getNeighbors(int x, int y) {
 				tile cur = lvl.getTileAt(i, j);
 				if(i == x && j == y)
 					continue;
-				cout << "(" << i << ", " << j << "): " << cur.getTileNumber() << endl;
 				ret.push_back(&cur);
 			}
-			else
+			else {
 				ret.push_back(nullptr);
+			}
 		}
 	}
-
 	return ret;
 }
 
