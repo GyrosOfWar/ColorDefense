@@ -163,6 +163,10 @@ int main() {
 	window.setFramerateLimit(60);
 
 	gamelogic gl;
+	enemy test(0x00ff00);
+	test.setPosition(500, 500);
+	gl.add_enemy(test);
+	gl.move_enemy(test);
 	auto map = gl.getLevel().getMap();
 	for(int i = 0; i < CELLY; i++) {
 		for(int j = 0; j < CELLX; j++) {

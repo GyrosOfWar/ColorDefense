@@ -102,3 +102,7 @@ bool level::fillTileMap(const string& path) {
 tile_map level::getTileMap() { 
 	return level_tile_map;
 }
+
+tile level::getTileAt(int i, int j) {
+	return map[i * CELLY + j];
+}

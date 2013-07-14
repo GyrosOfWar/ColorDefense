@@ -20,6 +20,7 @@ public:
 	int getLvlno(void);
 	bool isFinished(void);
 	tile_map getTileMap();
+	tile getTileAt(int x, int y);
 private:
 	//tile** map;
 	vector<tile> map;
@@ -33,5 +34,4 @@ private:
 	bool loadFromFile(const std::string& path);
 	bool fillTileMap(const std::string& path);
 };
-
 }

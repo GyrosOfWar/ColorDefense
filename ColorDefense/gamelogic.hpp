@@ -37,6 +37,7 @@ public:
 	void move_shot(shot& shot);
 	void loadLevel(int n);
 	level getLevel();
+	void add_enemy(enemy e);
 private:
 	level lvl;
 	wave current_wave;

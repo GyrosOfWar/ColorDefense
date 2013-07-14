@@ -12,8 +12,7 @@ tile_map::tile_map() {
 tile_map::~tile_map() {
 }
 
-bool tile_map::load(const std::string& tileset, sf::Vector2u tileSize, const std::vector<tile>& tiles, unsigned int width, unsigned int height)
-{
+bool tile_map::load(const std::string& tileset, sf::Vector2u tileSize, const std::vector<tile>& tiles, unsigned int width, unsigned int height) {
     // load the tileset texture
     if (!m_tileset.loadFromFile(tileset))
         return false;
@@ -54,8 +53,7 @@ bool tile_map::load(const std::string& tileset, sf::Vector2u tileSize, const std
 
     return true;
 }
-void tile_map::draw(sf::RenderTarget& target, sf::RenderStates states) const
-{
+void tile_map::draw(sf::RenderTarget& target, sf::RenderStates states) const {
     // apply the transform
     states.transform *= getTransform();
 

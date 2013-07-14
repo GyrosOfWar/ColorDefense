@@ -15,22 +15,22 @@ gamelogic::~gamelogic(void) {
 }
 
 void gamelogic::update(void) {
-	//if(!current_wave->isFinished()) {
-	//	if(start_field->isEmpty())
-	//	this->setOnField(current_wave->spawn());
+	//if(!current_wave.isFinished()) {
+	//	if(start_field.isEmpty())
+	//	this.setOnField(current_wave.spawn());
 	//}
 	//else {
 	//	if(enemies.isEmpty()) //lvl geschafft
 	//}
 	//if(!enemies.isEmpty()) {
 	//	for(auto i = enemies.begin(); i != enemies.end(); i++) {
-	//		this->move_enemy(*i);
+	//		this.move_enemy(*i);
 	//	}
 	//}
 
 	//if(!shots.isEmpty()) {
 	//	for(auto i = shots.begin(); i != shots.end(); i++) {
-	//		this->move_shot(*i);
+	//		this.move_shot(*i);
 	//	}
 	//}
 
@@ -47,15 +47,26 @@ void gamelogic::move_enemy(enemy& enemy) {
 	//nächstes feld auswählen und bewegungschritt ausrechnen
 	//gegner pos updaten, dann updateTexture callen (updateTexture noch umbenennen!)
 	//enemy am zielfeld auswerten, aus liste entfernen
-    //auto x = enemy.position.x;
-    //auto y = enemy.position.y;
+	auto x = enemy.getPosition().x;
+    auto y = enemy.getPosition().y;
     //tile neighbors[8] = tile[] { field(x-1, y-1), field(x-1, y), field(x-1, y+1) } // etc.
-    //tile selected;
-    //for(int i = 0; i < 8; i++) {
-    //   if(neighbors[i].isPassable() && neighbors[i] != enemy.getLastPosition()) {
-    //       selected = neighbors[i];
-    //   }
-    //}
+	tile neighbors[8];
+	neighbors[0] = lvl.getTileAt(x-1, y-1);
+	neighbors[1] = lvl.getTileAt(x-1, y);
+	neighbors[2] = lvl.getTileAt(x-1, y+1);
+	neighbors[3] = lvl.getTileAt(x, y-1);
+	neighbors[4] = lvl.getTileAt(x, y+1);
+	neighbors[5] = lvl.getTileAt(x+1, y-1);
+	neighbors[6] = lvl.getTileAt(x+1, y);
+	neighbors[7] = lvl.getTileAt(x+1, y+1);
+    tile selected;
+    for(int i = 0; i < 8; i++) {
+		int x_idx = i / 3;
+		int y_idx = i % 3;
+        if(neighbors[i].isPassable() && sf::Vector2i(x_idx, y_idx) != enemy.getLastPosition()) {
+			selected = neighbors[i];
+        }
+    }
 
 }
 
@@ -78,4 +89,8 @@ void gamelogic::loadLevel(int n) {
 
 level gamelogic::getLevel() {
 	return lvl;
+}
+
+void gamelogic::add_enemy(enemy e) {
+	enemies.push_back(e);
 }

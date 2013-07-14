@@ -18,6 +18,7 @@ public:
 	void setColor(int color); //sets the color
 	int getColor(void); //returns color
 	sf::Vector2i getPosition(void);
+	sf::Vector2i getLastPosition(void);
 	void setPosition(sf::Vector2i);
 	void setPosition(int x, int y);
 
@@ -27,8 +28,8 @@ private:
 	int color;
 	sf::Vector2i position;
 	sf::Color color_real;
-
 	sf::CircleShape shape;
+	sf::Vector2i lastPosition;
 };
 
 }

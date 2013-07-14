@@ -68,3 +68,7 @@ void enemy::setPosition(int x, int y) {
 sf::CircleShape* enemy::getShape(void) {
 	return &shape;
 }
+
+sf::Vector2i enemy::getLastPosition(void) {
+	return lastPosition;
+}
