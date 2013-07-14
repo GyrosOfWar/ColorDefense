@@ -8,6 +8,7 @@
 #include <string>
 #include "wave.hpp"
 #include "gamelogic.hpp"
+#include "util.hpp"
 
 using namespace game;
 
@@ -15,12 +16,6 @@ bool drawCircle = true;
 Logger* logger = Logger::get();
 bool debugDraw = true;
 sf::Vector2f circlePos(0, 0);
-
-// Clamps the value x to the interval [a, b] 
-// if x < a: x = a, if x > b: b, else a)
-inline float clamp(float x, float a, float b) {
-	return x < a ? a : (x > b ? b : x);
-}
 
 // Handles keyboard and mouse inputs
 void handleEvents(sf::Event& e, sf::Window& window) {

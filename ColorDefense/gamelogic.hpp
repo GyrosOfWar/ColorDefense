@@ -5,6 +5,8 @@
 #include "shot.hpp"
 #include "wave.hpp"
 #include <sstream>
+// Everything breaks when I try to include this
+//#include "util.hpp"
 
 /*
 Class for the gamelogic

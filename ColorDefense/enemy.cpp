@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "enemy.hpp"
+#include "util.hpp"
 
 using namespace std;
 using namespace game;
@@ -57,7 +58,7 @@ sf::Vector2i enemy::getPosition() {
 }
 void enemy::setPosition(sf::Vector2i vec) {
 	this->lastPosition = this->position;
-	this->shape.setPosition(vec.x * 50, vec.y * 50);
+	this->shape.setPosition(convertToPixelCoords(vec.x, vec.y));
 	this->position = vec;
 }
 
