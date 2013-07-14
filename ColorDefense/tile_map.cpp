@@ -27,14 +27,14 @@ bool tile_map::load(const std::string& tileset, sf::Vector2u tileSize, const std
         for (unsigned int j = 0; j < height; ++j)
         {
             // get the current tile number
-			int tileNumber = tiles[i + j * height].getTileNumber();
+			int tileNumber = tiles[i * height + j].getTileNumber();
 
             // find its position in the tileset texture
             int tu = tileNumber % (m_tileset.getSize().x / tileSize.x);
             int tv = tileNumber / (m_tileset.getSize().x / tileSize.x);
 
             // get a pointer to the current tile's quad
-            sf::Vertex* quad = &m_vertices[(i + j * width) * 4];
+            sf::Vertex* quad = &m_vertices[(i * height + j) * 4];
 
             // define its 4 corners
             quad[0].position = sf::Vector2f(i * tileSize.x, j * tileSize.y);
