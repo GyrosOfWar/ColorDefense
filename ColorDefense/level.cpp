@@ -104,7 +104,7 @@ tile_map level::getTileMap() {
 	return level_tile_map;
 }
 
-tile level::getTileAt(int i, int j) {
+tile level::getTileAt(int i, int j) const {
 	return map[i * CELLY + j];
 }
 
@@ -116,6 +116,6 @@ sf::Vector2i level::getEndTileCoords() {
 	return endTile;
 }
 
-tile level::getTileAt(sf::Vector2i vec) {
+tile level::getTileAt(sf::Vector2i vec) const {
 	return getTileAt(vec.x, vec.y);
 }

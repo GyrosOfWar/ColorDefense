@@ -20,8 +20,8 @@ public:
 	int getLvlno(void);
 	bool isFinished(void);
 	tile_map getTileMap();
-	tile getTileAt(sf::Vector2i vec);
-	tile getTileAt(int x, int y);
+	tile getTileAt(sf::Vector2i vec) const;
+	tile getTileAt(int x, int y) const;
 	// Returns the coordinates of the start tile (in tile coordinates)
 	sf::Vector2i getStartTileCoords();
 	// Returns the coordinates of the end tile (in tile coordinates)

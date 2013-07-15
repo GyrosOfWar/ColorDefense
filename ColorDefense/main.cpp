@@ -38,11 +38,15 @@ void handleEvents(sf::Event& e, sf::Window& window) {
 }
 
 // Draws cell boundaries as small rectangles for debugging purposes
-void drawCells(sf::RenderWindow& window) {
+void drawCells(sf::RenderWindow& window, gamelogic& gl) {
 	for(int i = 0; i < SCREENWIDTH; i += TILEWIDTH) {
 		for(int j = 0; j < SCREENHEIGHT; j  += TILEHEIGHT) {
 			sf::RectangleShape rect(sf::Vector2f(5, 5));
 			rect.setFillColor(sf::Color::Black);
+			// auto p = convertToCellCoords(i, j);
+			// if(gl.getLevel()->getTileAt(p.x, p.y).isOccupied()) {
+			// 	rect.setFillColor(sf::Color::Green);
+			// }
 			rect.move(i, j);
 			window.draw(rect);
 		}
@@ -62,8 +66,8 @@ void updateGameState(gamelogic& gl) {
 int main() {
 	sf::RenderWindow window(
 		sf::VideoMode(SCREENWIDTH, SCREENHEIGHT),
-		"ColorDefense", 
-		sf::Style::Default, 
+		"ColorDefense",
+		sf::Style::Default,
 		sf::ContextSettings(24, 8, 4)); // depth buffer size, stencil buffer size, number of AA samples
 	window.setFramerateLimit(60);
 
@@ -85,10 +89,10 @@ int main() {
 			handleEvents(e, window);
 		}
 		window.clear(sf::Color::White);
-		window.draw(gl.getLevel().getTileMap());
+		window.draw(gl->getLevel().getTileMap());
 		window.draw(test.getShape());
 		if(debugDraw) {
-			drawCells(window); 
+			drawCells(window, gl);
 		}
 		window.draw(t.getSprite());
 		window.display();

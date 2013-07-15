@@ -46,6 +46,8 @@ void gamelogic::set_on_field(enemy enemy) {
 	//gegner position = startposition
 	//enemy in liste
 	enemy.setPosition(lvl.getStartTileCoords(), false);
+	// Mark the tile the enemy is on as occupied
+	lvl.getTileAt(lvl.getStartTileCoords()).setOccupied(true);
 	enemies.push_back(enemy);
 }
 
@@ -80,6 +82,8 @@ void gamelogic::move_enemy(enemy& enemy) {
 						continue;
 					enemy.setPosition(pos, true);
 					cur.setOccupied(true);
+					tile prev = lvl.getTileAt(enemy.getLastPosition());
+					prev.setOccupied(false);
 					// TODO set previous tile as not occupied					
 				}
 			}
@@ -106,6 +110,6 @@ void gamelogic::loadLevel(int n) {
 	this->lvl = level(levelFilePath.str(),  tilesPath.str()); 
 }
 
-level gamelogic::getLevel() {
-	return lvl;
+level* gamelogic::getLevel() {
+	return &lvl;
 }
