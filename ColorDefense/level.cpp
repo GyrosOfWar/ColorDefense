@@ -28,7 +28,6 @@ level::level(void) {
 }
 
 level::~level(void) { }
-
 // Error: Incompatible iterators (?)
 wave level::getNextWave(void) {
 	//if(it != waves.end()) {
@@ -115,4 +114,8 @@ sf::Vector2i level::getStartTileCoords() {
 
 sf::Vector2i level::getEndTileCoords() {
 	return endTile;
+}
+
+tile level::getTileAt(sf::Vector2i vec) {
+	return getTileAt(vec.x, vec.y);
 }

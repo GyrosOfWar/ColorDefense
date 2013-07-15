@@ -7,31 +7,15 @@ tower::tower(void) { }
 
 tower::~tower(void) { }
 
-int tower::get_shooting_rate(void) {
+int tower::getShootingRate(void) const {
 	return shooting_rate;
 }
 
-void tower::set_shooting_rate(int rate) {
+void tower::setShootingRate(int rate) {
 	this->shooting_rate = rate;
 }
 
-int tower::getX(void) {
-	return this->x_pos;
-}
-
-void tower::setX(int x) {
-	this->x_pos = x;
-}
-
-int tower::getY(void) {
-	return this->y_pos;
-}
-
-void tower::setY(int y) {
-	this->y_pos = y;
-}
-
-int tower::getColor(void) {
+int tower::getColor(void) const {
 	return this->color;
 }
 
@@ -39,6 +23,23 @@ void tower::setColor(int color) {
 	this->color = color;
 }
 
-sf::Shape* tower::getShape(void) {
-	return shape;
+sf::Sprite tower::getSprite(void) const {
+	return sprite;
+}
+
+void tower::setSprite(sf::Sprite s) {
+	this->sprite = s;
+}
+
+void tower::setPosition(sf::Vector2i vec) {
+	this->position = vec;
+	this->sprite.setPosition(convertToPixelCoords(vec.x, vec.y));
+}
+
+void tower::setPosition(int x, int y) {
+	this->setPosition(sf::Vector2i(x, y));
+}
+
+sf::Vector2i tower::getPosition(void) const {
+	return this->position;
 }

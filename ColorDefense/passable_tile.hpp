@@ -5,7 +5,7 @@ class passable_tile :
 	public tile
 {
 public:
-	passable_tile();
+	passable_tile(void);
 	~passable_tile(void);
 };
 }

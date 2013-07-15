@@ -1,5 +1,6 @@
 #include "stdafx.h"
 #include "shot.hpp"
+#include "util.hpp"
 
 using namespace game;
 
@@ -20,18 +21,6 @@ int shot::getColor(void) {
 void shot::setColor(int color) {
 	this->color = color;
 }
-int shot::getX(void) {
-	return this->x_pos;
-}
-void shot::setX(int x) {
-	this->x_pos = x;
-}
-int shot::getY(void) {
-	return this->y_pos;
-}
-void shot::setY(int y) {
-	this->y_pos = y;
-}
 enemy* shot::getTarget(void) {
 	return this->target;
 }
@@ -41,4 +30,17 @@ void shot::setTarget(enemy* target) {
 
 sf::Shape* shot::getShape(void) {
 	return shape;
+}
+
+sf::Vector2i shot::getPosition(void) {
+	return position;
+}
+
+void shot::setPosition(sf::Vector2i pos) {
+	position = pos;
+	shape->setPosition(convertToPixelCoords(pos.x, pos.y));
+}
+
+void shot::setPosition(int x, int y) {
+	this->setPosition(sf::Vector2i(x, y));
 }

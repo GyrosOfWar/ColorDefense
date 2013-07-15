@@ -6,6 +6,7 @@ blocked_tile::blocked_tile(void)
 {
 	passable = false;
 	buildable = false;
+	occupied = false;
 	tileNumber = 2;
 }
 

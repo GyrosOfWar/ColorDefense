@@ -13,6 +13,7 @@ bool tile::isBuildable(void) {
 sf::Sprite tile::getSprite(void) {
 	return sprite;
 }
+
 void tile::setSprite(sf::Sprite sprite) {
 	this->sprite = sprite;
 }

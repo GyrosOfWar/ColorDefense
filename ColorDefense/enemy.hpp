@@ -22,13 +22,14 @@ public:
 	void setPosition(sf::Vector2i vec, bool setLastPosition);
 	void setPosition(int x, int y, bool setLastPosition);
 	sf::CircleShape getShape(void);
-
+	int getHealth(void);
+	void setHealth(int h);
 private:
 	int color;
+	int health;
 	sf::Vector2i position;
 	sf::Color color_real;
 	sf::CircleShape shape;
 	sf::Vector2i lastPosition;
 };
-
 }

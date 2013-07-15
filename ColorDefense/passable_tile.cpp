@@ -5,6 +5,7 @@ using namespace game;
 passable_tile::passable_tile(void)
 {
 	passable = true;
+	occupied = false;
 	buildable = false;
 	tileNumber = 0;
 }

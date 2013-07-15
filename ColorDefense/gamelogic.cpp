@@ -27,16 +27,18 @@ void gamelogic::update(void) {
 	//}
 	//if(!enemies.isEmpty()) {
 	//	for(auto i = enemies.begin(); i != enemies.end(); i++) {
-	//		this.move_enemy(*i);
+	//		this.move_enemy(i);
 	//	}
 	//}
 
 	//if(!shots.isEmpty()) {
 	//	for(auto i = shots.begin(); i != shots.end(); i++) {
-	//		this.move_shot(*i);
+	//		this.move_shot(i);
 	//	}
 	//}
 
+	if(!current_wave.isFinished()) {
+	}
 }
 
 void gamelogic::set_on_field(enemy enemy) {
@@ -73,10 +75,12 @@ void gamelogic::move_enemy(enemy& enemy) {
 				sf::Vector2i pos (i, j);
 
 				if(cur.isPassable() && pos != enemy.getLastPosition()) {
-					// bleh
+					// ugly
 					if(find(neighbors.begin(), neighbors.end(), pos) == neighbors.end())
 						continue;
 					enemy.setPosition(pos, true);
+					cur.setOccupied(true);
+					// TODO set previous tile as not occupied					
 				}
 			}
 		}
@@ -90,6 +94,7 @@ void gamelogic::move_shot(const shot& shot) {
 
 	//if shot.pos == target _-> target changeColor!!
 	//shot aus liste entfernen
+
 }
 
 void gamelogic::loadLevel(int n) {

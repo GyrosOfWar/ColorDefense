@@ -9,21 +9,17 @@ public:
 	~shot(void);
 	int getColor(void);
 	void setColor(int color);
-	int getX(void);
-	void setX(int x);
-	int getY(void);
-	void setY(int y);
 	enemy* getTarget(void);
 	void setTarget(enemy* target);
 	sf::Shape* getShape(void);
+	void setPosition(sf::Vector2i pos);
+	void setPosition(int x, int y);
+	sf::Vector2i getPosition(void);
 
 private:
 	int color;
-	int x_pos;
-	int y_pos;
 	enemy* target;
 	sf::Shape* shape;
-
-
+	sf::Vector2i position;
 };
 }

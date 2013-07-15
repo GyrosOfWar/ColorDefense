@@ -6,15 +6,15 @@ using namespace std;
 using namespace game;
 
 enemy::enemy(int color) {
-	this->color = color;
+	color = color;
 	updateTexture();
 	shape = sf::CircleShape((50 / 2) - 2.0f);
 	shape.setFillColor(color_real);
 	shape.setOutlineColor(sf::Color::Black);
 	shape.setOutlineThickness(2.0f);
 	shape.setOrigin(-2.0f, -2.0f);
-	this->position = sf::Vector2i(0, 0);
-	this->lastPosition = sf::Vector2i(-1, -1);
+	position = sf::Vector2i(0, 0);
+	lastPosition = sf::Vector2i(-1, -1);
 }
 
 enemy::~enemy(void) { }
@@ -41,6 +41,7 @@ int enemy::getColor(void) const {
 sf::Vector2i enemy::getPosition() const {
 	return position;
 }
+
 void enemy::setPosition(sf::Vector2i vec, bool setLastPosition) {
 	if(setLastPosition) {
 		this->lastPosition = position;
@@ -59,4 +60,12 @@ sf::CircleShape enemy::getShape(void) {
 
 sf::Vector2i enemy::getLastPosition(void) const {
 	return lastPosition;
+}
+
+int enemy::getHealth(void) {
+	return health;
+}
+
+void enemy::setHealth(int h) {
+	this->health = h;
 }
