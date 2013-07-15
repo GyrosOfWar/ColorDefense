@@ -5,8 +5,6 @@
 #include "shot.hpp"
 #include "wave.hpp"
 #include <sstream>
-// Everything breaks when I try to include this
-//#include "util.hpp"
 
 /*
 Class for the gamelogic
@@ -39,6 +37,7 @@ public:
 	void move_shot(const shot& shot);
 	void loadLevel(int n);
 	level* getLevel();
+	list<enemy>* getEnemies();
 private:
 	level lvl;
 	wave current_wave;

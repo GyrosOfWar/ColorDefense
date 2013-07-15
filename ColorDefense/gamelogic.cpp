@@ -36,8 +36,8 @@ void gamelogic::update(void) {
 	//		this.move_shot(i);
 	//	}
 	//}
-
-	if(!current_wave.isFinished()) {
+	for(auto it = enemies.begin(); it != enemies.end(); it++) {
+		this->move_enemy(*it);
 	}
 }
 
@@ -45,9 +45,11 @@ void gamelogic::set_on_field(enemy enemy) {
 	//gegner aufs feld setzten
 	//gegner position = startposition
 	//enemy in liste
-	enemy.setPosition(lvl.getStartTileCoords(), false);
+	auto startPos = lvl.getStartTileCoords();
+	enemy.setPosition(startPos, false);
+	cout << "startPos = " << startPos.x << " " << startPos.y << endl;
 	// Mark the tile the enemy is on as occupied
-	lvl.getTileAt(lvl.getStartTileCoords()).setOccupied(true);
+	lvl.getTileAt(startPos).setOccupied(true);
 	enemies.push_back(enemy);
 }
 
@@ -112,4 +114,8 @@ void gamelogic::loadLevel(int n) {
 
 level* gamelogic::getLevel() {
 	return &lvl;
+}
+
+list<enemy>* gamelogic::getEnemies(void) {
+	return &enemies;
 }

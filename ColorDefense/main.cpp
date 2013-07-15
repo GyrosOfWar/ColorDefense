@@ -17,7 +17,7 @@ using namespace chrono;
 Logger* logger = Logger::get();
 bool debugDraw = false;
 system_clock::time_point lastTime;
-const milliseconds frameTime;
+const milliseconds frameTime(1000);
 
 // Handles keyboard and mouse inputs
 void handleEvents(sf::Event& e, sf::Window& window) {
@@ -43,10 +43,10 @@ void drawCells(sf::RenderWindow& window, gamelogic& gl) {
 		for(int j = 0; j < SCREENHEIGHT; j  += TILEHEIGHT) {
 			sf::RectangleShape rect(sf::Vector2f(5, 5));
 			rect.setFillColor(sf::Color::Black);
-			// auto p = convertToCellCoords(i, j);
-			// if(gl.getLevel()->getTileAt(p.x, p.y).isOccupied()) {
-			// 	rect.setFillColor(sf::Color::Green);
-			// }
+			 auto p = convertToCellCoords(i, j);
+			 if(gl.getLevel()->getTileAt(p.x, p.y).isOccupied()) {
+			 	rect.setFillColor(sf::Color::Green);
+			 }
 			rect.move(i, j);
 			window.draw(rect);
 		}
@@ -55,12 +55,21 @@ void drawCells(sf::RenderWindow& window, gamelogic& gl) {
 
 
 void updateGameState(gamelogic& gl) {
-	auto now = chrono::system_clock::now();
-	//if(difftime(lastTime, now) < 1000.0 / FPS) {
-	//	gl.update();
-	//}
-	//return now;
+	auto now = system_clock::now();
 	auto diff = now - lastTime;
+	if(diff > frameTime) {
+		gl.update();
+		lastTime = system_clock::now();
+		cout <<  "Updating!" << endl;
+	}
+}
+
+void drawEnemies(gamelogic& gl, sf::RenderWindow& window) {
+	auto enemies = gl.getEnemies();
+	for(auto it = enemies->begin(); it != enemies->end(); ++it) {
+		enemy cur = *it;
+		window.draw(cur.getShape());
+	}
 }
 
 int main() {
@@ -81,16 +90,16 @@ int main() {
 	t.setSprite(towerSprite);
 	t.setPosition(2, 0);
 	gl.set_on_field(test);
-	test.setPosition(1, 0, false);
 	int i = 0;
 	while(window.isOpen()) {
+		updateGameState(gl);
 		sf::Event e;
 		while(window.pollEvent(e)) {
 			handleEvents(e, window);
 		}
 		window.clear(sf::Color::White);
-		window.draw(gl->getLevel().getTileMap());
-		window.draw(test.getShape());
+		window.draw(gl.getLevel()->getTileMap());
+		drawEnemies(gl, window);
 		if(debugDraw) {
 			drawCells(window, gl);
 		}
