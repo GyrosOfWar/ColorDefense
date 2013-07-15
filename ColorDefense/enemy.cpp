@@ -7,7 +7,7 @@ using namespace game;
 
 enemy::enemy(int color) {
 	color = color;
-	updateTexture();
+	updateColor();
 	shape = sf::CircleShape((50 / 2) - 2.0f);
 	shape.setFillColor(color_real);
 	shape.setOutlineColor(sf::Color::Black);
@@ -19,7 +19,7 @@ enemy::enemy(int color) {
 
 enemy::~enemy(void) { }
 
-void enemy::updateTexture(void) {
+void enemy::updateColor(void) {
 	int r = this->color >> 16;
 	int g = this->color >> 8;
 	g %= 0x100;

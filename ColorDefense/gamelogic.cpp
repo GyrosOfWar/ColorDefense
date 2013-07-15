@@ -75,18 +75,21 @@ void gamelogic::move_enemy(enemy& enemy) {
 	for(int i = x-1; i <= x+1; i++) {
 		for(int j = y-1; j <= y+1; j++) {
 			if(i >= 0 && j >= 0 && i < CELLX && j < CELLY) {
-				tile cur = lvl.getTileAt(i, j);
+				tile* cur = &lvl.getTileAt(i, j);
 				sf::Vector2i pos (i, j);
 
-				if(cur.isPassable() && pos != enemy.getLastPosition()) {
-					// ugly
+				if(cur->isPassable() && pos != enemy.getLastPosition()) {
+					// ugly..
+					// If the current position is not in the 4-neighborhood, continue
 					if(find(neighbors.begin(), neighbors.end(), pos) == neighbors.end())
 						continue;
+					// Setting the current tile to occupied and the last one
+					// to unoccupied, doesn't work yet.
+					// #FuckPointers
 					enemy.setPosition(pos, true);
-					cur.setOccupied(true);
-					tile prev = lvl.getTileAt(enemy.getLastPosition());
-					prev.setOccupied(false);
-					// TODO set previous tile as not occupied					
+					cur->setOccupied(true);
+					tile* prev = &lvl.getTileAt(enemy.getLastPosition());
+					prev->setOccupied(false);
 				}
 			}
 		}

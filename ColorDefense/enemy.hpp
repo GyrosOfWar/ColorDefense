@@ -14,7 +14,7 @@ public:
 	enemy(int color);
 	~enemy(void);
 
-	void updateTexture(void); //sets texture to the colorvalue
+	void updateColor(void); //sets shape color to the colorvalue
 	void setColor(int color); //sets the color
 	int getColor(void) const; //returns color
 	sf::Vector2i getPosition(void) const;

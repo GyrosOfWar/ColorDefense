@@ -22,19 +22,19 @@ const milliseconds frameTime(1000);
 // Handles keyboard and mouse inputs
 void handleEvents(sf::Event& e, sf::Window& window) {
 	switch (e.type) {
-		case sf::Event::Closed:
-			window.close();
-			break;
-		case sf::Event::KeyPressed:
-			switch(e.key.code) {
-				case sf::Keyboard::Space:
-					debugDraw = !debugDraw; break;
-				default: break;
-				}
-			break;
-		default:
-			break;
+	case sf::Event::Closed:
+		window.close();
+		break;
+	case sf::Event::KeyPressed:
+		switch(e.key.code) {
+		case sf::Keyboard::Space:
+			debugDraw = !debugDraw; break;
+		default: break;
 		}
+		break;
+	default:
+		break;
+	}
 }
 
 // Draws cell boundaries as small rectangles for debugging purposes
@@ -43,10 +43,11 @@ void drawCells(sf::RenderWindow& window, gamelogic& gl) {
 		for(int j = 0; j < SCREENHEIGHT; j  += TILEHEIGHT) {
 			sf::RectangleShape rect(sf::Vector2f(5, 5));
 			rect.setFillColor(sf::Color::Black);
-			 auto p = convertToCellCoords(i, j);
-			 if(gl.getLevel()->getTileAt(p.x, p.y).isOccupied()) {
-			 	rect.setFillColor(sf::Color::Green);
-			 }
+			auto p = convertToCellCoords(i, j);
+			bool isOccupied = gl.getLevel()->getTileAt(p.x, p.y).isOccupied();
+			if(isOccupied) {
+				rect.setFillColor(sf::Color::Green);
+			}
 			rect.move(i, j);
 			window.draw(rect);
 		}
@@ -60,7 +61,6 @@ void updateGameState(gamelogic& gl) {
 	if(diff > frameTime) {
 		gl.update();
 		lastTime = system_clock::now();
-		cout <<  "Updating!" << endl;
 	}
 }
 
@@ -81,7 +81,7 @@ int main() {
 	window.setFramerateLimit(60);
 
 	gamelogic gl;
-	enemy test(0x00ff00);
+	enemy test(0xff00ff);
 	tower t;
 	sf::Sprite towerSprite;
 	sf::Texture towerTexture;
@@ -90,7 +90,6 @@ int main() {
 	t.setSprite(towerSprite);
 	t.setPosition(2, 0);
 	gl.set_on_field(test);
-	int i = 0;
 	while(window.isOpen()) {
 		updateGameState(gl);
 		sf::Event e;
@@ -105,7 +104,6 @@ int main() {
 		}
 		window.draw(t.getSprite());
 		window.display();
-		i++;
 	}
 
 	return 0;
