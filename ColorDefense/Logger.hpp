@@ -30,7 +30,7 @@ class Logger {
 public:
 	static Logger* get(void);
 	static void del(void);
-		
+
 	void debug(const string& text);
 	void info(const string& text);
 	void error(const string& text);
@@ -54,5 +54,4 @@ private:
 	long getFileLength(const string& path);
 	string getTimeStamp();
 };
-
 #endif

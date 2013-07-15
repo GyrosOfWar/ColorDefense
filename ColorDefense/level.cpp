@@ -53,7 +53,7 @@ wave level::getNextWave(void) {
 	}
 }
 
-vector<tile> level::getMap(void) {
+vector<tile> level::getMap(void) const {
 	return map;
 }
 
@@ -66,6 +66,7 @@ bool level::isFinished(void) {
 }
 
 // Loads a level from an image located at path.
+// Tiles are in column-major order
 // Returns true on success, false otherwise.
 bool level::loadFromFile(const std::string& path) {
 	sf::Image levelImg;

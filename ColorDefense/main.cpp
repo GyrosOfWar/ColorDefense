@@ -160,7 +160,7 @@ int main() {
 	//gl.move_enemy(test);
 	int i = 0;
 	while(window.isOpen()) {
-		if(!(i % 100)) {
+		if(i % 100 == 0 && i > 1) {
 			gl.move_enemy(test);
 		}
 		sf::Event e;

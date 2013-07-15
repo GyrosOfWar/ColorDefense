@@ -6,6 +6,7 @@
 
 using namespace game;
 
+namespace game {
 class tile_map: public sf::Drawable, public sf::Transformable {
 public:
 	tile_map();
@@ -17,3 +18,4 @@ private:
     sf::Texture m_tileset;
 	void draw(sf::RenderTarget& target, sf::RenderStates states) const;
 };
+}

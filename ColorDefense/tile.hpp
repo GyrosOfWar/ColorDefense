@@ -14,7 +14,6 @@ protected:
 	bool passable;
 	bool buildable;
 	int tileNumber;
-	sf::Texture texture; 
 	sf::Sprite sprite;
 };
 

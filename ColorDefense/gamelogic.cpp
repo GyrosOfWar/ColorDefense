@@ -2,6 +2,7 @@
 #include "stdafx.h"
 #include "gamelogic.hpp"
 #include "util.hpp"
+#include <algorithm>
 
 using namespace game;
 
@@ -42,57 +43,45 @@ void gamelogic::set_on_field(enemy enemy) {
 	//gegner aufs feld setzten
 	//gegner position = startposition
 	//enemy in liste
-	//	enemy.setPosition(lvl.getStartPos());
+	enemy.setPosition(lvl.getStartTileCoords(), false);
 	enemies.push_back(enemy);
 }
 
 void gamelogic::move_enemy(enemy& enemy) {
-	//nächstes feld auswählen und bewegungschritt ausrechnen
-	//gegner pos updaten, dann updateTexture callen (updateTexture noch umbenennen!)
-	//enemy am zielfeld auswerten, aus liste entfernen
-	auto x = enemy.getPosition().x;
-	auto y = enemy.getPosition().y;
-	vector<tile*> neighbors = getNeighbors(x, y);
-	cout << enemy.getLastPosition().x << " " << enemy.getLastPosition().y << endl;
-	for(int i = 0; i < 8; i++) {
-		auto p = sf::Vector2i(i / 3, i % 3);
-		auto cur = neighbors[i];
-		// 		if(p == lvl.getEndTileCoords()) {
-		// 			running = false;
-		// 			return;
-		// 		}
-		bool notNull = cur != nullptr;
-		if(notNull) {
-			bool isPassable = cur->isPassable();
-			bool notLastPos = p != enemy.getLastPosition();
-			if(notNull && isPassable && notLastPos) {
-				enemy.setPosition(p, true);
-			}
-		}
-	}
-	cout << endl;
-}
+	int x = enemy.getPosition().x;
+	int y = enemy.getPosition().y;
 
-vector<tile*> gamelogic::getNeighbors(int x, int y) {
-	vector<tile*> ret;
-	int start_x = x-1;
-	int start_y = y-1;
-	int end_x = x+1;
-	int end_y = y+1;
-	for(int i = start_x; i <= end_x; i++) {
-		for(int j = start_y; j <= end_y; j++) {
+	if(enemy.getPosition() == lvl.getEndTileCoords()) {
+		// TOOD == operator for enemy
+		//enemies.remove(enemy);
+		return;
+	}
+
+	vector<sf::Vector2i> neighbors;
+	neighbors.push_back(sf::Vector2i(x-1, y));
+	neighbors.push_back(sf::Vector2i(x+1, y));
+	neighbors.push_back(sf::Vector2i(x, y-1));
+	neighbors.push_back(sf::Vector2i(x, y+1));
+
+	// Go over all the tiles in the 4-neighborhood
+	// Check if they've been visited before and if they are passabel
+	// Move the enemy to the appropirate tile
+	for(int i = x-1; i <= x+1; i++) {
+		for(int j = y-1; j <= y+1; j++) {
 			if(i >= 0 && j >= 0 && i < CELLX && j < CELLY) {
 				tile cur = lvl.getTileAt(i, j);
-				if(i == x && j == y)
-					continue;
-				ret.push_back(&cur);
-			}
-			else {
-				ret.push_back(nullptr);
+				sf::Vector2i pos (i, j);
+
+				if(cur.isPassable() && pos != enemy.getLastPosition()) {
+					// bleh
+					if(find(neighbors.begin(), neighbors.end(), pos) == neighbors.end())
+						continue;
+					enemy.setPosition(pos, true);
+				}
 			}
 		}
 	}
-	return ret;
+
 }
 
 void gamelogic::move_shot(const shot& shot) {
@@ -109,7 +98,7 @@ void gamelogic::loadLevel(int n) {
 
 	std::stringstream tilesPath;
 	tilesPath << BASE_PATH << n << TILES_SUFFIX;
-	lvl = level(levelFilePath.str(),  tilesPath.str()); 
+	this->lvl = level(levelFilePath.str(),  tilesPath.str()); 
 }
 
 level gamelogic::getLevel() {

@@ -16,7 +16,7 @@ public:
 	level(void);
 	~level(void);
 	wave getNextWave(void);
-	vector<tile> getMap(void);
+	vector<tile> getMap(void) const;
 	int getLvlno(void);
 	bool isFinished(void);
 	tile_map getTileMap();

@@ -45,8 +45,6 @@ private:
 	list<enemy> enemies;
 	list<shot> shots;
 	bool running;
-
-	vector<tile*> getNeighbors(int x, int y);
 };
 
 }
