@@ -5,11 +5,11 @@ namespace game {
 class tile
 {
 public:
-	bool isPassable(void);
-	bool isBuildable(void);
-	bool isOccupied(void);
+	bool isPassable(void) const;
+	bool isBuildable(void) const;
+	bool isOccupied(void) const;
 	int getTileNumber(void) const;
-	sf::Sprite getSprite(void);
+	sf::Sprite getSprite(void) const;
 	void setSprite(sf::Sprite sprite);
 	void setOccupied(bool occ);
 protected:
