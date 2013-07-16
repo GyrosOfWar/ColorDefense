@@ -15,6 +15,7 @@ using std::list;
 namespace game {
 const int SCREENHEIGHT = 600;
 const int SCREENWIDTH = 800;
+const float ASPECT_RATIO = static_cast<float>(SCREENWIDTH) / static_cast<float>(SCREENHEIGHT);
 const int CELLX = 16;
 const int CELLY = 12;
 const int TILEHEIGHT = SCREENHEIGHT/CELLY;

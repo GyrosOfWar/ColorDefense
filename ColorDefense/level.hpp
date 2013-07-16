@@ -37,7 +37,7 @@ private:
 	//list<wave>::iterator it;
 	bool finished;
 	tile_map level_tile_map;
-	int currentWaveNum;
+	unsigned int currentWaveNum;
 	sf::Vector2i startTile;
 	sf::Vector2i endTile;
 	

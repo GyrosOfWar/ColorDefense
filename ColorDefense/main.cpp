@@ -21,10 +21,18 @@ const milliseconds frameTime(1000/FPS);
 
 // Handles keyboard and mouse inputs
 void handleEvents(sf::Event& e, sf::Window& window) {
+	float x, y;
 	switch (e.type) {
 	case sf::Event::Closed:
 		window.close();
 		break;
+	case sf::Event::Resized: 
+		x = e.size.width;
+		y = e.size.height;
+		if(x / y != ASPECT_RATIO) {
+			// resize window to the closest fitting size that is in the appropriate aspect ratio
+			window.setSize(sf::Vector2u(static_cast<float>(x), static_cast<float>(x / ASPECT_RATIO)));
+		}
 	case sf::Event::KeyPressed:
 		switch(e.key.code) {
 		case sf::Keyboard::Space:
