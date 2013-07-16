@@ -39,16 +39,16 @@ void handleEvents(sf::Event& e, sf::Window& window) {
 
 // Draws cell boundaries as small rectangles for debugging purposes
 void drawCells(sf::RenderWindow& window, gamelogic& gl) {
-	for(int i = 0; i < SCREENWIDTH; i += TILEWIDTH) {
-		for(int j = 0; j < SCREENHEIGHT; j  += TILEHEIGHT) {
+	for(int i = 0; i < CELLX; i++) {
+		for(int j = 0; j < CELLY; j++) {
 			sf::RectangleShape rect(sf::Vector2f(5, 5));
-			rect.setFillColor(sf::Color::Black);
-			auto p = convertToCellCoords(i, j);
-			bool isOccupied = gl.getLevel()->getTileAt(p.x, p.y).isOccupied();
-			if(isOccupied) {
+			auto pixelPos = convertToPixelCoords(i, j);
+			rect.move(pixelPos);
+			if(gl.getLevel().getTileAt(i, j).isOccupied()) {
 				rect.setFillColor(sf::Color::Green);
+			} else {
+				rect.setFillColor(sf::Color::Black);
 			}
-			rect.move(i, j);
 			window.draw(rect);
 		}
 	}
@@ -65,7 +65,7 @@ void updateGameState(gamelogic& gl) {
 
 void drawEnemies(gamelogic& gl, sf::RenderWindow& window) {
 	auto enemies = gl.getEnemies();
-	for(auto it = enemies->begin(); it != enemies->end(); ++it) {
+	for(auto it = enemies.begin(); it != enemies.end(); ++it) {
 		enemy cur = *it;
 		window.draw(cur.getShape());
 	}
@@ -96,7 +96,7 @@ int main() {
 			handleEvents(e, window);
 		}
 		window.clear(sf::Color::White);
-		window.draw(gl.getLevel()->getTileMap());
+		window.draw(gl.getLevel().getTileMap());
 		drawEnemies(gl, window);
 		if(debugDraw) {
 			drawCells(window, gl);

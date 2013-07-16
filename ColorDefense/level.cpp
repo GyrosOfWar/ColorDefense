@@ -52,7 +52,7 @@ wave level::getNextWave(void) {
 	}
 }
 
-vector<tile> level::getMap(void) const {
+const vector<tile>& level::getMap(void) const {
 	return map;
 }
 
@@ -100,12 +100,24 @@ bool level::fillTileMap(const string& path) {
 	return level_tile_map.load(path, sf::Vector2u(TILEWIDTH, TILEHEIGHT), map, CELLX, CELLY);
 }
 
-tile_map level::getTileMap() { 
+const tile_map& level::getTileMap() const { 
 	return level_tile_map;
+}
+
+tile level::getTileAt(sf::Vector2i vec) const {
+	return getTileAt(vec.x, vec.y);
 }
 
 tile level::getTileAt(int i, int j) const {
 	return map[i * CELLY + j];
+}
+
+void level::setTileAt(int i, int j, tile value) {
+	map[i * CELLY + j] = value;
+}
+
+void level::setTileAt(sf::Vector2i pos, tile value) {
+	this->setTileAt(pos.x, pos.y, value);
 }
 
 sf::Vector2i level::getStartTileCoords() {
@@ -114,8 +126,4 @@ sf::Vector2i level::getStartTileCoords() {
 
 sf::Vector2i level::getEndTileCoords() {
 	return endTile;
-}
-
-tile level::getTileAt(sf::Vector2i vec) const {
-	return getTileAt(vec.x, vec.y);
 }

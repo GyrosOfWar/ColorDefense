@@ -17,16 +17,19 @@ public:
 	level(void);
 	~level(void);
 	wave getNextWave(void);
-	vector<tile> getMap(void) const;
+	const vector<tile>& getMap(void) const;
 	int getLvlno(void);
 	bool isFinished(void);
-	tile_map getTileMap();
+	const tile_map& getTileMap() const;
 	tile getTileAt(sf::Vector2i vec) const;
 	tile getTileAt(int x, int y) const;
 	// Returns the coordinates of the start tile (in tile coordinates)
 	sf::Vector2i getStartTileCoords();
 	// Returns the coordinates of the end tile (in tile coordinates)
 	sf::Vector2i getEndTileCoords();
+
+	void setTileAt(int x, int y, tile value);
+	void setTileAt(sf::Vector2i pos, tile value);
 private:
 	vector<tile> map;
 	vector<wave> waves;

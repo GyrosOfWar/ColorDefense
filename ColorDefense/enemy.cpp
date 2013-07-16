@@ -8,7 +8,7 @@ using namespace game;
 enemy::enemy(int color) {
 	color = color;
 	updateColor();
-	shape = sf::CircleShape((50 / 2) - 2.0f);
+	shape = sf::CircleShape((TILEHEIGHT / 2) - 2.0f);
 	shape.setFillColor(color_real);
 	shape.setOutlineColor(sf::Color::Black);
 	shape.setOutlineThickness(2.0f);

@@ -80,7 +80,6 @@ void gamelogic::move_enemy(enemy& enemy) {
 	for(int i = x-1; i <= x+1; i++) {
 		for(int j = y-1; j <= y+1; j++) {
 			if(i >= 0 && j >= 0 && i < CELLX && j < CELLY) {
-				// TODO return a reference to the tile, not a new tile.
 				tile cur = lvl.getTileAt(i, j);
 				sf::Vector2i pos (i, j);
 
@@ -89,15 +88,20 @@ void gamelogic::move_enemy(enemy& enemy) {
 					// If the current position is not in the 4-neighborhood, continue
 					if(find(neighbors.begin(), neighbors.end(), pos) == neighbors.end())
 						continue;
-					// Setting the current tile to occupied and the last one
-					// to unoccupied, doesn't work yet.
-					// #FuckPointers
+
 					//auto newPos = calcNewPosition(sf::Vector2f(pos.x, pos.y), sf::Vector2f(i - x, j - y), 1.0f);
 					//enemy.setPosition(newPos.x, newPos.y , true);
+					// TODO Don't change the value given by the getter, make a new value and 
+					// use the setter to set it.
 					enemy.setPosition(pos , true);
+					auto lastPos = enemy.getLastPosition();
+					if(lastPos.x != -1) {
+						tile prev = lvl.getTileAt(lastPos);
+						prev.setOccupied(false);
+						lvl.setTileAt(lastPos, prev);
+					}
 					cur.setOccupied(true);
-					tile prev = lvl.getTileAt(enemy.getLastPosition());
-					prev.setOccupied(false);
+					lvl.setTileAt(pos, cur);
 				}
 			}
 		}
