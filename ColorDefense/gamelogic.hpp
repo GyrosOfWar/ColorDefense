@@ -19,10 +19,11 @@ const int CELLX = 16;
 const int CELLY = 12;
 const int TILEHEIGHT = SCREENHEIGHT/CELLY;
 const int TILEWIDTH = SCREENWIDTH/CELLX;
-const int FPS = 10;
+const int FPS = 25;
 const string BASE_PATH = "res/levels/level";
 const string TILES_SUFFIX = "tiles.png";
 const string LEVELFILE_SUFFIX = "lvl.png";
+const float MOVE_DISTANCE = static_cast<float>(TILEHEIGHT) / static_cast<float>(FPS);
 
 class gamelogic
 {

@@ -17,7 +17,7 @@ using namespace chrono;
 Logger* logger = Logger::get();
 bool debugDraw = false;
 system_clock::time_point lastTime;
-const milliseconds frameTime(1000);
+const milliseconds frameTime(1000/FPS);
 
 // Handles keyboard and mouse inputs
 void handleEvents(sf::Event& e, sf::Window& window) {
