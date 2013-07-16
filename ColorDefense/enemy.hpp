@@ -24,6 +24,8 @@ public:
 	sf::CircleShape getShape(void);
 	int getHealth(void);
 	void setHealth(int h);
+	void setShapePos(int x, int y);
+	void setShapePos(sf::Vector2f pos);
 private:
 	int color;
 	int health;

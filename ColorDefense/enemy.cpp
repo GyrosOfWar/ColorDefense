@@ -46,7 +46,7 @@ void enemy::setPosition(sf::Vector2i vec, bool setLastPosition) {
 	if(setLastPosition) {
 		this->lastPosition = position;
 	}
-	this->shape.setPosition(convertToPixelCoords(vec.x, vec.y));
+	//this->shape.setPosition(convertToPixelCoords(vec.x, vec.y));
 	this->position = vec;
 }
 
@@ -68,4 +68,12 @@ int enemy::getHealth(void) {
 
 void enemy::setHealth(int h) {
 	this->health = h;
+}
+
+void enemy::setShapePos(int x, int y) {
+	shape.setPosition(x, y);
+}
+
+void enemy::setShapePos(sf::Vector2f pos) {
+	shape.setPosition(pos.x, pos.y);
 }

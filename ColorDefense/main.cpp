@@ -5,6 +5,7 @@
 #include "gamelogic.hpp"
 #include "util.hpp"
 #include "tower.hpp"
+#include "animation.hpp"
 
 #include <sstream>
 #include <string>
@@ -97,15 +98,20 @@ int main() {
 	t.setSprite(towerSprite);
 	t.setPosition(2, 0);
 	gl.set_on_field(test);
+
+	animation ani(sf::Vector2f(15.f, 15.f), sf::Vector2f(150.f, 150.f), test.getShape(), 1.0f);
+
 	while(window.isOpen()) {
-		updateGameState(gl);
+		//updateGameState(gl);
+		ani.animate();
 		sf::Event e;
 		while(window.pollEvent(e)) {
 			handleEvents(e, window);
 		}
 		window.clear(sf::Color::White);
-		window.draw(gl.getLevel().getTileMap());
-		drawEnemies(gl, window);
+		//window.draw(gl.getLevel().getTileMap());
+		//drawEnemies(gl, window);
+		window.draw(ani.getShape());
 		if(debugDraw) {
 			drawCells(window, gl);
 		}

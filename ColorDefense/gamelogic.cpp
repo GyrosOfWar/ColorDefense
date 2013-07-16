@@ -5,6 +5,7 @@
 #include <algorithm>
 
 using namespace game;
+using namespace chrono;
 
 gamelogic::gamelogic(void) {
 	std::stringstream levelFilePath;
@@ -75,7 +76,7 @@ void gamelogic::move_enemy(enemy& enemy) {
 	neighbors.push_back(sf::Vector2i(x, y+1));
 
 	// Go over all the tiles in the 4-neighborhood
-	// Check if they've been visited before and if they are passabel
+	// Check if they've been visited before and if they are passable
 	// Move the enemy to the appropirate tile
 	for(int i = x-1; i <= x+1; i++) {
 		for(int j = y-1; j <= y+1; j++) {
@@ -89,11 +90,12 @@ void gamelogic::move_enemy(enemy& enemy) {
 					if(find(neighbors.begin(), neighbors.end(), pos) == neighbors.end())
 						continue;
 
-					//auto newPos = calcNewPosition(sf::Vector2f(pos.x, pos.y), sf::Vector2f(i - x, j - y), 1.0f);
-					//enemy.setPosition(newPos.x, newPos.y , true);
+					auto newPos = calcNewPosition(convertToPixelCoords(pos.x, pos.y), sf::Vector2f(i - x, j - y), 0.01f);
+						enemy.setPosition(pos, true);
+					enemy.setShapePos(newPos);
 					// TODO Don't change the value given by the getter, make a new value and 
 					// use the setter to set it.
-					enemy.setPosition(pos , true);
+					//enemy.setPosition(pos, true);
 					auto lastPos = enemy.getLastPosition();
 					if(lastPos.x != -1) {
 						tile prev = lvl.getTileAt(lastPos);
@@ -112,11 +114,9 @@ void gamelogic::move_enemy(enemy& enemy) {
 // the tiles and the FPS. Distance is either (0, 1), (1, 0), (-1, 0) or (0, -1). 
 sf::Vector2f gamelogic::calcNewPosition(const sf::Vector2f& oldPos, const sf::Vector2f& direction, float speed) {
 	sf::Vector2f ret = oldPos;
-	auto res1 = sf::Vector2f(direction.x * MOVE_DISTANCE, direction.y * MOVE_DISTANCE);
-	auto res2 = sf::Vector2f(res1.x * speed, res1.y * speed);
-	cout << direction.x << " " << direction.y << endl;
-	cout << MOVE_DISTANCE << endl;
-	ret += res2;
+	auto distance = MOVE_DISTANCE * direction;
+	distance = distance * speed;
+	ret += distance;
 	return ret;
 }
 

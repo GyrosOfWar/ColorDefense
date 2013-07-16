@@ -13,9 +13,7 @@ enemy wave::spawn(void) {
 		if(it == this->end()) finished = true;
 		return out;
 	}
-	else  {
-		return NULL;
-	}
+	return out;
 }
 
 void wave::ready(void) {
