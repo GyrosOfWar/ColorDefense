@@ -1,9 +1,9 @@
 #include <list>
 #include "enemy.hpp"
 #pragma once
+
 namespace game {
-class wave : public std::list<enemy>
-{
+class wave: public std::list<enemy> {
 public:
 	wave(void);
 	enemy spawn(void);
@@ -15,5 +15,4 @@ private:
 	list<enemy>::iterator it;
 	bool finished;
 };
-
 }

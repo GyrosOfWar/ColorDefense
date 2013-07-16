@@ -1,15 +1,15 @@
 #pragma once
-#include <SFML/Graphics.hpp>
 #include "stdafx.h"
-#include <string>
 #include "Logger.hpp"
+
 #include <sstream>
 #include <iomanip>  
 #include <iostream>
+#include <string>
+#include <SFML/Graphics.hpp>
 
 namespace game {
-class enemy
-{
+class enemy {
 public:
 	enemy(int color);
 	~enemy(void);

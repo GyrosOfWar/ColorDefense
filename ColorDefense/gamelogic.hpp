@@ -1,9 +1,9 @@
 #pragma once
 #include "stdafx.h"
 #include "level.hpp"
-#include <list>
 #include "shot.hpp"
 #include "wave.hpp"
+#include <list>
 #include <sstream>
 
 /*

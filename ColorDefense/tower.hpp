@@ -2,8 +2,7 @@
 #include <SFML/Graphics.hpp>
 #include "util.hpp"
 namespace game {
-class tower
-{
+class tower {
 public:
 	tower(void);
 	~tower(void);

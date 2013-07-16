@@ -1,8 +1,9 @@
 #pragma once
 #include "tile.hpp"
-#include <list>
 #include "wave.hpp"
 #include "tile_map.hpp"
+#include <list>
+
 namespace game {
 const sf::Color BUILDABLE_TILE = sf::Color::Black;
 const sf::Color PASSABLE_TILE = sf::Color::White;

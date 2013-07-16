@@ -1,8 +1,8 @@
 #pragma once
 #include "stdafx.h"
-#include <SFML/Graphics.hpp>
 #include "tile.hpp"
 #include <vector>
+#include <SFML/Graphics.hpp>
 
 using namespace game;
 

@@ -1,15 +1,15 @@
 #include "stdafx.h"
 #include "Logger.hpp"
-#include <iostream>
-#include <SFML/Graphics.hpp>
 #include "enemy.hpp"
-#include "Logger.hpp"
-#include <sstream>
-#include <string>
 #include "wave.hpp"
 #include "gamelogic.hpp"
 #include "util.hpp"
 #include "tower.hpp"
+
+#include <sstream>
+#include <string>
+#include <iostream>
+#include <SFML/Graphics.hpp>
 
 using namespace game;
 using namespace chrono;
@@ -53,7 +53,6 @@ void drawCells(sf::RenderWindow& window, gamelogic& gl) {
 		}
 	}
 }
-
 
 void updateGameState(gamelogic& gl) {
 	auto now = system_clock::now();

@@ -1,9 +1,8 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-namespace game {
 
-class tile
-{
+namespace game {
+class tile {
 public:
 	bool isPassable(void) const;
 	bool isBuildable(void) const;

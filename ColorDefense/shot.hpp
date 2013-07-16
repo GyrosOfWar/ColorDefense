@@ -1,9 +1,8 @@
 #pragma once
 #include "enemy.hpp"
-namespace game {
-class shot
 
-{
+namespace game {
+class shot {
 public:
 	shot(int color);
 	~shot(void);
