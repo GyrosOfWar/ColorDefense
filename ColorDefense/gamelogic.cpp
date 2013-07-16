@@ -7,7 +7,12 @@
 using namespace game;
 
 gamelogic::gamelogic(void) {
-	loadLevel(1);
+	std::stringstream levelFilePath;
+	levelFilePath << BASE_PATH << 1 << LEVELFILE_SUFFIX;
+
+	std::stringstream tilesPath;
+	tilesPath << BASE_PATH << 1 << TILES_SUFFIX;
+	this->lvl = level(levelFilePath.str(),  tilesPath.str()); 
 	this->current_wave = lvl.getNextWave();
 	this->enemies = current_wave;
 	this->shots = list<shot>();
@@ -79,7 +84,7 @@ void gamelogic::move_enemy(enemy& enemy) {
 				tile cur = lvl.getTileAt(i, j);
 				sf::Vector2i pos (i, j);
 
-				if(cur->isPassable() && pos != enemy.getLastPosition()) {
+				if(cur.isPassable() && pos != enemy.getLastPosition()) {
 					// ugly..
 					// If the current position is not in the 4-neighborhood, continue
 					if(find(neighbors.begin(), neighbors.end(), pos) == neighbors.end())
@@ -87,10 +92,12 @@ void gamelogic::move_enemy(enemy& enemy) {
 					// Setting the current tile to occupied and the last one
 					// to unoccupied, doesn't work yet.
 					// #FuckPointers
-					enemy.setPosition(pos, true);
-					cur->setOccupied(true);
+					//auto newPos = calcNewPosition(sf::Vector2f(pos.x, pos.y), sf::Vector2f(i - x, j - y), 1.0f);
+					//enemy.setPosition(newPos.x, newPos.y , true);
+					enemy.setPosition(pos , true);
+					cur.setOccupied(true);
 					tile prev = lvl.getTileAt(enemy.getLastPosition());
-					prev->setOccupied(false);
+					prev.setOccupied(false);
 				}
 			}
 		}
@@ -99,9 +106,13 @@ void gamelogic::move_enemy(enemy& enemy) {
 
 // Moves the enemy forward by a small increment, proportional to the distance between
 // the tiles and the FPS. Distance is either (0, 1), (1, 0), (-1, 0) or (0, -1). 
-sf::Vector2f calcNewPosition(const sf::Vector2i& oldPos, const sf::Vector2i& direction, float speed) {
+sf::Vector2f gamelogic::calcNewPosition(const sf::Vector2f& oldPos, const sf::Vector2f& direction, float speed) {
 	sf::Vector2f ret = oldPos;
-	ret += direction * speed * MOVE_DISTANCE;
+	auto res1 = sf::Vector2f(direction.x * MOVE_DISTANCE, direction.y * MOVE_DISTANCE);
+	auto res2 = sf::Vector2f(res1.x * speed, res1.y * speed);
+	cout << direction.x << " " << direction.y << endl;
+	cout << MOVE_DISTANCE << endl;
+	ret += res2;
 	return ret;
 }
 
@@ -123,10 +134,10 @@ void gamelogic::loadLevel(int n) {
 	this->lvl = level(levelFilePath.str(),  tilesPath.str()); 
 }
 
-level* gamelogic::getLevel() {
-	return &lvl;
+level& gamelogic::getLevel() {
+	return lvl;
 }
 
-list<enemy>* gamelogic::getEnemies(void) {
-	return &enemies;
+list<enemy>& gamelogic::getEnemies(void) {
+	return enemies;
 }

@@ -19,7 +19,7 @@ const int CELLX = 16;
 const int CELLY = 12;
 const int TILEHEIGHT = SCREENHEIGHT/CELLY;
 const int TILEWIDTH = SCREENWIDTH/CELLX;
-const int FPS = 25;
+const int FPS = 1;
 const string BASE_PATH = "res/levels/level";
 const string TILES_SUFFIX = "tiles.png";
 const string LEVELFILE_SUFFIX = "lvl.png";
@@ -37,14 +37,16 @@ public:
 	void move_enemy(enemy& enemy);
 	void move_shot(const shot& shot);
 	void loadLevel(int n);
-	level* getLevel();
-	list<enemy>* getEnemies();
+	level& getLevel();
+	list<enemy>& getEnemies();
 private:
 	level lvl;
 	wave current_wave;
 	list<enemy> enemies;
 	list<shot> shots;
 	bool running;
+	
+	sf::Vector2f calcNewPosition(const sf::Vector2f& oldPos, const sf::Vector2f& direction, float speed);
 };
 
 }
