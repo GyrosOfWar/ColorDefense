@@ -1,13 +1,33 @@
 #include "stdafx.h"
 #include "animation.hpp"
 
+sf::Vector2f normalizeVec(const sf::Vector2f& source) {
+	float length = sqrt((source.x * source.x) + (source.y * source.y));
+	if (length != 0)
+		return sf::Vector2f(source.x / length, source.y / length);
+	else
+		return source;
+}
+
+//animation::animation(sf::Vector2f start, sf::Vector2f end, sf::Shape* shape, float speed): 
+//	start(start), end(end), shape(shape), speed(speed) {
+//		this->increment = MOVE_DISTANCE * speed;
+//		this->direction = normalize(end - start);
+//		this->finished = false;
+//		cout << start.x << " " << start.y << endl;
+//}
 animation::animation(sf::Vector2f start, sf::Vector2f end, sf::CircleShape shape, float speed): 
 	start(start), end(end), shape(shape), speed(speed) {
 		this->increment = MOVE_DISTANCE * speed;
-		this->direction = end - start;
+		this->direction = normalizeVec(end - start);
 		this->finished = false;
-		cout << start.x << " " << start.y << endl;
+		this->position = start;
 }
+
+
+//sf::Shape& animation::getShape(void) {
+//	return *shape;
+//}
 
 sf::CircleShape animation::getShape(void) {
 	return shape;
@@ -23,7 +43,6 @@ void animation::animate() {
 		newPos += increment * direction;
 		position = newPos;
 		shape.setPosition(position);
-		//cout << position.x << " " << position.y << endl;
 		if(position == end)
 			finished = true;
 	}

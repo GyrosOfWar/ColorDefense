@@ -99,7 +99,7 @@ int main() {
 	t.setPosition(2, 0);
 	gl.set_on_field(test);
 
-	animation ani(sf::Vector2f(15.f, 15.f), sf::Vector2f(150.f, 150.f), test.getShape(), 1.0f);
+	animation ani(sf::Vector2f(15.f, 15.f), sf::Vector2f(15.f, 150.f), test.getShape(), 1.0f);
 
 	while(window.isOpen()) {
 		//updateGameState(gl);

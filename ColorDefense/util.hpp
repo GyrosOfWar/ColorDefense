@@ -13,13 +13,3 @@ inline sf::Vector2f convertToPixelCoords(int x, int y) {
 inline float clamp(float x, float a, float b) {
 	return x < a ? a : (x > b ? b : x);
 }
-
-template<class T>
-sf::Vector2<T> normalize(const sf::Vector<T>& source)
-{
-    float length = sqrt((source.x * source.x) + (source.y * source.y));
-    if (length != 0)
-        return Vector2<T>(source.x / length, source.y / length);
-    else
-        return source;
-}
