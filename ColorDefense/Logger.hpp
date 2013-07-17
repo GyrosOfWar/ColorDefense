@@ -11,7 +11,6 @@
 #include <sstream>
 
 using namespace std;
-
 enum COLORS {
 	BLACK,
 	RED,
