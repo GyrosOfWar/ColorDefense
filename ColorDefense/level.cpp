@@ -120,10 +120,10 @@ void level::setTileAt(sf::Vector2i pos, tile value) {
 	this->setTileAt(pos.x, pos.y, value);
 }
 
-sf::Vector2i level::getStartTileCoords() {
+sf::Vector2i level::getStartTileCoords() const {
 	return startTile;
 }
 
-sf::Vector2i level::getEndTileCoords() {
+sf::Vector2i level::getEndTileCoords() const {
 	return endTile;
 }

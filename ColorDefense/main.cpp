@@ -99,11 +99,13 @@ int main() {
 	t.setPosition(2, 0);
 	gl.set_on_field(test);
 
-	animation ani(sf::Vector2f(15.f, 15.f), sf::Vector2f(15.f, 150.f), test.getShape(), 1.0f);
+	sf::CircleShape* circle = new sf::CircleShape(23.0f);
+	circle->setFillColor(sf::Color::Black);
+	animation animation(sf::Vector2f(15.f, 15.f), sf::Vector2f(15.f, 150.f), *circle, 1.0f);
 
 	while(window.isOpen()) {
 		//updateGameState(gl);
-		ani.animate();
+		animation.animate();
 		sf::Event e;
 		while(window.pollEvent(e)) {
 			handleEvents(e, window);
@@ -111,13 +113,13 @@ int main() {
 		window.clear(sf::Color::White);
 		//window.draw(gl.getLevel().getTileMap());
 		//drawEnemies(gl, window);
-		window.draw(ani.getShape());
+		window.draw(animation.getShape());
 		if(debugDraw) {
 			drawCells(window, gl);
 		}
 		window.draw(t.getSprite());
 		window.display();
 	}
-
+	delete circle;
 	return 0;
 }

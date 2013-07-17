@@ -93,8 +93,6 @@ void gamelogic::move_enemy(enemy& enemy) {
 					auto newPos = calcNewPosition(convertToPixelCoords(pos.x, pos.y), sf::Vector2f(i - x, j - y), 0.01f);
 						enemy.setPosition(pos, true);
 					enemy.setShapePos(newPos);
-					// TODO Don't change the value given by the getter, make a new value and 
-					// use the setter to set it.
 					//enemy.setPosition(pos, true);
 					auto lastPos = enemy.getLastPosition();
 					if(lastPos.x != -1) {

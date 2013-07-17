@@ -24,9 +24,9 @@ public:
 	tile getTileAt(sf::Vector2i vec) const;
 	tile getTileAt(int x, int y) const;
 	// Returns the coordinates of the start tile (in tile coordinates)
-	sf::Vector2i getStartTileCoords();
+	sf::Vector2i getStartTileCoords() const;
 	// Returns the coordinates of the end tile (in tile coordinates)
-	sf::Vector2i getEndTileCoords();
+	sf::Vector2i getEndTileCoords() const;
 
 	void setTileAt(int x, int y, tile value);
 	void setTileAt(sf::Vector2i pos, tile value);
