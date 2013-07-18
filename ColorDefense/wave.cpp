@@ -7,7 +7,7 @@ wave::wave(void) {
 }
 
 enemy wave::spawn(void) {
-	enemy out (0);
+	enemy out (0, 100);
 	if(it != this->end()) {
 		out = *it++;
 		if(it == this->end()) finished = true;

@@ -11,7 +11,7 @@
 namespace game {
 class enemy {
 public:
-	enemy(int color);
+	enemy(int color, int maxHealth);
 	~enemy(void);
 
 	void updateColor(void); //sets shape color to the colorvalue
@@ -24,14 +24,15 @@ public:
 	sf::CircleShape getShape(void);
 	int getHealth(void);
 	void setHealth(int h);
-	/*void setShapePos(int x, int y);
-	void setShapePos(sf::Vector2f pos);*/
+	vector<sf::Vector2i>::iterator& getPathIterator();
 private:
 	int color;
 	int health;
+	int maxHealth;
 	sf::Vector2i position;
 	sf::Color color_real;
 	sf::CircleShape shape;
 	sf::Vector2i lastPosition;
+	vector<sf::Vector2i>::iterator pathIterator;
 };
 }

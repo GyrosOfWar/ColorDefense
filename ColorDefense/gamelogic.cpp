@@ -16,7 +16,6 @@ gamelogic::gamelogic(void) {
 	this->enemies = current_wave;
 	this->shots = list<shot>();
 	this->running = true;
-//	this->iter = lvl.getEnemyPath().begin();
 }
 
 gamelogic::~gamelogic(void) {
@@ -56,9 +55,6 @@ void gamelogic::set_on_field(enemy enemy) {
 	tile startTile = lvl.getTileAt(startPos);
 	startTile.setOccupied(true);
 	lvl.setTileAt(startPos, startTile);
-	cout << "startPos = " << startPos.x << " " << startPos.y << endl;
-	// Mark the tile the enemy is on as occupied
-	lvl.getTileAt(startPos).setOccupied(true);
 	enemies.push_back(enemy);
 }
 
@@ -66,19 +62,16 @@ void gamelogic::move_enemy(enemy& enemy) {
 	//int x = enemy.getPosition().x;
 	//int y = enemy.getPosition().y;
 	//sf::CircleShape* cs = new sf::CircleShape(23.f);
-
 	//if(enemy.getPosition() == lvl.getEndTileCoords()) {
 	//	// TOOD == operator for enemy
 	//	//enemies.remove(enemy);
 	//	return;
 	//}
-
 	//vector<sf::Vector2i> neighbors;
 	//neighbors.push_back(sf::Vector2i(x-1, y));
 	//neighbors.push_back(sf::Vector2i(x+1, y));
 	//neighbors.push_back(sf::Vector2i(x, y-1));
 	//neighbors.push_back(sf::Vector2i(x, y+1));
-
 	//// Go over all the tiles in the 4-neighborhood
 	//// Check if they've been visited before and if they are passable
 	//// Move the enemy to the appropirate tile
@@ -87,7 +80,6 @@ void gamelogic::move_enemy(enemy& enemy) {
 	//		if(i >= 0 && j >= 0 && i < CELLX && j < CELLY) {
 	//			tile cur = lvl.getTileAt(i, j);
 	//			sf::Vector2i pos (i, j);
-
 	//			if(cur.isPassable() && pos != enemy.getLastPosition()) {
 	//				// ugly..
 	//				// If the current position is not in the 4-neighborhood, continue
@@ -110,6 +102,11 @@ void gamelogic::move_enemy(enemy& enemy) {
 	//	}
 	//}
 
+	auto currentIter = enemy.getPathIterator();
+	auto currentPos = *currentIter;
+	if(currentPos != lvl.getEndTileCoords()) {
+		enemy.setPosition(*currentIter++, true);
+	}
 }
 
 void gamelogic::move_shot(const shot& shot) {

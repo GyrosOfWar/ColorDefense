@@ -5,7 +5,7 @@
 using namespace std;
 using namespace game;
 
-enemy::enemy(int color) {
+enemy::enemy(int color, int maxHealth = 100) {
 	this->color = color;
 	updateColor();
 	shape = sf::CircleShape((TILEHEIGHT / 2) - 2.0f);
@@ -15,6 +15,8 @@ enemy::enemy(int color) {
 	shape.setOrigin(-2.0f, -2.0f);
 	position = sf::Vector2i(0, 0);
 	lastPosition = sf::Vector2i(-1, -1);
+	this->maxHealth = maxHealth;
+	health = this->maxHealth;
 }
 
 enemy::~enemy(void) { }
@@ -71,10 +73,6 @@ void enemy::setHealth(int h) {
 	this->health = h;
 }
 
-//void enemy::setShapePos(int x, int y) {
-//	shape.setPosition(x, y);
-//}
-//
-//void enemy::setShapePos(sf::Vector2f pos) {
-//	shape.setPosition(pos.x, pos.y);
-//}
+vector<sf::Vector2i>::iterator& enemy::getPathIterator(void) {
+	return pathIterator; 
+}

@@ -16,6 +16,7 @@ level::level(string levelFilePath, string tilesPath) {
 		throw "Failed to open level file.";
 	if(!fillTileMap(tilesPath))
 		throw "Failed to open tile file.";
+	makePath();
 }
 
 level::level(void) {
@@ -120,4 +121,58 @@ sf::Vector2i level::getStartTileCoords() const {
 
 sf::Vector2i level::getEndTileCoords() const {
 	return endTile;
+}
+
+void level::makePath(void) {
+	auto start = this->getStartTileCoords();
+	auto end = this->getEndTileCoords();
+	auto pos = start;
+	auto lastPos = sf::Vector2i(-1, -1);
+	enemyPath.addPoint(start);
+
+	bool foundEnd = false;
+	while(!foundEnd) {
+		auto x = pos.x;
+		auto y = pos.y;
+
+		vector<sf::Vector2i> neighbors;
+		neighbors.push_back(sf::Vector2i(x-1, y));
+		neighbors.push_back(sf::Vector2i(x+1, y));
+		neighbors.push_back(sf::Vector2i(x, y-1));
+		neighbors.push_back(sf::Vector2i(x, y+1));
+
+		if(sf::Vector2i(x, y) == end) {
+			foundEnd = true;
+			break;
+		}
+
+		for(int i = x-1; i <= x+1; i++) {
+			for(int j = y-1; j <= y+1; j++) {
+				if(i >= 0 && j >= 0 && i < CELLX && j < CELLY) {
+					tile currentTile = this->getTileAt(i, j);
+					sf::Vector2i currentPos (i, j);
+
+					if(currentTile.isPassable() && currentPos != lastPos) {
+						if(find(neighbors.begin(), neighbors.end(), currentPos) == neighbors.end())
+							continue;
+						enemyPath.addPoint(i, j);
+						//currentTile.setOccupied(true);
+						//this->setTileAt(i, j, currentTile);
+						lastPos = pos;
+						pos = currentPos;
+						//if(lastPos.x != -1) {
+						//	tile previousTile = this->getTileAt(lastPos.x, lastPos.y);
+						//	previousTile.setOccupied(false);
+						//	this->setTileAt(lastPos.x, lastPos.y, previousTile);
+						//}
+					}
+				}
+			}
+		}
+	}
+	if(!foundEnd) throw "Could not find an end tile!";
+}
+
+path level::getEnemyPath() {
+	return enemyPath;
 }
