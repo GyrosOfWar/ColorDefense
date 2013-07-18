@@ -2,9 +2,19 @@
 #include "tile.hpp"
 #include "wave.hpp"
 #include "tile_map.hpp"
+#include "constants.hpp"
+#include "Logger.hpp"
+#include "buildable_tile.hpp"
+#include "passable_tile.hpp"
+#include "blocked_tile.hpp"
 #include <list>
 
+
+
 namespace game {
+	class gamelogic;
+	class path;
+
 const sf::Color BUILDABLE_TILE = sf::Color::Black;
 const sf::Color PASSABLE_TILE = sf::Color::White;
 const sf::Color START_TILE = sf::Color::Green;

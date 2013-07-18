@@ -2,6 +2,7 @@
 #include "stdafx.h"
 #include "util.hpp"
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
 namespace game {
 	class animation {

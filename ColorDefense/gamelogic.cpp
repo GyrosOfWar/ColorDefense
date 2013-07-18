@@ -1,9 +1,6 @@
 #pragma once
 #include "stdafx.h"
 #include "gamelogic.hpp"
-#include "animation.hpp"
-#include "util.hpp"
-#include <algorithm>
 
 using namespace game;
 using namespace chrono;

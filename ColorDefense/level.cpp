@@ -1,12 +1,5 @@
 #include "stdafx.h"
 #include "level.hpp"
-#include "tile.hpp"
-#include "Logger.hpp"
-#include "buildable_tile.hpp"
-#include "passable_tile.hpp"
-#include "blocked_tile.hpp"
-#include "gamelogic.hpp"
-#include "path.hpp"
 
 using namespace game;
 

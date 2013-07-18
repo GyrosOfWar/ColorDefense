@@ -1,6 +1,8 @@
 #pragma once
 #include <SFML/Graphics.hpp>
-#include "gamelogic.hpp"
+#include "constants.hpp"
+
+using namespace game;
 
 inline sf::Vector2i convertToCellCoords(float x, float y) {
 	return sf::Vector2i(static_cast<int>(x / TILEWIDTH), static_cast<int>(y / TILEHEIGHT));

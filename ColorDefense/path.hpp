@@ -1,12 +1,15 @@
 #pragma once
 #include "stdafx.h"
 #include "util.hpp"
-#include "level.hpp"
 #include "gamelogic.hpp"
+
 #include <vector>
 #include <SFML/Graphics.hpp>
 
+using namespace std;
+
 namespace game {
+	class level;
 class path {
 public:
 	path(void);
@@ -14,7 +17,7 @@ public:
 
 	vector<sf::Vector2i>::iterator begin();
 	vector<sf::Vector2i>::iterator end();
-	void makePath(level& level);
+	void makePath(level &lvl);
 private:
 	vector<sf::Vector2i> points;
 	void addPoint(int x, int y);

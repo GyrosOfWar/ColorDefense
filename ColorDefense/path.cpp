@@ -2,6 +2,8 @@
 #include "stdafx.h"
 #include "path.hpp"
 
+using namespace game;
+
 path::path(void) { 
 	points = vector<sf::Vector2i>();
 }
@@ -17,9 +19,9 @@ vector<sf::Vector2i>::iterator path::end() {
 	return points.end();
 }
 
-void path::makePath(level& level) {
-	auto start = level.getStartTileCoords();
-	auto end = level.getEndTileCoords();
+void path::makePath(level& lvl) {
+	auto start = lvl.getStartTileCoords();
+	auto end = lvl.getEndTileCoords();
 	auto pos = start;
 	auto lastPos = sf::Vector2i(-1, -1);
 	addPoint(start);
@@ -43,7 +45,7 @@ void path::makePath(level& level) {
 		for(int i = x-1; i <= x+1; i++) {
 			for(int j = y-1; j <= y+1; j++) {
 				if(i >= 0 && j >= 0 && i < CELLX && j < CELLY) {
-					tile currentTile = level.getTileAt(i, j);
+					tile currentTile = lvl.getTileAt(i, j);
 					sf::Vector2i currentPos (i, j);
 
 					if(currentTile.isPassable() && currentPos != lastPos) {
@@ -51,13 +53,13 @@ void path::makePath(level& level) {
 							continue;
 						addPoint(i, j);
 						currentTile.setOccupied(true);
-						level.setTileAt(i, j, currentTile);
+						lvl.setTileAt(i, j, currentTile);
 						lastPos = pos;
 						pos = currentPos;
 						if(lastPos.x != -1) {
-							tile previousTile = level.getTileAt(lastPos.x, lastPos.y);
+							tile previousTile = lvl.getTileAt(lastPos.x, lastPos.y);
 							previousTile.setOccupied(false);
-							level.setTileAt(lastPos.x, lastPos.y, previousTile);
+							lvl.setTileAt(lastPos.x, lastPos.y, previousTile);
 						}
 					}
 				}
