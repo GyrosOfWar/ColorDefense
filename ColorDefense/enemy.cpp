@@ -17,6 +17,7 @@ enemy::enemy(int color, int maxHealth = 100) {
 	lastPosition = sf::Vector2i(-1, -1);
 	this->maxHealth = maxHealth;
 	health = this->maxHealth;
+	this->spot = 0;
 }
 
 enemy::~enemy(void) { }
@@ -75,4 +76,12 @@ void enemy::setHealth(int h) {
 
 vector<sf::Vector2i>::iterator& enemy::getPathIterator(void) {
 	return pathIterator; 
+}
+
+int enemy::getSpot(void) {
+	return spot;
+}
+
+void enemy::incrSpot(void) {
+	this->spot++;
 }

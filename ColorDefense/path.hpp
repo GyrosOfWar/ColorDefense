@@ -20,6 +20,7 @@ namespace game {
 		void addPoint(int x, int y);
 		void addPoint(float x, float y);
 		void addPoint(sf::Vector2i v);
+		sf::Vector2i getPoint(int index);
 	private:
 		vector<sf::Vector2i> points;
 	};

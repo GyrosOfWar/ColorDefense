@@ -101,11 +101,12 @@ void gamelogic::move_enemy(enemy& enemy) {
 	//		}
 	//	}
 	//}
+	
 
-	auto currentIter = enemy.getPathIterator();
-	auto currentPos = *currentIter;
+	auto currentPos = lvl.getEnemyPath().getPoint(enemy.getSpot());
 	if(currentPos != lvl.getEndTileCoords()) {
-		enemy.setPosition(*currentIter++, true);
+		enemy.incrSpot();
+		enemy.setPosition(lvl.getEnemyPath().getPoint(enemy.getSpot()), true);
 	}
 }
 

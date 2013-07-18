@@ -30,3 +30,7 @@ void path::addPoint(int x, int y) {
 void path::addPoint(float x, float y) {
 	points.push_back(sf::Vector2i(static_cast<int>(x), static_cast<int>(y)));
 }
+
+sf::Vector2i path::getPoint(int index) {
+	return points[index];
+}

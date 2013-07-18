@@ -25,6 +25,8 @@ public:
 	int getHealth(void);
 	void setHealth(int h);
 	vector<sf::Vector2i>::iterator& getPathIterator();
+	int getSpot(void);
+	void incrSpot(void);
 private:
 	int color;
 	int health;
@@ -34,5 +36,6 @@ private:
 	sf::CircleShape shape;
 	sf::Vector2i lastPosition;
 	vector<sf::Vector2i>::iterator pathIterator;
+	int spot;
 };
 }
