@@ -1,7 +1,6 @@
 #pragma once
 #include "stdafx.h"
 #include "tile_map.hpp"
-#include <iostream>
 
 // Taken from http://www.sfml-dev.org/tutorials/2.0/graphics-vertex-array.php
 

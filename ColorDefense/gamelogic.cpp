@@ -19,6 +19,7 @@ gamelogic::gamelogic(void) {
 	this->enemies = current_wave;
 	this->shots = list<shot>();
 	this->running = true;
+//	this->iter = lvl.getEnemyPath().begin();
 }
 
 gamelogic::~gamelogic(void) {
@@ -61,52 +62,56 @@ void gamelogic::set_on_field(enemy enemy) {
 }
 
 void gamelogic::move_enemy(enemy& enemy) {
-	int x = enemy.getPosition().x;
-	int y = enemy.getPosition().y;
-	sf::CircleShape* cs = new sf::CircleShape(23.f);
+	//int x = enemy.getPosition().x;
+	//int y = enemy.getPosition().y;
+	//sf::CircleShape* cs = new sf::CircleShape(23.f);
 
-	if(enemy.getPosition() == lvl.getEndTileCoords()) {
-		// TOOD == operator for enemy
-		//enemies.remove(enemy);
-		return;
-	}
+	//if(enemy.getPosition() == lvl.getEndTileCoords()) {
+	//	// TOOD == operator for enemy
+	//	//enemies.remove(enemy);
+	//	return;
+	//}
 
-	vector<sf::Vector2i> neighbors;
-	neighbors.push_back(sf::Vector2i(x-1, y));
-	neighbors.push_back(sf::Vector2i(x+1, y));
-	neighbors.push_back(sf::Vector2i(x, y-1));
-	neighbors.push_back(sf::Vector2i(x, y+1));
+	//vector<sf::Vector2i> neighbors;
+	//neighbors.push_back(sf::Vector2i(x-1, y));
+	//neighbors.push_back(sf::Vector2i(x+1, y));
+	//neighbors.push_back(sf::Vector2i(x, y-1));
+	//neighbors.push_back(sf::Vector2i(x, y+1));
 
-	// Go over all the tiles in the 4-neighborhood
-	// Check if they've been visited before and if they are passable
-	// Move the enemy to the appropirate tile
-	for(int i = x-1; i <= x+1; i++) {
-		for(int j = y-1; j <= y+1; j++) {
-			if(i >= 0 && j >= 0 && i < CELLX && j < CELLY) {
-				tile cur = lvl.getTileAt(i, j);
-				sf::Vector2i pos (i, j);
+	//// Go over all the tiles in the 4-neighborhood
+	//// Check if they've been visited before and if they are passable
+	//// Move the enemy to the appropirate tile
+	//for(int i = x-1; i <= x+1; i++) {
+	//	for(int j = y-1; j <= y+1; j++) {
+	//		if(i >= 0 && j >= 0 && i < CELLX && j < CELLY) {
+	//			tile cur = lvl.getTileAt(i, j);
+	//			sf::Vector2i pos (i, j);
 
-				if(cur.isPassable() && pos != enemy.getLastPosition()) {
-					// ugly..
-					// If the current position is not in the 4-neighborhood, continue
-					if(find(neighbors.begin(), neighbors.end(), pos) == neighbors.end())
-						continue;
-					enemy.setPosition(pos, true);
-					enemy.setShapePos(convertToPixelCoords(pos.x, pos.y));
-					//animation anim (sf::Vector2f(x, y), sf::Vector2f(i, j), *cs, 1.0f);
-					//anim.animate();
-					auto lastPos = enemy.getLastPosition();
-					if(lastPos.x != -1) {
-						tile prev = lvl.getTileAt(lastPos);
-						prev.setOccupied(false);
-						lvl.setTileAt(lastPos, prev);
-					}
-					cur.setOccupied(true);
-					lvl.setTileAt(pos, cur);
-				}
-			}
-		}
-	}
+	//			if(cur.isPassable() && pos != enemy.getLastPosition()) {
+	//				// ugly..
+	//				// If the current position is not in the 4-neighborhood, continue
+	//				if(find(neighbors.begin(), neighbors.end(), pos) == neighbors.end())
+	//					continue;
+	//				enemy.setPosition(pos, true);
+	//				enemy.setShapePos(convertToPixelCoords(pos.x, pos.y));
+	//				//animation anim (sf::Vector2f(x, y), sf::Vector2f(i, j), *cs, 1.0f);
+	//				//anim.animate();
+	//				auto lastPos = enemy.getLastPosition();
+	//				if(lastPos.x != -1) {
+	//					tile prev = lvl.getTileAt(lastPos);
+	//					prev.setOccupied(false);
+	//					lvl.setTileAt(lastPos, prev);
+	//				}
+	//				cur.setOccupied(true);
+	//				lvl.setTileAt(pos, cur);
+	//			}
+	//		}
+	//	}
+	//}
+
+	//if(iter != lvl.getEnemyPath().end()) {
+	//	auto nextPos = *iter++;
+	//}
 }
 
 // Moves the enemy forward by a small increment, proportional to the distance between

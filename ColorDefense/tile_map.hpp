@@ -3,6 +3,7 @@
 #include "tile.hpp"
 #include <vector>
 #include <SFML/Graphics.hpp>
+#include <iostream>
 
 using namespace game;
 

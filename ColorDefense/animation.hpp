@@ -1,3 +1,4 @@
+#pragma once
 #include "stdafx.h"
 #include "util.hpp"
 #include <SFML/Graphics.hpp>

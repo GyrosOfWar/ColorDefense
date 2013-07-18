@@ -1,3 +1,4 @@
+#pragma once
 #include "stdafx.h"
 #include "path.hpp"
 
@@ -33,8 +34,6 @@ void path::makePath(level& level) {
 		neighbors.push_back(sf::Vector2i(x+1, y));
 		neighbors.push_back(sf::Vector2i(x, y-1));
 		neighbors.push_back(sf::Vector2i(x, y+1));
-		if(points.size() != 1)
-			lastPos = points[points.size() - 1];
 
 		if(sf::Vector2i(x, y) == end) {
 			foundEnd = true;
@@ -53,8 +52,8 @@ void path::makePath(level& level) {
 						addPoint(i, j);
 						currentTile.setOccupied(true);
 						level.setTileAt(i, j, currentTile);
-						pos.x = i;
-						pos.y = j;
+						lastPos = pos;
+						pos = currentPos;
 						if(lastPos.x != -1) {
 							tile previousTile = level.getTileAt(lastPos.x, lastPos.y);
 							previousTile.setOccupied(false);
@@ -65,7 +64,7 @@ void path::makePath(level& level) {
 			}
 		}
 	}
-	//if(!foundEnd) throw "Could not find an end tile!";
+	if(!foundEnd) throw "Could not find an end tile!";
 }
 
 void path::addPoint(sf::Vector2i v) {

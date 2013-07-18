@@ -6,7 +6,6 @@
 #include "util.hpp"
 #include "tower.hpp"
 #include "animation.hpp"
-#include "path.hpp"
 
 #include <sstream>
 #include <string>
@@ -92,13 +91,13 @@ void drawEverything(gamelogic& gl, sf::RenderWindow& window) {
 	window.display();
 }
 
-void testPath(gamelogic& gl) {
-	path p;
-	p.makePath(gl.getLevel());
-	for(vector<sf::Vector2i>::iterator it = p.begin(); it != p.end(); it++) {
-		cout << it->x << " " << it->y << endl;
-	}
-}
+//void testPath(gamelogic& gl) {
+//	path p;
+//	p.makePath(gl.getLevel());
+//	for(vector<sf::Vector2i>::iterator it = p.begin(); it != p.end(); it++) {
+//		cout << it->x << " " << it->y << endl;
+//	}
+//}
 
 int main() {
 	sf::RenderWindow window(
@@ -119,7 +118,7 @@ int main() {
 	t.setPosition(2, 0);
 	gl.set_on_field(test);
 
-	testPath(gl);
+	/*testPath(gl);*/
 
 	//sf::CircleShape* circle = new sf::CircleShape(23.0f);
 	//circle->setFillColor(sf::Color::Black);
