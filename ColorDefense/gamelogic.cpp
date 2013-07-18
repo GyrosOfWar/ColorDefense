@@ -52,7 +52,7 @@ void gamelogic::set_on_field(enemy enemy) {
 	auto startPos = lvl.getStartTileCoords();
 	enemy.setPosition(startPos, false);
 	//enemy.setShapePos(convertToPixelCoords(startPos.x, startPos.y));
-	tile startTile = lvl.getTileAt(startPos);
+	tile startTile = *lvl.getTileAt(startPos);
 	startTile.setOccupied(true);
 	lvl.setTileAt(startPos, startTile);
 	enemies.push_back(enemy);
@@ -102,11 +102,17 @@ void gamelogic::move_enemy(enemy& enemy) {
 	//	}
 	//}
 	
+	auto en_path = lvl.getEnemyPath();
 
-	auto currentPos = lvl.getEnemyPath().getPoint(enemy.getSpot());
+	auto currentPos = en_path.getPoint(enemy.getSpot());
+	
 	if(currentPos != lvl.getEndTileCoords()) {
+		tile* prev = (tile*)lvl.getTileAt(currentPos);
+		prev->setOccupied(false);
 		enemy.incrSpot();
-		enemy.setPosition(lvl.getEnemyPath().getPoint(enemy.getSpot()), true);
+		enemy.setPosition(en_path.getPoint(enemy.getSpot()), true);
+		tile* next = (tile*)lvl.getTileAt(en_path.getPoint(enemy.getSpot()));
+		next->setOccupied(true);
 	}
 }
 

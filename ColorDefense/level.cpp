@@ -99,12 +99,12 @@ const tile_map& level::getTileMap() const {
 	return level_tile_map;
 }
 
-tile level::getTileAt(sf::Vector2i vec) const {
+const tile* level::getTileAt(sf::Vector2i vec) const {
 	return getTileAt(vec.x, vec.y);
 }
 
-tile level::getTileAt(int i, int j) const {
-	return map[i * CELLY + j];
+const tile* level::getTileAt(int i, int j) const {	 
+	return &map[i * CELLY + j];
 }
 
 void level::setTileAt(int i, int j, tile value) {
@@ -149,7 +149,7 @@ void level::makePath(void) {
 		for(int i = x-1; i <= x+1; i++) {
 			for(int j = y-1; j <= y+1; j++) {
 				if(i >= 0 && j >= 0 && i < CELLX && j < CELLY) {
-					tile currentTile = this->getTileAt(i, j);
+					tile currentTile = *this->getTileAt(i, j);
 					sf::Vector2i currentPos (i, j);
 
 					if(currentTile.isPassable() && currentPos != lastPos) {

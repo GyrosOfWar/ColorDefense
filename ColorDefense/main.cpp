@@ -56,7 +56,7 @@ void drawCells(sf::RenderWindow& window, gamelogic& gl) {
 			sf::RectangleShape rect(sf::Vector2f(5, 5));
 			auto pixelPos = convertToPixelCoords(i, j);
 			rect.move(pixelPos);
-			if(gl.getLevel().getTileAt(i, j).isOccupied()) {
+			if(gl.getLevel().getTileAt(i, j)->isOccupied()) {
 				rect.setFillColor(sf::Color::Green);
 			} else {
 				rect.setFillColor(sf::Color::Black);

@@ -37,8 +37,8 @@ namespace game {
 		bool isFinished(void);
 		const tile_map& getTileMap() const;
 		// Returns tile at the given position, in tile coordinates
-		tile getTileAt(sf::Vector2i vec) const;
-		tile getTileAt(int x, int y) const;
+		const tile* getTileAt(sf::Vector2i vec) const;
+		const tile* getTileAt(int x, int y) const;
 		// Returns the coordinates of the start tile (in tile coordinates)
 		sf::Vector2i getStartTileCoords() const;
 		// Returns the coordinates of the end tile (in tile coordinates)

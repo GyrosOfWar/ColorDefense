@@ -26,6 +26,6 @@ bool tile::isOccupied(void) const {
 	return occupied;
 }
 
-void tile::setOccupied(bool occ) {
+const void tile::setOccupied(bool occ) {
 	occupied = occ;
 }
