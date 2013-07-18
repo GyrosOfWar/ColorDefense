@@ -108,7 +108,7 @@ int main() {
 	window.setFramerateLimit(60);
 
 	gamelogic gl;
-	enemy test(0xff00ff, 100);
+
 	tower t;
 	sf::Sprite towerSprite;
 	sf::Texture towerTexture;
@@ -116,7 +116,7 @@ int main() {
 	towerSprite.setTexture(towerTexture);
 	t.setSprite(towerSprite);
 	t.setPosition(2, 0);
-	gl.set_on_field(test);
+
 
 	/*testPath(gl);*/
 
