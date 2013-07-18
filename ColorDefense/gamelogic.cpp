@@ -52,6 +52,10 @@ void gamelogic::set_on_field(enemy enemy) {
 	//enemy in liste
 	auto startPos = lvl.getStartTileCoords();
 	enemy.setPosition(startPos, false);
+	//enemy.setShapePos(convertToPixelCoords(startPos.x, startPos.y));
+	tile startTile = lvl.getTileAt(startPos);
+	startTile.setOccupied(true);
+	lvl.setTileAt(startPos, startTile);
 	cout << "startPos = " << startPos.x << " " << startPos.y << endl;
 	// Mark the tile the enemy is on as occupied
 	lvl.getTileAt(startPos).setOccupied(true);
@@ -106,19 +110,6 @@ void gamelogic::move_enemy(enemy& enemy) {
 	//	}
 	//}
 
-	//if(iter != lvl.getEnemyPath().end()) {
-	//	auto nextPos = *iter++;
-	//}
-}
-
-// Moves the enemy forward by a small increment, proportional to the distance between
-// the tiles and the FPS. Distance is either (0, 1), (1, 0), (-1, 0) or (0, -1). 
-sf::Vector2f gamelogic::calcNewPosition(const sf::Vector2f& oldPos, const sf::Vector2f& direction, float speed) {
-	sf::Vector2f ret = oldPos;
-	auto distance = MOVE_DISTANCE * direction;
-	distance = distance * speed;
-	ret += distance;
-	return ret;
 }
 
 void gamelogic::move_shot(const shot& shot) {

@@ -17,11 +17,5 @@ const string LEVELFILE_SUFFIX = "lvl.png";
 // This doesn't seem right
 const float MOVE_DISTANCE = static_cast<float>(TILEHEIGHT) / static_cast<float>(FPS);
 
-class constants
-{
-public:
-	constants(void);
-	~constants(void);
-};
 
 }

@@ -85,9 +85,9 @@ void drawEnemies(gamelogic& gl, sf::RenderWindow& window) {
 
 void drawEverything(gamelogic& gl, sf::RenderWindow& window) {
 	window.clear(sf::Color::White);
-	if(debugDraw) drawCells(window, gl);
 	window.draw(gl.getLevel().getTileMap());
 	drawEnemies(gl, window);
+	if(debugDraw) drawCells(window, gl);
 	window.display();
 }
 

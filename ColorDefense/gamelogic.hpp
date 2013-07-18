@@ -18,7 +18,6 @@ using std::list;
 
 namespace game {
 
-
 class gamelogic
 {
 public:
@@ -39,8 +38,6 @@ private:
 	list<enemy> enemies;
 	list<shot> shots;
 	bool running;
-	
-	sf::Vector2f calcNewPosition(const sf::Vector2f& oldPos, const sf::Vector2f& direction, float speed);
 };
 
 }
