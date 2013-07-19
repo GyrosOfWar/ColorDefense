@@ -53,6 +53,7 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <SDLCheck>true</SDLCheck>
       <AdditionalIncludeDirectories>D:\SFML-2.0\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <DisableSpecificWarnings>4996</DisableSpecificWarnings>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -82,17 +83,47 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="animation.hpp" />
+    <ClInclude Include="blocked_tile.hpp" />
+    <ClInclude Include="buildable_tile.hpp" />
+    <ClInclude Include="constants.hpp" />
+    <ClInclude Include="enemy.hpp" />
+    <ClInclude Include="gamelogic.hpp" />
+    <ClInclude Include="level.hpp" />
     <ClInclude Include="Logger.hpp" />
+    <ClInclude Include="passable_tile.hpp" />
+    <ClInclude Include="path.hpp" />
+    <ClInclude Include="shot.hpp" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="tile.hpp" />
+    <ClInclude Include="tile_map.hpp" />
+    <ClInclude Include="tower.hpp" />
+    <ClInclude Include="util.hpp" />
+    <ClInclude Include="wave.hpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="animation.cpp" />
+    <ClCompile Include="blocked_tile.cpp" />
+    <ClCompile Include="buildable_tile.cpp" />
+    <ClCompile Include="constants.cpp" />
+    <ClCompile Include="enemy.cpp" />
+    <ClCompile Include="gamelogic.cpp" />
+    <ClCompile Include="level.cpp" />
     <ClCompile Include="Logger.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="passable_tile.cpp" />
+    <ClCompile Include="path.cpp" />
+    <ClCompile Include="shot.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="tile.cpp" />
+    <ClCompile Include="tile_map.cpp" />
+    <ClCompile Include="tower.cpp" />
+    <ClCompile Include="util.cpp" />
+    <ClCompile Include="wave.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Image Include="res\sprites\tower1.png" />
