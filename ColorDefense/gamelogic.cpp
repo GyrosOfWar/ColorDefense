@@ -104,7 +104,7 @@ void gamelogic::move_enemy(enemy& enemy) {
 	if(currentPos != lvl.getEndTileCoords()) {
 		enemy.incrSpot();
 		enemy.setPosition(lvl.getEnemyPath().getPoint(enemy.getSpot()), true);
-		cout << currentPos.x << " " << currentPos.y << endl;
+		//cout << currentPos.x << " " << currentPos.y << endl;
 	}
 }
 

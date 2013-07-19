@@ -12,7 +12,7 @@ namespace game {
 	const int CELLY = 12;
 	const int TILEHEIGHT = SCREENHEIGHT/CELLY;
 	const int TILEWIDTH = SCREENWIDTH/CELLX;
-	const int FPS = 30;
+	const int FPS = 60;
 	const string BASE_PATH = "res/levels/level";
 	const string TILES_SUFFIX = "tiles.png";
 	const string LEVELFILE_SUFFIX = "lvl.png";

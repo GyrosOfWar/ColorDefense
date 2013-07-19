@@ -28,3 +28,12 @@ inline sf::Vector2f normalizeVec(const sf::Vector2f& source) {
 	float length = sqrt((source.x * source.x) + (source.y * source.y));
 	return (length == 0) ? source : sf::Vector2f(source.x / length, source.y / length);
 }
+
+// Returns true if two float vectors are equal.
+// Don't use for anything other than checking if an animation has finished! (tolerance too low)
+inline bool epsilonCompare(sf::Vector2f a, sf::Vector2f b) {
+	bool cmpX = fabs(a.x - b.x) <= 0.001f;
+	bool cmpY = fabs(a.y - b.y) <= 0.001f;
+
+	return cmpX && cmpY;
+}

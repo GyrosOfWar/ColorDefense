@@ -23,8 +23,10 @@ void animation::animate() {
 		newPos += increment * direction;
 		position = newPos;
 		shape->setPosition(position);
-		if(position == end)
+		if(epsilonCompare(end, position)) {
+			cout << "Equal!" << endl;
 			finished = true;
+		}
 	}
 }
 

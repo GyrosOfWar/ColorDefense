@@ -58,7 +58,7 @@ void enemy::setPosition(sf::Vector2i vec, bool animate) {
 // 	this->position = vec;
 	if(animate) {
 		if(anim.isFinished()) {
-			cout << "old pos: " << position.x << " " << position.y << ", new pos: " << vec.x << " " << vec.y << endl;
+			//cout << "old pos: " << position.x << " " << position.y << ", new pos: " << vec.x << " " << vec.y << endl;
 			anim.update(convertToPixelCoords(position), convertToPixelCoords(vec), 1.0f);
 			anim.animate();
 			position = vec;
@@ -68,9 +68,9 @@ void enemy::setPosition(sf::Vector2i vec, bool animate) {
 		}
 	}
 	else {
-		cout << "Not animating!" << endl;
+		//cout << "Not animating!" << endl;
 		position = vec;
-		anim.update(vec, vec, 1.0f);
+		anim.update(convertToPixelCoords(vec), convertToPixelCoords(vec), 1.0f);
 	}
 }
 
