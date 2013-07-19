@@ -22,7 +22,7 @@ public:
 	sf::Vector2i getLastPosition(void) const;
 	void setPosition(sf::Vector2i vec, bool animate);
 	void setPosition(int x, int y, bool animate);
-	sf::CircleShape getShape(void);
+	sf::Shape& getShape(void);
 	int getHealth(void);
 	void setHealth(int h);
 	vector<sf::Vector2i>::iterator& getPathIterator();

@@ -34,4 +34,10 @@ void animation::update(sf::Vector2f start, sf::Vector2f end, float speed) {
 	this->speed = speed;
 	this->position = start;
 	this->increment = MOVE_DISTANCE * speed;
+	this->direction = normalizeVec(end - start);
+	finished = false;
+}
+
+void animation::update(sf::Vector2i start, sf::Vector2i end, float speed) {
+	this->update(sf::Vector2f(start.x, start.y), sf::Vector2f(end.x, end.y), speed);
 }

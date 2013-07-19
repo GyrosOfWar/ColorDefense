@@ -13,6 +13,7 @@ namespace game {
 		bool isFinished(void);
 		void animate(void);
 		void update(sf::Vector2f start, sf::Vector2f end, float speed);
+		void update(sf::Vector2i start, sf::Vector2i end, float speed);
 	private:
 		sf::Vector2f start;
 		sf::Vector2f end;

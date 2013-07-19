@@ -98,12 +98,13 @@ void gamelogic::move_enemy(enemy& enemy) {
 	//		}
 	//	}
 	//}
-	
 
-	auto currentPos = lvl.getEnemyPath().getPoint(enemy.getSpot());
+	//auto currentPos = lvl.getEnemyPath().getPoint(enemy.getSpot());
+	auto currentPos = enemy.getPosition();
 	if(currentPos != lvl.getEndTileCoords()) {
 		enemy.incrSpot();
 		enemy.setPosition(lvl.getEnemyPath().getPoint(enemy.getSpot()), true);
+		cout << currentPos.x << " " << currentPos.y << endl;
 	}
 }
 
