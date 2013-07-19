@@ -1,6 +1,7 @@
 #pragma once
 #include "stdafx.h"
 #include "Logger.hpp"
+#include "animation.hpp"
 
 #include <sstream>
 #include <iomanip>  
@@ -11,7 +12,7 @@
 namespace game {
 class enemy {
 public:
-	enemy(int color, int maxHealth);
+	enemy(int color, sf::Vector2f startPos);
 	~enemy(void);
 
 	void updateColor(void); //sets shape color to the colorvalue
@@ -19,8 +20,8 @@ public:
 	int getColor(void) const; //returns color
 	sf::Vector2i getPosition(void) const;
 	sf::Vector2i getLastPosition(void) const;
-	void setPosition(sf::Vector2i vec, bool setLastPosition);
-	void setPosition(int x, int y, bool setLastPosition);
+	void setPosition(sf::Vector2i vec, bool animate);
+	void setPosition(int x, int y, bool animate);
 	sf::CircleShape getShape(void);
 	int getHealth(void);
 	void setHealth(int h);
@@ -37,5 +38,6 @@ private:
 	sf::Vector2i lastPosition;
 	vector<sf::Vector2i>::iterator pathIterator;
 	int spot;
+	animation anim;
 };
 }

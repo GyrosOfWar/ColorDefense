@@ -46,9 +46,6 @@ void gamelogic::update(void) {
 }
 
 void gamelogic::set_on_field(enemy enemy) {
-	//gegner aufs feld setzten
-	//gegner position = startposition
-	//enemy in liste
 	auto startPos = lvl.getStartTileCoords();
 	enemy.setPosition(startPos, false);
 	//enemy.setShapePos(convertToPixelCoords(startPos.x, startPos.y));

@@ -6,25 +6,12 @@ animation::animation(sf::Vector2f start, sf::Vector2f end, sf::Shape& shape, flo
 		this->increment = MOVE_DISTANCE * speed;
 		this->direction = normalizeVec(end - start);
 		this->finished = false;
-this->position = start;
-		cout << start.x << " " << start.y << endl;
+		this->position = start;
 }
-//animation::animation(sf::Vector2f start, sf::Vector2f end, sf::CircleShape shape, float speed): 
-//	start(start), end(end), shape(shape), speed(speed) {
-//		this->increment = MOVE_DISTANCE * speed;
-//		this->direction = normalizeVec(end - start);
-//		this->finished = false;
-//		this->position = start;
-//}
-
 
 sf::Shape& animation::getShape(void) {
 	return *shape;
 }
-
-//sf::CircleShape animation::getShape(void) {
-//	return shape;
-//}
 
 bool animation::isFinished(void) {
 	return finished; 
@@ -39,4 +26,12 @@ void animation::animate() {
 		if(position == end)
 			finished = true;
 	}
+}
+
+void animation::update(sf::Vector2f start, sf::Vector2f end, float speed) {
+	this->start = start;
+	this->end = end;
+	this->speed = speed;
+	this->position = start;
+	this->increment = MOVE_DISTANCE * speed;
 }

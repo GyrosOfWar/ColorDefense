@@ -12,6 +12,14 @@ inline sf::Vector2f convertToPixelCoords(int x, int y) {
 	return sf::Vector2f(static_cast<float>(x * TILEWIDTH), static_cast<float>(y * TILEHEIGHT));
 }
 
+inline sf::Vector2i convertToCellCoords(sf::Vector2f vec) {
+	return sf::Vector2i(static_cast<int>(vec.x / TILEWIDTH), static_cast<int>(vec.y / TILEHEIGHT));
+}
+
+inline sf::Vector2f convertToPixelCoords(sf::Vector2i vec) {
+	return sf::Vector2f(static_cast<float>(vec.x * TILEWIDTH), static_cast<float>(vec.y * TILEHEIGHT));
+}
+
 inline float clamp(float x, float a, float b) {
 	return x < a ? a : (x > b ? b : x);
 }
