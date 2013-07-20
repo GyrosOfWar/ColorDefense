@@ -27,7 +27,7 @@ public:
 	void set_on_field(void);
 	bool isRunning(void);
 	void set_on_field(enemy enemy);
-	void move_enemy(enemy& enemy);
+	bool move_enemy(enemy& enemy);
 	void move_shot(const shot& shot);
 	void loadLevel(int n);
 	level& getLevel(void);

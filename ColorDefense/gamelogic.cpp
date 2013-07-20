@@ -48,8 +48,10 @@ void gamelogic::update(void) {
 		current_wave.ready();
 	}
 	else {
-		for(auto it = enemies.begin(); it != enemies.end(); it++) {
-			this->move_enemy(*it);
+		for(auto it = enemies.begin(); it != enemies.end(); ++it) {
+			bool removedEnemy = this->move_enemy(*it);
+			if(removedEnemy) 
+				it = enemies.begin();
 		}
 	}
 
@@ -67,8 +69,6 @@ void gamelogic::update(void) {
 			set_on_field(current_wave.spawn());
 		}
 	}
-
-
 }
 
 void gamelogic::set_on_field(enemy enemy) {
@@ -87,50 +87,7 @@ void gamelogic::set_on_field(enemy enemy) {
 	}
 }
 
-void gamelogic::move_enemy(enemy& enemy) {
-	//int x = enemy.getPosition().x;
-	//int y = enemy.getPosition().y;
-	//sf::CircleShape* cs = new sf::CircleShape(23.f);
-	//if(enemy.getPosition() == lvl.getEndTileCoords()) {
-	//	// TOOD == operator for enemy
-	//	//enemies.remove(enemy);
-	//	return;
-	//}
-	//vector<sf::Vector2i> neighbors;
-	//neighbors.push_back(sf::Vector2i(x-1, y));
-	//neighbors.push_back(sf::Vector2i(x+1, y));
-	//neighbors.push_back(sf::Vector2i(x, y-1));
-	//neighbors.push_back(sf::Vector2i(x, y+1));
-	//// Go over all the tiles in the 4-neighborhood
-	//// Check if they've been visited before and if they are passable
-	//// Move the enemy to the appropirate tile
-	//for(int i = x-1; i <= x+1; i++) {
-	//	for(int j = y-1; j <= y+1; j++) {
-	//		if(i >= 0 && j >= 0 && i < CELLX && j < CELLY) {
-	//			tile cur = lvl.getTileAt(i, j);
-	//			sf::Vector2i pos (i, j);
-	//			if(cur.isPassable() && pos != enemy.getLastPosition()) {
-	//				// ugly..
-	//				// If the current position is not in the 4-neighborhood, continue
-	//				if(find(neighbors.begin(), neighbors.end(), pos) == neighbors.end())
-	//					continue;
-	//				enemy.setPosition(pos, true);
-	//				enemy.setShapePos(convertToPixelCoords(pos.x, pos.y));
-	//				//animation anim (sf::Vector2f(x, y), sf::Vector2f(i, j), *cs, 1.0f);
-	//				//anim.animate();
-	//				auto lastPos = enemy.getLastPosition();
-	//				if(lastPos.x != -1) {
-	//					tile prev = lvl.getTileAt(lastPos);
-	//					prev.setOccupied(false);
-	//					lvl.setTileAt(lastPos, prev);
-	//				}
-	//				cur.setOccupied(true);
-	//				lvl.setTileAt(pos, cur);
-	//			}
-	//		}
-	//	}
-	//}
-	
+bool gamelogic::move_enemy(enemy& enemy) {
 	auto en_path = lvl.getEnemyPath();
 
 	auto currentPos = en_path.getPoint(enemy.getSpot());
@@ -142,10 +99,12 @@ void gamelogic::move_enemy(enemy& enemy) {
 		enemy.setPosition(en_path.getPoint(enemy.getSpot()), true);
 		tile* next = (tile*)lvl.getTileAt(en_path.getPoint(enemy.getSpot()));
 		next->setOccupied(true);
+		return false;
 	}
 	else {
 		cout << "Enemy to remove: " << enemy.getPosition().x << " " << enemy.getPosition().y << endl;
 		enemies.remove(enemy);
+		return true;
 	}
 }
 
