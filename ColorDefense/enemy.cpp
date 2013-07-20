@@ -86,22 +86,27 @@ void enemy::incrSpot(void) {
 	this->spot++;
 }
 
-
-
-bool operator==(enemy const& lhs, enemy const& rhs) {
-		 
-	if(&lhs == &rhs) return true;
-
-
-	if(lhs.getColor() != rhs.getColor()) return false;
-	//int health;
-	//int maxHealth;
-	if(lhs.getPosition() != rhs.getPosition()) return false;
-	//sf::Color color_real;
-	//sf::CircleShape shape;
-	//sf::Vector2i lastPosition;
-	//vector<sf::Vector2i>::iterator pathIterator;
-	if(lhs.getSpot() != rhs.getSpot()) return false;
-
-	return true;
+bool enemy::operator==(const enemy& that) {
+	return this->getPosition() == that.getPosition() && this->getSpot() == that.getSpot();
 }
+
+
+
+//bool operator==(const enemy& lhs, const enemy& rhs) {
+//		 
+//	//if(&lhs == &rhs) return true;
+//
+//
+//	//if(lhs.getColor() != rhs.getColor()) return false;
+//	////int health;
+//	////int maxHealth;
+//	//if(lhs.getPosition() != rhs.getPosition()) return false;
+//	////sf::Color color_real;
+//	////sf::CircleShape shape;
+//	////sf::Vector2i lastPosition;
+//	////vector<sf::Vector2i>::iterator pathIterator;
+//	//if(lhs.getSpot() != rhs.getSpot()) return false;
+//
+//	//return true;
+//	return lhs.getPosition() == rhs.getPosition() && lhs.getSpot() == rhs.getSpot();
+//}

@@ -144,6 +144,7 @@ void gamelogic::move_enemy(enemy& enemy) {
 		next->setOccupied(true);
 	}
 	else {
+		cout << "Enemy to remove: " << enemy.getPosition().x << " " << enemy.getPosition().y << endl;
 		enemies.remove(enemy);
 	}
 }
