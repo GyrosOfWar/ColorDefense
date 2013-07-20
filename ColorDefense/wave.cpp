@@ -41,6 +41,7 @@ enemy wave::spawn(void) {
 
 void wave::ready(void) {
 	it = this->begin();
+	this->finished = false;
 }
 
 void wave::setFinished(bool finished) {

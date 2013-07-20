@@ -17,8 +17,7 @@ gamelogic::gamelogic(void) {
 	this->shots = list<shot>();
 	this->running = true;
 
-	this->current_wave = this->lvl.getNextWave();
-	current_wave.ready();
+
 }
 
 gamelogic::~gamelogic(void) {
@@ -44,9 +43,16 @@ void gamelogic::update(void) {
 	//	}
 	//}
 
-	for(auto it = enemies.begin(); it != enemies.end(); it++) {
-		this->move_enemy(*it);
+	if(enemies.empty()) {
+		this->current_wave = this->lvl.getNextWave();
+		current_wave.ready();
 	}
+	else {
+		for(auto it = enemies.begin(); it != enemies.end(); it++) {
+			this->move_enemy(*it);
+		}
+	}
+
 
 	auto startPos = lvl.getStartTileCoords();
 	tile* startTile = (tile*) lvl.getTileAt(startPos);
@@ -136,6 +142,9 @@ void gamelogic::move_enemy(enemy& enemy) {
 		enemy.setPosition(en_path.getPoint(enemy.getSpot()), true);
 		tile* next = (tile*)lvl.getTileAt(en_path.getPoint(enemy.getSpot()));
 		next->setOccupied(true);
+	}
+	else {
+		enemies.remove(enemy);
 	}
 }
 

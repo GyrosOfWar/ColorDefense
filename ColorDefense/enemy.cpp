@@ -78,10 +78,30 @@ vector<sf::Vector2i>::iterator& enemy::getPathIterator(void) {
 	return pathIterator; 
 }
 
-int enemy::getSpot(void) {
+int enemy::getSpot(void) const {
 	return spot;
 }
 
 void enemy::incrSpot(void) {
 	this->spot++;
+}
+
+
+
+bool operator==(enemy const& lhs, enemy const& rhs) {
+		 
+	if(&lhs == &rhs) return true;
+
+
+	if(lhs.getColor() != rhs.getColor()) return false;
+	//int health;
+	//int maxHealth;
+	if(lhs.getPosition() != rhs.getPosition()) return false;
+	//sf::Color color_real;
+	//sf::CircleShape shape;
+	//sf::Vector2i lastPosition;
+	//vector<sf::Vector2i>::iterator pathIterator;
+	if(lhs.getSpot() != rhs.getSpot()) return false;
+
+	return true;
 }

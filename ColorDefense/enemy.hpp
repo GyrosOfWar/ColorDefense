@@ -8,7 +8,13 @@
 #include <string>
 #include <SFML/Graphics.hpp>
 
+
+
+
 namespace game {
+
+
+
 class enemy {
 public:
 	enemy(int color, int maxHealth);
@@ -25,7 +31,7 @@ public:
 	int getHealth(void);
 	void setHealth(int h);
 	vector<sf::Vector2i>::iterator& getPathIterator();
-	int getSpot(void);
+	int getSpot(void) const;
 	void incrSpot(void);
 private:
 	int color;
@@ -38,4 +44,9 @@ private:
 	vector<sf::Vector2i>::iterator pathIterator;
 	int spot;
 };
+
+#ifndef ENEMY_EQUALS
+#define ENEMY_EQUALS
+bool operator==(enemy const& lhs, enemy const& rhs);
+#endif
 }
