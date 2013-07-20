@@ -3,7 +3,7 @@
 
 using namespace game;
 
-level::level(string levelFilePath, string tilesPath) {
+level::level(string levelFilePath, string tilesPath, int lvl) {
 	map = vector<tile>();
 	waves = vector<wave>();
 	//it = waves.begin();
@@ -17,6 +17,7 @@ level::level(string levelFilePath, string tilesPath) {
 	if(!fillTileMap(tilesPath))
 		throw "Failed to open tile file.";
 	makePath();
+	this->createWaves(lvl);
 }
 
 level::level(void) {
@@ -35,11 +36,10 @@ wave level::getNextWave(void) {
 
 	// FIXME
 	if(waves.empty()) {
-		return wave();
+		return wave("");
 	}
 	if(currentWaveNum < waves.size()-1) {
-		currentWaveNum++;
-		return waves[currentWaveNum];
+		return waves[currentWaveNum++];
 	}
 	else {
 		finished = true;
@@ -173,6 +173,36 @@ void level::makePath(void) {
 	if(!foundEnd) throw "Could not find an end tile!";
 }
 
-path level::getEnemyPath() {
+path level::getEnemyPath(void) {
 	return enemyPath;
+}
+
+
+void level::createWaves(int lvl) {
+	stringstream wavespath;
+	wavespath << BASE_PATH << lvl << LEVELWAVE_SUFFIX;
+
+	ifstream in;    // Create an input file stream.
+	in.open(wavespath.str());  // Use it to read from a file named data.txt.
+
+	string str;
+
+
+	cout << in.good();
+	cout << "\n";
+	cout << in.fail();
+	cout << "\n";
+	cout << in.bad();
+	cout << "\n";
+	cout << in.eof();
+	cout << "\n";
+
+
+	while(getline(in,str)) {
+		waves.push_back(wave(str));  // Process the line.
+	}
+
+
+
+		in.close();
 }

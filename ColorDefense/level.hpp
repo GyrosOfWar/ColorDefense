@@ -27,7 +27,7 @@ namespace game {
 	class level
 	{
 	public:
-		level(string levelFilePath, string tilesPath);
+		level(string levelFilePath, string tilesPath, int lvl);
 		// FIXME
 		level(void);
 		~level(void);
@@ -43,6 +43,10 @@ namespace game {
 		sf::Vector2i getStartTileCoords() const;
 		// Returns the coordinates of the end tile (in tile coordinates)
 		sf::Vector2i getEndTileCoords() const;
+
+		//creates the waves for this lvl
+		void createWaves(int lvl); 
+
 
 		void setTileAt(int x, int y, tile value);
 		void setTileAt(sf::Vector2i pos, tile value);

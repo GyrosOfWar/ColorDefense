@@ -11,13 +11,13 @@ gamelogic::gamelogic(void) {
 
 	std::stringstream tilesPath;
 	tilesPath << BASE_PATH << 1 << TILES_SUFFIX;
-	this->lvl = level(levelFilePath.str(),  tilesPath.str()); 
+	this->lvl = level(levelFilePath.str(),  tilesPath.str(), 1); 
 	/*this->current_wave = lvl.getNextWave();
 	this->enemies = current_wave;*/ //UNCOMMEND ME
 	this->shots = list<shot>();
 	this->running = true;
 
-	this->current_wave;
+	this->current_wave = this->lvl.getNextWave();
 	current_wave.ready();
 }
 
@@ -154,7 +154,7 @@ void gamelogic::loadLevel(int n) {
 
 	std::stringstream tilesPath;
 	tilesPath << BASE_PATH << n << TILES_SUFFIX;
-	this->lvl = level(levelFilePath.str(),  tilesPath.str()); 
+	this->lvl = level(levelFilePath.str(),  tilesPath.str(), 1); 
 }
 
 level& gamelogic::getLevel() {
