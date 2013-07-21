@@ -16,7 +16,7 @@ namespace game {
 	// This file has to include path.hpp since we want to
 	// make a path member variable, not just use it as a parameter
 	// or something like that.
-	//class path; 
+	//class path;
 
 	const sf::Color BUILDABLE_TILE = sf::Color::Black;
 	const sf::Color PASSABLE_TILE = sf::Color::White;
@@ -45,9 +45,7 @@ namespace game {
 		sf::Vector2i getEndTileCoords() const;
 
 		//creates the waves for this lvl
-		void createWaves(int lvl); 
-
-
+		void createWaves(int lvl);
 		void setTileAt(int x, int y, tile value);
 		void setTileAt(sf::Vector2i pos, tile value);
 

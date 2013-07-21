@@ -52,14 +52,13 @@ void gamelogic::update(void) {
 			bool removedEnemy = this->move_enemy(*it);
 			if(removedEnemy) 
 				it = enemies.begin();
+			if(enemies.empty())
+				break;
 		}
 	}
 
-
 	auto startPos = lvl.getStartTileCoords();
 	tile* startTile = (tile*) lvl.getTileAt(startPos);
-
-
 
 	cout << startTile->isOccupied();
 	cout << "\n";
@@ -114,6 +113,13 @@ void gamelogic::move_shot(const shot& shot) {
 
 	//if shot.pos == target _-> target changeColor!!
 	//shot aus liste entfernen
+
+	// | X | T | X: enemy, T: tower 
+	// | . | . |
+	// | . | . |
+	// | Y | . | Y: Enemy position at shot impact
+	//
+	// Y = X + time/speed
 
 }
 
