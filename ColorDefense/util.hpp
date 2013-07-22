@@ -13,6 +13,14 @@ inline sf::Vector2f convertToPixelCoords(int x, int y) {
 	return sf::Vector2f(static_cast<float>(x * TILEWIDTH), static_cast<float>(y * TILEHEIGHT));
 }
 
+inline sf::Vector2i convertToCellCoords(sf::Vector2f vec) {
+	return sf::Vector2i(static_cast<int>(vec.x / TILEWIDTH), static_cast<int>(vec.y / TILEHEIGHT));
+}
+
+inline sf::Vector2f convertToPixelCoords(sf::Vector2i vec) {
+	return sf::Vector2f(static_cast<float>(vec.x * TILEWIDTH), static_cast<float>(vec.y * TILEHEIGHT));
+}
+
 inline float clamp(float x, float a, float b) {
 	return x < a ? a : (x > b ? b : x);
 }
@@ -41,4 +49,11 @@ inline vector<string> string_split(string to_split, char delimiter) {
 
 }
 
+// Returns true if two float vectors are equal.
+// Don't use for anything other than checking if an animation has finished! (tolerance too low)
+inline bool epsilonCompare(sf::Vector2f a, sf::Vector2f b) {
+	bool cmpX = fabs(a.x - b.x) <= 0.001f;
+	bool cmpY = fabs(a.y - b.y) <= 0.001f;
 
+	return cmpX && cmpY;
+}

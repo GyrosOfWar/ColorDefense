@@ -8,16 +8,17 @@ using namespace game;
 enemy::enemy(int color, int maxHealth = 100) {
 	this->color = color;
 	updateColor();
-	shape = sf::CircleShape((TILEHEIGHT / 2) - 2.0f);
+	sf::CircleShape shape((TILEHEIGHT / 2) - 2.0f);
 	shape.setFillColor(color_real);
 	shape.setOutlineColor(sf::Color::Black);
 	shape.setOutlineThickness(2.0f);
 	shape.setOrigin(-2.0f, -2.0f);
 	position = sf::Vector2i(0, 0);
-	lastPosition = sf::Vector2i(-1, -1);
 	this->maxHealth = maxHealth;
 	health = this->maxHealth;
 	this->spot = 0;
+
+	anim.setShape(shape);
 }
 
 enemy::~enemy(void) { }
@@ -29,8 +30,10 @@ void enemy::updateColor(void) {
 	int b = this->color % 0x100;
 
 	color_real = sf::Color(r,g,b);
+	auto shape = anim.getShape();
 	shape.setFillColor(color_real);
 	shape.setPosition(convertToPixelCoords(position.x, position.y));
+	anim.setShape(shape);
 }
 
 void enemy::setColor(int color) {
@@ -46,24 +49,41 @@ sf::Vector2i enemy::getPosition() const {
 	return position;
 }
 
-void enemy::setPosition(sf::Vector2i vec, bool setLastPosition) {
-	if(setLastPosition) {
-		this->lastPosition = position;
-	}
-	this->shape.setPosition(convertToPixelCoords(vec.x, vec.y));
+void enemy::setPosition(sf::Vector2i vec) {
+	//this->shape.setPosition(convertToPixelCoords(vec.x, vec.y));
 	this->position = vec;
 }
 
-void enemy::setPosition(int x, int y, bool setLastPosition) {
-	this->setPosition(sf::Vector2i(x, y), setLastPosition);
+// Moves enemy to given position, animated.
+void enemy::moveTo(sf::Vector2i vec, bool animate) {
+	if(animate) {
+		if(anim.isFinished()) {
+			//cout << "old pos: " << position.x << " " << position.y << ", new pos: " << vec.x << " " << vec.y << endl;
+			anim.update(convertToPixelCoords(position), convertToPixelCoords(vec), 1.0f);
+			anim.animate();
+			position = vec;
+		}
+		else {
+			anim.animate();
+		}
+	}
+	else {
+		//cout << "Not animating!" << endl;
+		position = vec;
+		anim.update(convertToPixelCoords(vec), convertToPixelCoords(vec), 1.0f);
+	}
+}
+
+void enemy::moveTo(int x, int y, bool animate) {
+	this->moveTo(sf::Vector2i(x, y), animate);
+}
+
+void enemy::setPosition(int x, int y) {
+	this->setPosition(sf::Vector2i(x, y));
 }
 
 sf::CircleShape enemy::getShape(void) {
-	return shape;
-}
-
-sf::Vector2i enemy::getLastPosition(void) const {
-	return lastPosition;
+	return anim.getShape();
 }
 
 int enemy::getHealth(void) {
@@ -72,10 +92,6 @@ int enemy::getHealth(void) {
 
 void enemy::setHealth(int h) {
 	this->health = h;
-}
-
-vector<sf::Vector2i>::iterator& enemy::getPathIterator(void) {
-	return pathIterator; 
 }
 
 int enemy::getSpot(void) const {
@@ -90,23 +106,6 @@ bool enemy::operator==(const enemy& that) {
 	return this->getPosition() == that.getPosition() && this->getSpot() == that.getSpot();
 }
 
-
-
-//bool operator==(const enemy& lhs, const enemy& rhs) {
-//		 
-//	//if(&lhs == &rhs) return true;
-//
-//
-//	//if(lhs.getColor() != rhs.getColor()) return false;
-//	////int health;
-//	////int maxHealth;
-//	//if(lhs.getPosition() != rhs.getPosition()) return false;
-//	////sf::Color color_real;
-//	////sf::CircleShape shape;
-//	////sf::Vector2i lastPosition;
-//	////vector<sf::Vector2i>::iterator pathIterator;
-//	//if(lhs.getSpot() != rhs.getSpot()) return false;
-//
-//	//return true;
-//	return lhs.getPosition() == rhs.getPosition() && lhs.getSpot() == rhs.getSpot();
-//}
+bool enemy::animFinished(void) {
+	return anim.isFinished();
+}

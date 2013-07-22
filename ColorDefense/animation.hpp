@@ -7,15 +7,19 @@
 namespace game {
 	class animation {
 	public:
-		animation(sf::Vector2f start, sf::Vector2f end, sf::Shape& shape, float speed);
-		sf::Shape& getShape(void);
+		animation(sf::Vector2f start, sf::Vector2f end, sf::CircleShape shape, float speed);
+		animation(void);
+		sf::CircleShape getShape(void);
+		void setShape(sf::CircleShape shape);
 		bool isFinished(void);
 		void animate(void);
+		void update(sf::Vector2f start, sf::Vector2f end, float speed);
+		void update(sf::Vector2i start, sf::Vector2i end, float speed);
 	private:
 		sf::Vector2f start;
 		sf::Vector2f end;
 		sf::Vector2f position;
-		sf::Shape* shape;
+		sf::CircleShape shape;
 		sf::Vector2f direction;
 		float speed;
 		float increment;

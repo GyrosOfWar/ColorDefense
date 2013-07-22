@@ -36,7 +36,6 @@ void gamelogic::update(void) {
 	//		this.move_enemy(i);
 	//	}
 	//}
-
 	//if(!shots.isEmpty()) {
 	//	for(auto i = shots.begin(); i != shots.end(); i++) {
 	//		this.move_shot(i);
@@ -77,7 +76,8 @@ void gamelogic::set_on_field(enemy enemy) {
 	auto startPos = lvl.getStartTileCoords();
 	tile* startTile = (tile*) lvl.getTileAt(startPos);
 	if(!startTile->isOccupied()) {
-		enemy.setPosition(startPos, false);
+		//enemy.setPosition(startPos, false);
+		enemy.moveTo(startPos, false);
 		//enemy.setShapePos(convertToPixelCoords(startPos.x, startPos.y));
 
 		startTile->setOccupied(true);
@@ -88,20 +88,24 @@ void gamelogic::set_on_field(enemy enemy) {
 
 bool gamelogic::move_enemy(enemy& enemy) {
 	auto en_path = lvl.getEnemyPath();
-
 	auto currentPos = en_path.getPoint(enemy.getSpot());
-	
+
 	if(currentPos != lvl.getEndTileCoords()) {
-		tile* prev = (tile*)lvl.getTileAt(currentPos);
-		prev->setOccupied(false);
-		enemy.incrSpot();
-		enemy.setPosition(en_path.getPoint(enemy.getSpot()), true);
+
+		if(enemy.animFinished()) {
+			tile* prev = (tile*)lvl.getTileAt(currentPos);
+			prev->setOccupied(false);
+			enemy.incrSpot();
+		}
+		//enemy.setPosition(en_path.getPoint(enemy.getSpot()), true);
+		enemy.moveTo(en_path.getPoint(enemy.getSpot()), true);
 		tile* next = (tile*)lvl.getTileAt(en_path.getPoint(enemy.getSpot()));
 		next->setOccupied(true);
 		return false;
 	}
 	else {
 		cout << "Enemy to remove: " << enemy.getPosition().x << " " << enemy.getPosition().y << endl;
+		lvl.setTileAt(lvl.getEndTileCoords(), passable_tile());
 		enemies.remove(enemy);
 		return true;
 	}

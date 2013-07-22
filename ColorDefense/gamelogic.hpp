@@ -9,6 +9,7 @@
 #include <algorithm>
 #include <list>
 #include <sstream>
+#include <memory>
 
 /*
 Class for the gamelogic
