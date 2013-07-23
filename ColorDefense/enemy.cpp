@@ -70,7 +70,7 @@ void enemy::moveTo(sf::Vector2i vec, bool animate) {
 	else {
 		//cout << "Not animating!" << endl;
 		position = vec;
-		position.y++;
+		vec.y--;
 		anim.update(convertToPixelCoords(vec), convertToPixelCoords(position), 1.0f);
 	}
 }
