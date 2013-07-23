@@ -17,8 +17,8 @@ enemy::enemy(int color, int maxHealth = 100) {
 	this->maxHealth = maxHealth;
 	health = this->maxHealth;
 	this->spot = 0;
-
-	anim.setShape(shape);
+	anim = animation(sf::Vector2f(50, 0), sf::Vector2f(50, 0), shape, 1.0f);
+	//anim.setShape(shape);
 }
 
 enemy::~enemy(void) { }

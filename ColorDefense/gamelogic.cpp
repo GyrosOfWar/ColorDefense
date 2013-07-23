@@ -42,11 +42,25 @@ void gamelogic::update(void) {
 	//	}
 	//}
 
+	
+	auto startPos = lvl.getStartTileCoords();
+	tile* startTile = (tile*) lvl.getTileAt(startPos);
+
 	if(enemies.empty()) {
 		this->current_wave = this->lvl.getNextWave();
 		current_wave.ready();
 	}
-	else {
+
+
+	if(!current_wave.isFinished()) {
+		if(!startTile->isOccupied()) {
+			set_on_field(current_wave.spawn());
+		}
+	}
+
+
+
+	if(!enemies.empty()) {
 		for(auto it = enemies.begin(); it != enemies.end(); ++it) {
 			bool removedEnemy = this->move_enemy(*it);
 			if(removedEnemy) 
@@ -56,17 +70,11 @@ void gamelogic::update(void) {
 		}
 	}
 
-	auto startPos = lvl.getStartTileCoords();
-	tile* startTile = (tile*) lvl.getTileAt(startPos);
 
 	cout << startTile->isOccupied();
 	cout << "\n";
 
-	if(!current_wave.isFinished()) {
-		if(!startTile->isOccupied()) {
-			set_on_field(current_wave.spawn());
-		}
-	}
+
 }
 
 void gamelogic::set_on_field(enemy enemy) {
