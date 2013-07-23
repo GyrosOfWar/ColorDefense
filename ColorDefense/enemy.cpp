@@ -8,7 +8,7 @@ using namespace game;
 enemy::enemy(int color, int maxHealth = 100) {
 	this->color = color;
 	updateColor();
-	sf::CircleShape shape((TILEHEIGHT / 2) - 2.0f);
+	sf::CircleShape shape((TILEHEIGHT / 3) - 2.0f);
 	shape.setFillColor(color_real);
 	shape.setOutlineColor(sf::Color::Black);
 	shape.setOutlineThickness(2.0f);
@@ -70,7 +70,8 @@ void enemy::moveTo(sf::Vector2i vec, bool animate) {
 	else {
 		//cout << "Not animating!" << endl;
 		position = vec;
-		anim.update(convertToPixelCoords(vec), convertToPixelCoords(vec), 1.0f);
+		position.y++;
+		anim.update(convertToPixelCoords(vec), convertToPixelCoords(position), 1.0f);
 	}
 }
 
