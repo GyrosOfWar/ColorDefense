@@ -33,7 +33,7 @@ inline sf::Vector2f normalizeVec(const sf::Vector2f& source) {
 inline vector<string> string_split(string to_split, char delimiter) {
 	vector<string> out;
 	string buffer;
-	for(int i = 0; i < to_split.length(); i++) {
+	for(unsigned int i = 0; i < to_split.length(); i++) {
 		if(to_split[i] == delimiter) {
 			if(i > 0) {
 				out.push_back(buffer);
