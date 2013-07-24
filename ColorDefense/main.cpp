@@ -90,15 +90,6 @@ void drawEverything(gamelogic& gl, sf::RenderWindow& window) {
 	if(debugDraw) drawCells(window, gl);
 	window.display();
 }
-
-//void testPath(gamelogic& gl) {
-//	path p;
-//	p.makePath(gl.getLevel());
-//	for(vector<sf::Vector2i>::iterator it = p.begin(); it != p.end(); it++) {
-//		cout << it->x << " " << it->y << endl;
-//	}
-//}
-
 int main() {
 	sf::RenderWindow window(
 		sf::VideoMode(SCREENWIDTH, SCREENHEIGHT),
@@ -109,26 +100,10 @@ int main() {
 
 	gamelogic gl;
 
-	tower t;
-	sf::Sprite towerSprite;
-	sf::Texture towerTexture;
-	towerTexture.loadFromFile("res/sprites/tower1.png");
-	towerSprite.setTexture(towerTexture);
-	t.setSprite(towerSprite);
-	t.setPosition(2, 0);
-
-
-	/*testPath(gl);*/
-
-	//sf::CircleShape* circle = new sf::CircleShape(23.0f);
-	//circle->setFillColor(sf::Color::Black);
-	//animation animation(sf::Vector2f(15.f, 15.f), sf::Vector2f(15.f, 150.f), *circle, 1.0f);
-
 	while(window.isOpen()) {
 		updateGameState(gl);
 		handleEvents(window);
 		drawEverything(gl, window);
 	}
-	//delete circle;
 	return 0;
 }

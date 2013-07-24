@@ -8,10 +8,9 @@ namespace game {
 	class animation {
 	public:
 		animation(sf::Vector2f start, sf::Vector2f end, sf::CircleShape shape, float speed);
-		animation(void);
-		sf::CircleShape getShape(void);
+		sf::CircleShape getShape(void) const;
 		void setShape(sf::CircleShape shape);
-		bool isFinished(void);
+		bool isFinished(void) const;
 		void animate(void);
 		void update(sf::Vector2f start, sf::Vector2f end, float speed);
 		void update(sf::Vector2i start, sf::Vector2i end, float speed);

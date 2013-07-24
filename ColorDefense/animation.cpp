@@ -9,19 +9,11 @@ animation::animation(sf::Vector2f start, sf::Vector2f end, sf::CircleShape shape
 		this->position = start;
 }
 
-animation::animation(void):
-	start(sf::Vector2f(-1, -1)), end(sf::Vector2f(-1, -1)), shape(sf::CircleShape(23.0f)), speed(1.0f) {		
-		this->increment = MOVE_DISTANCE * speed;
-		this->direction = normalizeVec(end - start);
-		this->finished = false;
-		this->position = start;
-}
-
-sf::CircleShape animation::getShape(void) {
+sf::CircleShape animation::getShape(void) const {
 	return shape;
 }
 
-bool animation::isFinished(void) {
+bool animation::isFinished(void) const {
 	return finished;
 }
 
