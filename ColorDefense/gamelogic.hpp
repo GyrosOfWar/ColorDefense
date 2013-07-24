@@ -19,6 +19,15 @@ using std::list;
 
 namespace game {
 
+struct dialouge_struct {
+	sf::RectangleShape next_lvl;
+	sf::RectangleShape border;
+	sf::Text header;
+	sf::Font font;
+	string text;
+};
+
+
 class gamelogic
 {
 public:
@@ -43,6 +52,7 @@ private:
 	bool running;
 	bool bshowDialog;
 	vector<sf::Drawable*> dialogue;
+	dialouge_struct Sdialogue;
 };
 
 }

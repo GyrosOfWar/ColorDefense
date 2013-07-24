@@ -89,13 +89,12 @@ void drawEverything(gamelogic& gl, sf::RenderWindow& window) {
 	drawEnemies(gl, window);
 	if(gl.showDialog()) {
 		vector<sf::Drawable*> dialogue = gl.createDialogue();
-		for(vector<sf::Drawable*>::iterator it = dialogue.begin(); it < dialogue.end(); ++it) {
-			sf::Drawable* item = *it;
-			window.draw(*item);
+		for(vector<sf::Drawable*>::iterator it = dialogue.begin(); it < dialogue.end(); ++it) { 
+			window.draw(**it); 
 		}
 	}
 	if(debugDraw) drawCells(window, gl);
-	window.display();
+
 }
 
 //void testPath(gamelogic& gl) {
@@ -135,6 +134,15 @@ int main() {
 		updateGameState(gl);
 		handleEvents(window);
 		drawEverything(gl, window);
+
+		sf::Font font;
+	font.loadFromFile("arial.ttf");
+
+		sf::Text asdf = sf::Text("asdf", font, 50U);
+		asdf.setColor(sf::Color(0,0,0,255));
+		asdf.setPosition(200,200);
+		window.draw(asdf);
+			window.display();
 	}
 	//delete circle;
 	return 0;

@@ -5,6 +5,9 @@
 using namespace game;
 using namespace chrono;
 
+
+
+
 gamelogic::gamelogic(void) {
 	std::stringstream levelFilePath;
 	levelFilePath << BASE_PATH << 1 << LEVELFILE_SUFFIX;
@@ -164,14 +167,24 @@ bool gamelogic::showDialog(void) {
 }
 
 vector<sf::Drawable*> gamelogic::createDialogue(void) {
-	sf::RectangleShape next_lvl = sf::RectangleShape(sf::Vector2f(50,50));
-	sf::RectangleShape border = sf::RectangleShape(sf::Vector2f(100,100));
-	sf::Text header = sf::Text("lvl done", sf::Font());
-	dialogue.push_back(&border);
-	dialogue.push_back(&next_lvl);
-	dialogue.push_back(&header);
+	this->Sdialogue.next_lvl = sf::RectangleShape(sf::Vector2f(150,75));
+	this->Sdialogue.border = sf::RectangleShape(sf::Vector2f(400,200));
 
-	return dialogue;
+	this->Sdialogue.border.setPosition(200,200);
+	this->Sdialogue.next_lvl.setPosition(225, 300);
+
+	this->Sdialogue.next_lvl.setFillColor(sf::Color(0,255,0,255));
+
+	this->Sdialogue.font.loadFromFile("arial.ttf");
+	this->Sdialogue.text = "continue";
+	this->Sdialogue.header = sf::Text(Sdialogue.text, Sdialogue.font, 20U);
+	this->Sdialogue.header.setColor(sf::Color(0,0,0,255));
+	this->Sdialogue.header.setPosition(sf::Vector2f(235,315));
+	dialogue.push_back(&Sdialogue.border);
+	dialogue.push_back(&Sdialogue.next_lvl);
+	dialogue.push_back(&Sdialogue.header);
+
+	return dialogue; 
 
 
 }
