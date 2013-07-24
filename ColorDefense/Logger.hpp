@@ -36,6 +36,10 @@ public:
 	void setLevel(LEVELS lvl);
 	void setConsole(bool console);
 
+	void debug(ostringstream& text);
+	void info(ostringstream& text);
+	void error(ostringstream& text);
+
 private:
 	Logger(void);
 	~Logger(void);
@@ -50,6 +54,8 @@ private:
 
 	void textOut(const string& text);
 	void textOut(const string& text, COLORS color); // no need atm
+	void textOut(ostringstream& text);
+
 	long getFileLength(const string& path);
 	string getTimeStamp();
 };

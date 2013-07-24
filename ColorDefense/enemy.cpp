@@ -6,6 +6,9 @@ using namespace std;
 using namespace game;
 
 enemy::enemy(int color, int maxHealth = 100) {
+Logger* l = Logger::get();
+
+enemy::enemy(int color, sf::Vector2i startPos): anim(animation(convertToPixelCoords(startPos), convertToPixelCoords(startPos), sf::CircleShape(23.0f), 1.0f)) {
 	this->color = color;
 	updateColor();
 	sf::CircleShape shape((TILEHEIGHT / 3) - 2.0f);
@@ -16,9 +19,13 @@ enemy::enemy(int color, int maxHealth = 100) {
 	position = sf::Vector2i(0, 0);
 	this->maxHealth = maxHealth;
 	health = this->maxHealth;
+	position = startPos;
 	this->spot = 0;
-	anim = animation(sf::Vector2f(50, 0), sf::Vector2f(50, 0), shape, 1.0f);
-	//anim.setShape(shape);
+
+	anim.setShape(shape);
+	anim.setShape(shape);
+
+	this->moveTo(startPos, false);
 }
 
 enemy::~enemy(void) { }
@@ -57,6 +64,7 @@ void enemy::setPosition(sf::Vector2i vec) {
 // Moves enemy to given position, animated.
 void enemy::moveTo(sf::Vector2i vec, bool animate) {
 	if(animate) {
+		_isAnimating = true;
 		if(anim.isFinished()) {
 			//cout << "old pos: " << position.x << " " << position.y << ", new pos: " << vec.x << " " << vec.y << endl;
 			anim.update(convertToPixelCoords(position), convertToPixelCoords(vec), 1.0f);
@@ -70,9 +78,13 @@ void enemy::moveTo(sf::Vector2i vec, bool animate) {
 	else {
 		//cout << "Not animating!" << endl;
 		position = vec;
+		_isAnimating = false;
 		if(vec.y == 0) vec.y--;
 		else if(vec.x == 0) vec.x--;
 		anim.update(convertToPixelCoords(vec), convertToPixelCoords(position), 1.0f);
+		anim.update(convertToPixelCoords(vec), convertToPixelCoords(vec), 1.0f);
+		anim.animate();
+		position = vec;
 	}
 }
 
@@ -109,5 +121,10 @@ bool enemy::operator==(const enemy& that) {
 }
 
 bool enemy::animFinished(void) {
+bool enemy::animFinished(void) const {
 	return anim.isFinished();
+}
+
+bool enemy::isAnimating(void) const {
+	return _isAnimating;
 }

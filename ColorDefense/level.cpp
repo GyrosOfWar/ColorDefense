@@ -36,7 +36,7 @@ wave level::getNextWave(void) {
 
 	// FIXME
 	if(waves.empty()) {
-		return wave("");
+		return wave("", sf::Vector2i(0, 0));
 	}
 	if(currentWaveNum < waves.size()-1) {
 		return waves[currentWaveNum++];
@@ -66,7 +66,7 @@ bool level::loadFromFile(const std::string& path) {
 	sf::Image levelImg;
 	if(!levelImg.loadFromFile(path))
 		return false;
-	
+
 	unsigned int N = levelImg.getSize().x;
 	unsigned int M = levelImg.getSize().y;
 	for(unsigned int i = 0; i < N; i++) {
@@ -156,20 +156,21 @@ void level::makePath(void) {
 						if(find(neighbors.begin(), neighbors.end(), currentPos) == neighbors.end())
 							continue;
 						enemyPath.addPoint(i, j);
-						//currentTile.setOccupied(true);
-						//this->setTileAt(i, j, currentTile);
 						lastPos = pos;
 						pos = currentPos;
-						//if(lastPos.x != -1) {
-						//	tile previousTile = this->getTileAt(lastPos.x, lastPos.y);
-						//	previousTile.setOccupied(false);
-						//	this->setTileAt(lastPos.x, lastPos.y, previousTile);
-						//}
 					}
 				}
 			}
 		}
 	}
+	//auto firstDirection = normalizeVec(enemyPath.getPoint(1) - enemyPath.getPoint(0));
+	//auto pointBehindFirstPoint = enemyPath.getPoint(0) - sf::Vector2i(static_cast<int>(firstDirection.x), static_cast<int>(firstDirection.y));
+	//enemyPath.insertPoint(pointBehindFirstPoint, 0);
+	//for(auto it = enemyPath.begin(); it != enemyPath.end(); ++it) {
+	//	cout << "Path: " << it->x << " " << it->y << endl;
+	//}
+	//startTile = pointBehindFirstPoint;
+
 	if(!foundEnd) throw "Could not find an end tile!";
 }
 
@@ -187,22 +188,8 @@ void level::createWaves(int lvl) {
 
 	string str;
 
-
-	cout << in.good();
-	cout << "\n";
-	cout << in.fail();
-	cout << "\n";
-	cout << in.bad();
-	cout << "\n";
-	cout << in.eof();
-	cout << "\n";
-
-
 	while(getline(in,str)) {
-		waves.push_back(wave(str));  // Process the line.
+		waves.push_back(wave(str, startTile));  // Process the line.
 	}
-
-
-
-		in.close();
+	in.close();
 }

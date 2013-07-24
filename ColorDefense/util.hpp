@@ -30,6 +30,12 @@ inline sf::Vector2f normalizeVec(const sf::Vector2f& source) {
 	return (length == 0) ? source : sf::Vector2f(source.x / length, source.y / length);
 }
 
+inline sf::Vector2f normalizeVec(const sf::Vector2i& source) {
+	auto sourceF = sf::Vector2f(static_cast<float>(source.x), static_cast<float>(source.y));
+	float length = sqrt((sourceF.x * sourceF.x) + (sourceF.y * sourceF.y));
+	return (length == 0) ? sourceF : sf::Vector2f(source.x / length, source.y / length);
+}
+
 inline vector<string> string_split(string to_split, char delimiter) {
 	vector<string> out;
 	string buffer;

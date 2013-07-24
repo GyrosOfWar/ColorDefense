@@ -16,7 +16,7 @@ Logger::~Logger(void) {
 }
 
 long Logger::getFileLength(const string& path) {
-	long begin, end;
+	streamoff begin, end;
 	ifstream myfile (path);
 	begin = myfile.tellg();
 	myfile.seekg (0, ios::end);
@@ -50,6 +50,17 @@ void Logger::textOut(const string& text) {
 	fileSize += text.length();
 }
 
+void Logger::textOut(ostringstream& text) {
+	if(fileSize > MAX_FILESIZE) {
+		logfile.close();
+		logfile.open(FILENAME, ios::out);
+		fileSize = 0;
+	}
+	logfile << text;
+	if(console) cout << text;
+	fileSize += text.tellp();
+}
+
 
 void Logger::info(const string& text) {
 	if(level <= LEVELS::INFO) {
@@ -72,7 +83,7 @@ void Logger::debug(const string& text) {
 	}
 }
 
-	
+
 void Logger::error(const string& text) {
 	if(level <= LEVELS::ERROR) {
 		textOut(getTimeStamp());
@@ -94,14 +105,31 @@ void Logger::setConsole(bool console) {
 string Logger::getTimeStamp() {
 	time_t now = time(nullptr);
 	tm* tm = localtime(&now);
-	#ifdef WIN32
+#ifdef WIN32
 	auto result = put_time(tm, "%d.%m.%y %H:%M");
-	#else
+	// put_time is not implemented in libstdc++ yet, for whatever reason
+#else
 	auto result = "N/A";
-	#endif
+#endif
 	std::stringstream ss;
 	ss << result;
 	return ss.str();
 }
+
+void Logger::info(ostringstream& text) {
+	info(text.str());
+}
+
+void Logger::debug(ostringstream& text) {
+	debug(text.str());
+}
+
+void Logger::error(ostringstream& text) {
+	error(text.str());
+}
+
+//ostream& operator<<(ostream& str, Logger& logger) {
+//	logger.info(str);
+//}
 
 Logger* Logger::instance = nullptr;
