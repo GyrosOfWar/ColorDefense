@@ -16,31 +16,12 @@ gamelogic::gamelogic(void) {
 	this->enemies = current_wave;*/ //UNCOMMEND ME
 	this->shots = list<shot>();
 	this->running = true;
-
-
 }
 
 gamelogic::~gamelogic(void) {
 }
 
 void gamelogic::update(void) {
-	//if(!current_wave.isFinished()) {
-	//	if(start_field.isEmpty())
-	//	this.setOnField(current_wave.spawn());
-	//}
-	//else {
-	//	if(enemies.isEmpty()) //lvl geschafft
-	//}
-	//if(!enemies.isEmpty()) {
-	//	for(auto i = enemies.begin(); i != enemies.end(); i++) {
-	//		this.move_enemy(i);
-	//	}
-	//}
-	//if(!shots.isEmpty()) {
-	//	for(auto i = shots.begin(); i != shots.end(); i++) {
-	//		this.move_shot(i);
-	//	}
-	//}
 
 	if(enemies.empty()) {
 		this->current_wave = this->lvl.getNextWave();
@@ -59,9 +40,6 @@ void gamelogic::update(void) {
 	auto startPos = lvl.getStartTileCoords();
 	tile* startTile = (tile*) lvl.getTileAt(startPos);
 
-	cout << startTile->isOccupied();
-	cout << "\n";
-
 	if(!current_wave.isFinished()) {
 		if(!startTile->isOccupied()) {
 			set_on_field(current_wave.spawn());
@@ -76,12 +54,7 @@ void gamelogic::set_on_field(enemy enemy) {
 	auto startPos = lvl.getStartTileCoords();
 	tile* startTile = (tile*) lvl.getTileAt(startPos);
 	if(!startTile->isOccupied()) {
-		//enemy.setPosition(startPos, false);
-		enemy.moveTo(startPos, false);
-		//enemy.setShapePos(convertToPixelCoords(startPos.x, startPos.y));
-
 		startTile->setOccupied(true);
-		//lvl.setTileAt(startPos, *startTile);
 		enemies.push_back(enemy);
 	}
 }
@@ -92,13 +65,11 @@ bool gamelogic::move_enemy(enemy& enemy) {
 
 	if(currentPos != lvl.getEndTileCoords()) {
 
-		if(enemy.animFinished()) {
 		if(enemy.animFinished() && enemy.isAnimating()) {
 			tile* prev = (tile*)lvl.getTileAt(currentPos);
 			prev->setOccupied(false);
 			enemy.incrSpot();
 		}
-		//enemy.setPosition(en_path.getPoint(enemy.getSpot()), true);
 		enemy.moveTo(en_path.getPoint(enemy.getSpot()), true);
 		tile* next = (tile*)lvl.getTileAt(en_path.getPoint(enemy.getSpot()));
 		next->setOccupied(true);

@@ -2,6 +2,7 @@
 #include "stdafx.h"
 #include "Logger.hpp"
 #include "animation.hpp"
+#include "util.hpp"
 
 #include <sstream>
 #include <iomanip>  
