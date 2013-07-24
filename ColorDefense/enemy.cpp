@@ -6,18 +6,19 @@ using namespace game;
 
 Logger* l = Logger::get();
 
-enemy::enemy(int color, sf::Vector2i startPos): anim(animation(convertToPixelCoords(startPos), convertToPixelCoords(startPos), sf::CircleShape(23.0f), 1.0f)) {
-	this->color = color;
-	updateColor();
-	sf::CircleShape shape((TILEHEIGHT / 3) - 2.0f);
-	shape.setFillColor(color_real);
-	shape.setOutlineColor(sf::Color::Black);
-	shape.setOutlineThickness(2.0f);
-	shape.setOrigin(-2.0f, -2.0f);
-	position = startPos;
-	this->spot = 0;
-	anim.setShape(shape);
-	this->moveTo(startPos, false);
+enemy::enemy(int color, sf::Vector2i startPos): 
+	anim(animation(convertToPixelCoords(startPos), convertToPixelCoords(startPos), sf::CircleShape(23.0f), 1.0f)) {
+		this->color = color;
+		updateColor();
+		sf::CircleShape shape((TILEHEIGHT / 3) - 2.0f);
+		shape.setFillColor(color_real);
+		shape.setOutlineColor(sf::Color::Black);
+		shape.setOutlineThickness(2.0f);
+		shape.setOrigin(-2.0f, -2.0f);
+		position = startPos;
+		this->spot = 0;
+		anim.setShape(shape);
+		this->moveTo(startPos, false);
 }
 
 enemy::~enemy(void) { }
@@ -40,7 +41,7 @@ int enemy::getColor(void) const {
 	return color;
 }
 
-sf::Vector2i enemy::getPosition() const {
+sf::Vector2i enemy::getTilePosition() const {
 	return position;
 }
 
@@ -85,7 +86,7 @@ void enemy::incrSpot(void) {
 }
 
 bool enemy::operator==(const enemy& that) {
-	return this->getPosition() == that.getPosition() && this->getSpot() == that.getSpot();
+	return this->getTilePosition() == that.getTilePosition() && this->getSpot() == that.getSpot();
 }
 
 bool enemy::animFinished(void) const {
@@ -94,4 +95,9 @@ bool enemy::animFinished(void) const {
 
 bool enemy::isAnimating(void) const {
 	return _isAnimating;
+}
+
+
+sf::Vector2f enemy::getPixelPosition(void) const {
+	return anim.getShape().getPosition();
 }

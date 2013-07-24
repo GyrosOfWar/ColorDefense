@@ -11,12 +11,12 @@ path::path(void) {
 path::~path(void) {
 }
 
-vector<sf::Vector2i>::iterator path::begin() {
-	 return points.begin();
+vector<sf::Vector2i>::const_iterator path::cbegin() const {
+	 return points.cbegin();
 }
 
-vector<sf::Vector2i>::iterator path::end() {
-	return points.end();
+vector<sf::Vector2i>::const_iterator path::cend() const {
+	return points.cend();
 }
 
 void path::addPoint(sf::Vector2i v) {
@@ -45,4 +45,8 @@ void path::insertPoint(float x, float y, int position) {
 
 void path::insertPoint(sf::Vector2i v, int position) {
 	points.insert(points.begin() + position, v); 
+}
+
+sf::Vector2i path::getLast(void) {
+	return points.back();
 }

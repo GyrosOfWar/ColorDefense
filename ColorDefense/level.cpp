@@ -10,8 +10,7 @@ level::level(string levelFilePath, string tilesPath, int lvl) {
 	currentWaveNum = 0;
 	finished = false;
 	level_tile_map = tile_map();
-	// FIXME
-	lvlno = 0;
+	lvlno = lvl;
 	if(!loadFromFile(levelFilePath))
 		throw "Failed to open level file.";
 	if(!fillTileMap(tilesPath))
@@ -26,14 +25,6 @@ level::level(void) {
 level::~level(void) { }
 // Error: Incompatible iterators (?)
 wave level::getNextWave(void) {
-	//if(it != waves.end()) {
-	//	return *it++;
-	//}
-	//else  {
-	//	finished = true;
-	//	return *it++;
-	//}
-
 	// FIXME
 	if(waves.empty()) {
 		return wave("", sf::Vector2i(0, 0));
@@ -163,14 +154,37 @@ void level::makePath(void) {
 			}
 		}
 	}
-	//auto firstDirection = normalizeVec(enemyPath.getPoint(1) - enemyPath.getPoint(0));
-	//auto pointBehindFirstPoint = enemyPath.getPoint(0) - sf::Vector2i(static_cast<int>(firstDirection.x), static_cast<int>(firstDirection.y));
-	//enemyPath.insertPoint(pointBehindFirstPoint, 0);
-	//for(auto it = enemyPath.begin(); it != enemyPath.end(); ++it) {
-	//	cout << "Path: " << it->x << " " << it->y << endl;
-	//}
-	//startTile = pointBehindFirstPoint;
+	// Add additional tile behind the end tile for animation
+	sf::Vector2i newEnd;
+	sf::Vector2i newEnd2;
+	if(endTile.x == 0) {
+		newEnd = sf::Vector2i(-1, endTile.y);
+	}
 
+	else if(endTile.y == 0) {
+		newEnd = sf::Vector2i(endTile.x, -1);
+	}
+
+	else if(endTile.x == CELLX-1) {
+		newEnd = sf::Vector2i(CELLX, endTile.y);
+		newEnd = sf::Vector2i(CELLX+1, endTile.y);
+		cout << "DERPPPP" << endl;
+	}
+
+	else if(endTile.y == CELLY-1) {
+		newEnd = sf::Vector2i(endTile.x, CELLY);
+	}
+
+	else if (endTile.x == 0 && endTile.y == 0) {
+		newEnd = sf::Vector2i(0, -1);
+	}
+
+	else if(endTile.x == CELLX-1 && endTile.y == CELLY-1) {
+		newEnd = sf::Vector2i(CELLX, CELLY+1);
+	}	
+	
+	enemyPath.addPoint(newEnd);
+	enemyPath.addPoint(newEnd2);
 	if(!foundEnd) throw "Could not find an end tile!";
 }
 

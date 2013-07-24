@@ -12,8 +12,8 @@ namespace game {
 		path(void);
 		~path(void);
 
-		vector<sf::Vector2i>::iterator begin();
-		vector<sf::Vector2i>::iterator end();
+		vector<sf::Vector2i>::const_iterator cbegin() const;
+		vector<sf::Vector2i>::const_iterator cend() const;
 		void addPoint(int x, int y);
 		void addPoint(float x, float y);
 		void addPoint(sf::Vector2i v);
@@ -23,6 +23,8 @@ namespace game {
 		void insertPoint(sf::Vector2i v, int position);
 
 		sf::Vector2i getPoint(int index);
+
+		sf::Vector2i getLast(void);
 	private:
 		vector<sf::Vector2i> points;
 	};
