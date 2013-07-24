@@ -16,7 +16,7 @@ gamelogic::gamelogic(void) {
 	this->enemies = current_wave;*/ //UNCOMMEND ME
 	this->shots = list<shot>();
 	this->running = true;
-
+	this->bshowDialog = false;
 
 }
 
@@ -41,38 +41,45 @@ void gamelogic::update(void) {
 	//		this.move_shot(i);
 	//	}
 	//}
+#pragma region LVLRUNNING
+	if(!lvl.isFinished()) {
+		auto startPos = lvl.getStartTileCoords();
+		tile* startTile = (tile*) lvl.getTileAt(startPos);
 
-	
-	auto startPos = lvl.getStartTileCoords();
-	tile* startTile = (tile*) lvl.getTileAt(startPos);
-
-	if(enemies.empty()) {
-		this->current_wave = this->lvl.getNextWave();
-		current_wave.ready();
-	}
+		//getting next wave
+		if(enemies.empty()) {
+			this->current_wave = this->lvl.getNextWave();
+			current_wave.ready();
+		}
 
 
-	if(!current_wave.isFinished()) {
-		if(!startTile->isOccupied()) {
-			set_on_field(current_wave.spawn());
+		//spawning opponents
+		if(!current_wave.isFinished()) {
+			if(!startTile->isOccupied()) {
+				//extra check for lvl end
+				if(!lvl.isFinished()) set_on_field(current_wave.spawn());
+			}
+		}
+
+
+		//moving enemies
+		if(!enemies.empty()) {
+			for(auto it = enemies.begin(); it != enemies.end(); ++it) {
+				bool removedEnemy = this->move_enemy(*it);
+				if(removedEnemy) 
+					it = enemies.begin();
+				if(enemies.empty())
+					break;
+			}
 		}
 	}
-
-
-
-	if(!enemies.empty()) {
-		for(auto it = enemies.begin(); it != enemies.end(); ++it) {
-			bool removedEnemy = this->move_enemy(*it);
-			if(removedEnemy) 
-				it = enemies.begin();
-			if(enemies.empty())
-				break;
-		}
+#pragma endregion
+#pragma region LVLFINISHED
+	else {
+		this->bshowDialog = true;
 	}
+#pragma endregion
 
-
-	cout << startTile->isOccupied();
-	cout << "\n";
 
 
 }
@@ -150,4 +157,21 @@ level& gamelogic::getLevel() {
 
 list<enemy>& gamelogic::getEnemies(void) {
 	return enemies;
+}
+
+bool gamelogic::showDialog(void) {
+	return bshowDialog;
+}
+
+vector<sf::Drawable*> gamelogic::createDialogue(void) {
+	sf::RectangleShape next_lvl = sf::RectangleShape(sf::Vector2f(50,50));
+	sf::RectangleShape border = sf::RectangleShape(sf::Vector2f(100,100));
+	sf::Text header = sf::Text("lvl done", sf::Font());
+	dialogue.push_back(&border);
+	dialogue.push_back(&next_lvl);
+	dialogue.push_back(&header);
+
+	return dialogue;
+
+
 }

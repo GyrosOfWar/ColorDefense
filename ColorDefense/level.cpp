@@ -35,15 +35,15 @@ wave level::getNextWave(void) {
 	//}
 
 	// FIXME
-	if(waves.empty()) {
-		return wave("");
+	if(finished) {//unneccesary
+		return wave();
 	}
-	if(currentWaveNum < waves.size()-1) {
+	if(currentWaveNum < waves.size()) {
 		return waves[currentWaveNum++];
 	}
-	else {
+	else { //unneccesary
 		finished = true;
-		return waves[currentWaveNum];
+		return wave();
 	}
 }
 
@@ -206,3 +206,4 @@ void level::createWaves(int lvl) {
 
 		in.close();
 }
+

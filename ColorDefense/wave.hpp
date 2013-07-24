@@ -6,7 +6,7 @@
 namespace game {
 class wave: public std::list<enemy> {
 public:
-	//wave_string: representing enemies, format: #xxxxxx#yyyyyy#... where x and y are numbers between 0 and f (#enemy#enemy#e...) (no # at end)
+	//wave_string: representing enemies, format: #xxxxxx#yyyyyy#... where x and y are numbers between 0 and f (#enemy#enemy#e...#)
 	wave(string wave_string);
 
 	wave(void);

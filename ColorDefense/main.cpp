@@ -87,6 +87,13 @@ void drawEverything(gamelogic& gl, sf::RenderWindow& window) {
 	window.clear(sf::Color::White);
 	window.draw(gl.getLevel().getTileMap());
 	drawEnemies(gl, window);
+	if(gl.showDialog()) {
+		vector<sf::Drawable*> dialogue = gl.createDialogue();
+		for(vector<sf::Drawable*>::iterator it = dialogue.begin(); it < dialogue.end(); ++it) {
+			sf::Drawable* item = *it;
+			window.draw(*item);
+		}
+	}
 	if(debugDraw) drawCells(window, gl);
 	window.display();
 }

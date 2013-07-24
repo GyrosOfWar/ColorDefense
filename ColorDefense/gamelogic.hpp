@@ -33,12 +33,16 @@ public:
 	void loadLevel(int n);
 	level& getLevel(void);
 	list<enemy>& getEnemies(void);
+	bool showDialog(void);
+	vector<sf::Drawable*> createDialogue(void);
 private:
 	level lvl;
 	wave current_wave;
 	list<enemy> enemies;
 	list<shot> shots;
 	bool running;
+	bool bshowDialog;
+	vector<sf::Drawable*> dialogue;
 };
 
 }

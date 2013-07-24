@@ -13,6 +13,7 @@ enemy::enemy(int color, int maxHealth = 100) {
 	shape.setOutlineColor(sf::Color::Black);
 	shape.setOutlineThickness(2.0f);
 	shape.setOrigin(-2.0f, -2.0f);
+	
 	position = sf::Vector2i(0, 0);
 	this->maxHealth = maxHealth;
 	health = this->maxHealth;
@@ -32,7 +33,7 @@ void enemy::updateColor(void) {
 	color_real = sf::Color(r,g,b);
 	auto shape = anim.getShape();
 	shape.setFillColor(color_real);
-	shape.setPosition(convertToPixelCoords(position.x, position.y));
+	shape.setPosition(convertToPixelCoords((static_cast<float>(position.x)+0.5f), (static_cast<float>(position.y)+0.5f)));
 	anim.setShape(shape);
 }
 
@@ -59,6 +60,10 @@ void enemy::moveTo(sf::Vector2i vec, bool animate) {
 	if(animate) {
 		if(anim.isFinished()) {
 			//cout << "old pos: " << position.x << " " << position.y << ", new pos: " << vec.x << " " << vec.y << endl;
+			position.x += 0.5;
+			position.y += 0.5;
+			vec.x += 0.5;
+			vec.y += 0.5;
 			anim.update(convertToPixelCoords(position), convertToPixelCoords(vec), 1.0f);
 			anim.animate();
 			position = vec;
@@ -72,6 +77,10 @@ void enemy::moveTo(sf::Vector2i vec, bool animate) {
 		position = vec;
 		if(vec.y == 0) vec.y--;
 		else if(vec.x == 0) vec.x--;
+		position.x += 0.5;
+		position.y += 0.5;
+		vec.x += 0.5;
+		vec.y += 0.5;
 		anim.update(convertToPixelCoords(vec), convertToPixelCoords(position), 1.0f);
 	}
 }

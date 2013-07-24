@@ -14,8 +14,6 @@ wave::wave(string wave_string) {
 	this->push_back(test2);
 	this->push_back(test3);*/
 
-	/*
-	TODO: split string into single enemies.. string format: #xxxxxx#yyyyyy#... where x and y are numbers between 0 and f **/
 	vector<string> enemies = string_split(wave_string, '#');
 	for(vector<string>::iterator it = enemies.begin(); it != enemies.end(); ++it) {
 
