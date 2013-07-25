@@ -21,7 +21,7 @@ system_clock::time_point lastTime;
 const milliseconds frameTime(1000/FPS);
 
 // Handles keyboard and mouse inputs
-void handleEvents(sf::Window& window) {
+void handleEvents(sf::Window& window, game::gamelogic& gl) {
 	float x, y;
 	sf::Event e;
 	while(window.pollEvent(e)) {
@@ -43,6 +43,14 @@ void handleEvents(sf::Window& window) {
 			default: break;
 			}
 			break;
+		case sf::Event::MouseButtonReleased:
+			{
+			sf::Vector2i m_pos = sf::Mouse::getPosition(window);
+			if(m_pos.x > 225 && m_pos.x < 375 && m_pos.y > 300 && m_pos.y < 375) {
+				gl.next_lvl();
+			}
+			break;
+			}
 		default:
 			break;
 		}
@@ -132,16 +140,9 @@ int main() {
 
 	while(window.isOpen()) {
 		updateGameState(gl);
-		handleEvents(window);
+		handleEvents(window, gl);
 		drawEverything(gl, window);
 
-		sf::Font font;
-	font.loadFromFile("arial.ttf");
-
-		sf::Text asdf = sf::Text("asdf", font, 50U);
-		asdf.setColor(sf::Color(0,0,0,255));
-		asdf.setPosition(200,200);
-		window.draw(asdf);
 			window.display();
 	}
 	//delete circle;

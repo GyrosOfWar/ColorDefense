@@ -9,17 +9,8 @@ using namespace chrono;
 
 
 gamelogic::gamelogic(void) {
-	std::stringstream levelFilePath;
-	levelFilePath << BASE_PATH << 1 << LEVELFILE_SUFFIX;
-
-	std::stringstream tilesPath;
-	tilesPath << BASE_PATH << 1 << TILES_SUFFIX;
-	this->lvl = level(levelFilePath.str(),  tilesPath.str(), 1); 
-	/*this->current_wave = lvl.getNextWave();
-	this->enemies = current_wave;*/ //UNCOMMEND ME
-	this->shots = list<shot>();
-	this->running = true;
-	this->bshowDialog = false;
+	lvl_no = 0;
+	this->next_lvl();
 
 }
 
@@ -186,5 +177,22 @@ vector<sf::Drawable*> gamelogic::createDialogue(void) {
 
 	return dialogue; 
 
+
+}
+
+void gamelogic::next_lvl(void) {
+	lvl_no++;
+
+	std::stringstream levelFilePath;
+	levelFilePath << BASE_PATH << lvl_no << LEVELFILE_SUFFIX;
+
+	std::stringstream tilesPath;
+	tilesPath << BASE_PATH << lvl_no << TILES_SUFFIX;
+	this->lvl = level(levelFilePath.str(),  tilesPath.str(), lvl_no); 
+	/*this->current_wave = lvl.getNextWave();
+	this->enemies = current_wave;*/ //UNCOMMEND ME
+	this->shots = list<shot>();
+	this->running = true;
+	this->bshowDialog = false;
 
 }

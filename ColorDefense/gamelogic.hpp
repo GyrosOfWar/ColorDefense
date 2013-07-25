@@ -44,7 +44,10 @@ public:
 	list<enemy>& getEnemies(void);
 	bool showDialog(void);
 	vector<sf::Drawable*> createDialogue(void);
+	void next_lvl(void);
+
 private:
+	int lvl_no;
 	level lvl;
 	wave current_wave;
 	list<enemy> enemies;
