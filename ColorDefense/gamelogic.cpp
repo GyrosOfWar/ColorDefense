@@ -5,17 +5,13 @@
 using namespace game;
 using namespace chrono;
 
-
-}
 gamelogic::gamelogic(void) {
 	this->finished = false;
 	lvl_no = 0;
 	this->next_lvl();
-
 }
 
-gamelogic::~gamelogic(void) {
-}
+gamelogic::~gamelogic(void) { }
 
 void gamelogic::update(void) {
 #pragma region LVLRUNNING
@@ -24,10 +20,10 @@ void gamelogic::update(void) {
 		tile* startTile = (tile*) lvl.getTileAt(startPos);
 
 		//getting next wave
-	if(enemies.empty()) {
-		this->current_wave = this->lvl.getNextWave();
-		current_wave.ready();
-	}
+		if(enemies.empty()) {
+			this->current_wave = this->lvl.getNextWave();
+			current_wave.ready();
+		}
 
 
 		//spawning opponents
@@ -41,14 +37,14 @@ void gamelogic::update(void) {
 
 		//moving enemies
 		if(!enemies.empty()) {
-		for(auto it = enemies.begin(); it != enemies.end(); ++it) {
-			bool removedEnemy = this->move_enemy(*it);
-			if(removedEnemy) 
-				it = enemies.begin();
-			if(enemies.empty())
-				break;
+			for(auto it = enemies.begin(); it != enemies.end(); ++it) {
+				bool removedEnemy = this->move_enemy(*it);
+				if(removedEnemy) 
+					it = enemies.begin();
+				if(enemies.empty())
+					break;
+			}
 		}
-	}
 	}
 #pragma endregion
 #pragma region LVLFINISHED
@@ -59,10 +55,6 @@ void gamelogic::update(void) {
 		}
 	}
 #pragma endregion
-
-	auto startPos = lvl.getStartTileCoords();
-	tile* startTile = (tile*) lvl.getTileAt(startPos);
-
 
 
 }
@@ -97,7 +89,6 @@ bool gamelogic::move_enemy(enemy& enemy) {
 		return false;
 	}
 	else {
-		cout << "Enemy to remove: " << enemy.getPosition().x << " " << enemy.getPosition().y << endl;
 		lvl.setTileAt(lvl.getEndTileCoords(), passable_tile());
 		enemies.remove(enemy);
 		return true;
@@ -183,7 +174,7 @@ void gamelogic::next_lvl(void) {
 	this->enemies = current_wave;*/ //UNCOMMEND ME
 	this->shots = list<shot>();
 	this->running = true;
-	
+
 
 }
 

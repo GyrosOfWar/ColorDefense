@@ -45,12 +45,12 @@ void handleEvents(sf::Window& window, game::gamelogic& gl) {
 			break;
 		case sf::Event::MouseButtonReleased:
 			{
-			sf::Vector2i m_pos = sf::Mouse::getPosition(window);
-			if(gl.showDialog() && m_pos.x > 225 && m_pos.x < 375 && m_pos.y > 300 && m_pos.y < 375) {
-				if(gl.is_finished()) window.close();
-				else gl.next_lvl();
-			}
-			break;
+				sf::Vector2i m_pos = sf::Mouse::getPosition(window);
+				if(gl.showDialog() && m_pos.x > 225 && m_pos.x < 375 && m_pos.y > 300 && m_pos.y < 375) {
+					if(gl.is_finished()) window.close();
+					else gl.next_lvl();
+				}
+				break;
 			}
 		default:
 			break;
@@ -120,7 +120,7 @@ int main() {
 		handleEvents(window, gl);
 		drawEverything(gl, window);
 
-			window.display();
+		window.display();
 	}
 	return 0;
 }

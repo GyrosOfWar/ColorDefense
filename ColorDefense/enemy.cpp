@@ -4,8 +4,6 @@
 using namespace std;
 using namespace game;
 
-
-
 enemy::enemy(int color, sf::Vector2i startPos): anim(animation(convertToPixelCoords(startPos), convertToPixelCoords(startPos), sf::CircleShape(23.0f), 1.0f)) {
 	this->color = color;
 	updateColor();
@@ -41,10 +39,13 @@ int enemy::getColor(void) const {
 	return color;
 }
 
-sf::Vector2i enemy::getPosition() const {
+sf::Vector2i enemy::getTilePosition(void) const {
 	return position;
 }
 
+sf::Vector2f enemy::getPixelPosition(void) const {
+	return anim.getShape().getPosition();
+}
 
 // Moves enemy to given position, animated.
 void enemy::moveTo(sf::Vector2i vec, bool animate) {
@@ -52,10 +53,6 @@ void enemy::moveTo(sf::Vector2i vec, bool animate) {
 		_isAnimating = true;
 		if(anim.isFinished()) {
 			//cout << "old pos: " << position.x << " " << position.y << ", new pos: " << vec.x << " " << vec.y << endl;
-			position.x += 0.5;
-			position.y += 0.5;
-			vec.x += 0.5;
-			vec.y += 0.5;
 			anim.update(convertToPixelCoords(position), convertToPixelCoords(vec), 1.0f);
 			anim.animate();
 			position = vec;
@@ -91,7 +88,7 @@ void enemy::incrSpot(void) {
 }
 
 bool enemy::operator==(const enemy& that) {
-	return this->getPosition() == that.getPosition() && this->getSpot() == that.getSpot();
+	return this->getPixelPosition() == that.getPixelPosition() && this->getSpot() == that.getSpot();
 }
 
 bool enemy::animFinished(void) const {

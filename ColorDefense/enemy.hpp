@@ -20,9 +20,8 @@ namespace game {
 		void updateColor(void); //sets shape color to the colorvalue
 		void setColor(int color); //sets the color
 		int getColor(void) const; //returns color
-		sf::Vector2i getPosition(void) const;
-		//void setPosition(sf::Vector2i vec);
-		//void setPosition(int x, int y);
+		sf::Vector2i getTilePosition(void) const;
+		sf::Vector2f getPixelPosition(void) const;
 		sf::CircleShape getShape(void);
 		int getSpot(void) const;
 		void incrSpot(void);
