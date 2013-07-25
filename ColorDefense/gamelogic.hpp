@@ -17,8 +17,14 @@ Class for the gamelogic
 using std::list;
 
 namespace game {
-	class gamelogic {
-	public:
+public:
+struct dialouge_struct {
+	sf::RectangleShape next_lvl;
+	sf::RectangleShape border;
+	sf::Text header;
+	sf::Font font;
+	string text;
+};
 		gamelogic(void);
 		~gamelogic(void);
 		void update(void);
@@ -30,12 +36,20 @@ namespace game {
 		void loadLevel(int n);
 		level& getLevel(void);
 		list<enemy>& getEnemies(void);
-	private:
+	bool showDialog(void);
+	vector<sf::Drawable*> createDialogue(void);
+	void next_lvl(void);
+	bool is_finished(void);
+	int lvl_no;
 		level lvl;
 		wave current_wave;
 		list<enemy> enemies;
 		list<shot> shots;
 		bool running;
-	};
+	bool bshowDialog;
+	bool finished;
+	vector<sf::Drawable*> dialogue;
+	dialouge_struct Sdialogue;
+};
 
 }

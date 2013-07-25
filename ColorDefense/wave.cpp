@@ -11,6 +11,7 @@ wave::wave(string wave_string, sf::Vector2i startPos): startPos(startPos) {
 		stringstream colorstream(*it);
 		int color_value;
 		colorstream >> hex >> color_value;
+
 		this->push_back(enemy(color_value, startPos));
 	}
 }

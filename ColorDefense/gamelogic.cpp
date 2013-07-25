@@ -5,29 +5,42 @@
 using namespace game;
 using namespace chrono;
 
-gamelogic::gamelogic(void) {
-	std::stringstream levelFilePath;
-	levelFilePath << BASE_PATH << 1 << LEVELFILE_SUFFIX;
 
-	std::stringstream tilesPath;
-	tilesPath << BASE_PATH << 1 << TILES_SUFFIX;
-	this->lvl = level(levelFilePath.str(),  tilesPath.str(), 1); 
-	/*this->current_wave = lvl.getNextWave();
-	this->enemies = current_wave;*/ //UNCOMMEND ME
-	this->shots = list<shot>();
-	this->running = true;
+}
+gamelogic::gamelogic(void) {
+	this->finished = false;
+	lvl_no = 0;
+	this->next_lvl();
+
 }
 
 gamelogic::~gamelogic(void) {
 }
 
 void gamelogic::update(void) {
+#pragma region LVLRUNNING
+	if(!lvl.isFinished()) {
+		auto startPos = lvl.getStartTileCoords();
+		tile* startTile = (tile*) lvl.getTileAt(startPos);
 
+		//getting next wave
 	if(enemies.empty()) {
 		this->current_wave = this->lvl.getNextWave();
 		current_wave.ready();
 	}
-	else {
+
+
+		//spawning opponents
+		if(!current_wave.isFinished()) {
+			if(!startTile->isOccupied()) {
+				//extra check for lvl end
+				if(!lvl.isFinished()) set_on_field(current_wave.spawn());
+			}
+		}
+
+
+		//moving enemies
+		if(!enemies.empty()) {
 		for(auto it = enemies.begin(); it != enemies.end(); ++it) {
 			bool removedEnemy = this->move_enemy(*it);
 			if(removedEnemy) 
@@ -36,15 +49,22 @@ void gamelogic::update(void) {
 				break;
 		}
 	}
+	}
+#pragma endregion
+#pragma region LVLFINISHED
+	else {
+		this->bshowDialog = true;
+		if(lvl_no == MAXLVLS) {
+			finished = true;
+		}
+	}
+#pragma endregion
 
 	auto startPos = lvl.getStartTileCoords();
 	tile* startTile = (tile*) lvl.getTileAt(startPos);
 
-	if(!current_wave.isFinished()) {
-		if(!startTile->isOccupied()) {
-			set_on_field(current_wave.spawn());
-		}
-	}
+
+
 }
 
 void gamelogic::set_on_field(enemy enemy) {
@@ -54,6 +74,7 @@ void gamelogic::set_on_field(enemy enemy) {
 	auto startPos = lvl.getStartTileCoords();
 	tile* startTile = (tile*) lvl.getTileAt(startPos);
 	if(!startTile->isOccupied()) {
+		//enemy.moveTo(startPos, false);
 		startTile->setOccupied(true);
 		enemies.push_back(enemy);
 	}
@@ -114,4 +135,58 @@ level& gamelogic::getLevel() {
 
 list<enemy>& gamelogic::getEnemies(void) {
 	return enemies;
+}
+
+bool gamelogic::showDialog(void) {
+	return bshowDialog;
+}
+
+vector<sf::Drawable*> gamelogic::createDialogue(void) {
+	this->Sdialogue.next_lvl = sf::RectangleShape(sf::Vector2f(150,75));
+	this->Sdialogue.border = sf::RectangleShape(sf::Vector2f(400,200));
+
+	this->Sdialogue.border.setPosition(200,200);
+	this->Sdialogue.next_lvl.setPosition(225, 300);
+
+	this->Sdialogue.next_lvl.setFillColor(sf::Color(0,255,0,255));
+
+	this->Sdialogue.font.loadFromFile("arial.ttf");
+	if(!finished) {
+		this->Sdialogue.text = "continue";
+	}
+	else {
+		this->Sdialogue.text = "finish";
+	}
+	this->Sdialogue.header = sf::Text(Sdialogue.text, Sdialogue.font, 20U);
+	this->Sdialogue.header.setColor(sf::Color(0,0,0,255));
+	this->Sdialogue.header.setPosition(sf::Vector2f(235,315));
+	dialogue.push_back(&Sdialogue.border);
+	dialogue.push_back(&Sdialogue.next_lvl);
+	dialogue.push_back(&Sdialogue.header);
+
+	return dialogue; 
+
+
+}
+
+void gamelogic::next_lvl(void) {
+	this->bshowDialog = false;
+	lvl_no++;
+
+	std::stringstream levelFilePath;
+	levelFilePath << BASE_PATH << lvl_no << LEVELFILE_SUFFIX;
+
+	std::stringstream tilesPath;
+	tilesPath << BASE_PATH << lvl_no << TILES_SUFFIX;
+	this->lvl = level(levelFilePath.str(),  tilesPath.str(), lvl_no); 
+	/*this->current_wave = lvl.getNextWave();
+	this->enemies = current_wave;*/ //UNCOMMEND ME
+	this->shots = list<shot>();
+	this->running = true;
+	
+
+}
+
+bool gamelogic::is_finished(void) {
+	return this->finished;
 }

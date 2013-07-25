@@ -21,7 +21,7 @@ system_clock::time_point lastTime;
 const milliseconds frameTime(1000/FPS);
 
 // Handles keyboard and mouse inputs
-void handleEvents(sf::Window& window) {
+void handleEvents(sf::Window& window, game::gamelogic& gl) {
 	float x, y;
 	sf::Event e;
 	while(window.pollEvent(e)) {
@@ -43,6 +43,15 @@ void handleEvents(sf::Window& window) {
 			default: break;
 			}
 			break;
+		case sf::Event::MouseButtonReleased:
+			{
+			sf::Vector2i m_pos = sf::Mouse::getPosition(window);
+			if(gl.showDialog() && m_pos.x > 225 && m_pos.x < 375 && m_pos.y > 300 && m_pos.y < 375) {
+				if(gl.is_finished()) window.close();
+				else gl.next_lvl();
+			}
+			break;
+			}
 		default:
 			break;
 		}
@@ -87,8 +96,14 @@ void drawEverything(gamelogic& gl, sf::RenderWindow& window) {
 	window.clear(sf::Color::White);
 	window.draw(gl.getLevel().getTileMap());
 	drawEnemies(gl, window);
+	if(gl.showDialog()) {
+		vector<sf::Drawable*> dialogue = gl.createDialogue();
+		for(vector<sf::Drawable*>::iterator it = dialogue.begin(); it < dialogue.end(); ++it) { 
+			window.draw(**it); 
+		}
+	}
 	if(debugDraw) drawCells(window, gl);
-	window.display();
+
 }
 int main() {
 	sf::RenderWindow window(
@@ -102,8 +117,10 @@ int main() {
 
 	while(window.isOpen()) {
 		updateGameState(gl);
-		handleEvents(window);
+		handleEvents(window, gl);
 		drawEverything(gl, window);
+
+			window.display();
 	}
 	return 0;
 }

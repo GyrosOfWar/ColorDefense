@@ -50,6 +50,7 @@ namespace game {
 		void setTileAt(sf::Vector2i pos, tile value);
 
 		path getEnemyPath(void);
+
 	private:
 		vector<tile> map;
 		vector<wave> waves;

@@ -4,7 +4,7 @@
 using namespace std;
 using namespace game;
 
-Logger* l = Logger::get();
+
 
 enemy::enemy(int color, sf::Vector2i startPos): anim(animation(convertToPixelCoords(startPos), convertToPixelCoords(startPos), sf::CircleShape(23.0f), 1.0f)) {
 	this->color = color;
@@ -16,6 +16,7 @@ enemy::enemy(int color, sf::Vector2i startPos): anim(animation(convertToPixelCoo
 	shape.setOrigin(-2.0f, -2.0f);
 	position = startPos;
 	this->spot = 0;
+
 	anim.setShape(shape);
 	this->moveTo(startPos, false);
 }
@@ -44,12 +45,17 @@ sf::Vector2i enemy::getPosition() const {
 	return position;
 }
 
+
 // Moves enemy to given position, animated.
 void enemy::moveTo(sf::Vector2i vec, bool animate) {
 	if(animate) {
 		_isAnimating = true;
 		if(anim.isFinished()) {
 			//cout << "old pos: " << position.x << " " << position.y << ", new pos: " << vec.x << " " << vec.y << endl;
+			position.x += 0.5;
+			position.y += 0.5;
+			vec.x += 0.5;
+			vec.y += 0.5;
 			anim.update(convertToPixelCoords(position), convertToPixelCoords(vec), 1.0f);
 			anim.animate();
 			position = vec;
