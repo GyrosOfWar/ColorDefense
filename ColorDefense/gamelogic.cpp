@@ -9,6 +9,7 @@ using namespace chrono;
 
 
 gamelogic::gamelogic(void) {
+	this->finished = false;
 	lvl_no = 0;
 	this->next_lvl();
 
@@ -71,6 +72,9 @@ void gamelogic::update(void) {
 #pragma region LVLFINISHED
 	else {
 		this->bshowDialog = true;
+		if(lvl_no == MAXLVLS) {
+			finished = true;
+		}
 	}
 #pragma endregion
 
@@ -167,7 +171,12 @@ vector<sf::Drawable*> gamelogic::createDialogue(void) {
 	this->Sdialogue.next_lvl.setFillColor(sf::Color(0,255,0,255));
 
 	this->Sdialogue.font.loadFromFile("arial.ttf");
-	this->Sdialogue.text = "continue";
+	if(!finished) {
+		this->Sdialogue.text = "continue";
+	}
+	else {
+		this->Sdialogue.text = "finish";
+	}
 	this->Sdialogue.header = sf::Text(Sdialogue.text, Sdialogue.font, 20U);
 	this->Sdialogue.header.setColor(sf::Color(0,0,0,255));
 	this->Sdialogue.header.setPosition(sf::Vector2f(235,315));
@@ -181,6 +190,7 @@ vector<sf::Drawable*> gamelogic::createDialogue(void) {
 }
 
 void gamelogic::next_lvl(void) {
+	this->bshowDialog = false;
 	lvl_no++;
 
 	std::stringstream levelFilePath;
@@ -193,6 +203,10 @@ void gamelogic::next_lvl(void) {
 	this->enemies = current_wave;*/ //UNCOMMEND ME
 	this->shots = list<shot>();
 	this->running = true;
-	this->bshowDialog = false;
+	
 
+}
+
+bool gamelogic::is_finished(void) {
+	return this->finished;
 }

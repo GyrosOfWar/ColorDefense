@@ -45,6 +45,7 @@ public:
 	bool showDialog(void);
 	vector<sf::Drawable*> createDialogue(void);
 	void next_lvl(void);
+	bool is_finished(void);
 
 private:
 	int lvl_no;
@@ -54,6 +55,7 @@ private:
 	list<shot> shots;
 	bool running;
 	bool bshowDialog;
+	bool finished;
 	vector<sf::Drawable*> dialogue;
 	dialouge_struct Sdialogue;
 };

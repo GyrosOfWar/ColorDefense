@@ -46,8 +46,9 @@ void handleEvents(sf::Window& window, game::gamelogic& gl) {
 		case sf::Event::MouseButtonReleased:
 			{
 			sf::Vector2i m_pos = sf::Mouse::getPosition(window);
-			if(m_pos.x > 225 && m_pos.x < 375 && m_pos.y > 300 && m_pos.y < 375) {
-				gl.next_lvl();
+			if(gl.showDialog() && m_pos.x > 225 && m_pos.x < 375 && m_pos.y > 300 && m_pos.y < 375) {
+				if(gl.is_finished()) window.close();
+				else gl.next_lvl();
 			}
 			break;
 			}

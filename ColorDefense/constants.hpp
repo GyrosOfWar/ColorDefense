@@ -18,5 +18,7 @@ const string LEVELWAVE_SUFFIX = ".waves.txt";
 // This doesn't seem right
 const float MOVE_DISTANCE = static_cast<float>(TILEHEIGHT) / static_cast<float>(FPS);
 
+const int MAXLVLS = 2;
+
 
 }
