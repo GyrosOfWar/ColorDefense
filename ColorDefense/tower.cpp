@@ -93,5 +93,5 @@ shot tower::shoot(enemy* en) {
 }
 
 bool tower::is_ready(void) {
-	return (shot_c++ % 15) == 0;
+	return (shot_c++ % 50) == 0;
 }

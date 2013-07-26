@@ -7,7 +7,7 @@ using namespace game;
 enemy::enemy(int color, sf::Vector2i startPos): anim(animation(convertToPixelCoords(startPos), convertToPixelCoords(startPos), sf::CircleShape(23.0f), 1.0f)) {
 	this->color = color;
 	updateColor();
-	sf::CircleShape shape((TILEHEIGHT / 3) - 2.0f);
+	shape = sf::CircleShape((TILEHEIGHT / 3) - 2.0f);
 	shape.setFillColor(color_real);
 	shape.setOutlineColor(sf::Color::Black);
 	shape.setOutlineThickness(2.0f);
@@ -28,6 +28,9 @@ void enemy::updateColor(void) {
 	int b = this->color % 0x100;
 
 	color_real = sf::Color(r,g,b);
+	shape.setFillColor(color_real);
+	anim.setShape(shape);
+
 }
 
 void enemy::setColor(int color) {

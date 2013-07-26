@@ -60,7 +60,10 @@ void shot::setPosition(int x, int y) {
 
 bool shot::move(void) {
 
-	if(this->position == target->getTilePosition())	return true; //shot hit enemy
+	if(this->position == target->getTilePosition()) {
+		target->setColor(target->getColor()+this->color);
+		return true; //shot hit enemy
+	}
 	else {
 		sf::Vector2f shot_pix = convertToPixelCoords(this->position);
 		sf::Vector2f target_pix = target->getPixelPosition();

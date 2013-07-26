@@ -34,6 +34,7 @@ namespace game {
 		int color;
 		sf::Vector2i position;
 		sf::Color color_real;
+		sf::CircleShape shape;
 		int spot;
 		bool _isAnimating;
 		animation anim;
