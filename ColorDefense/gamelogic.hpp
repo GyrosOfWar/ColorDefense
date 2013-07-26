@@ -35,7 +35,7 @@ namespace game {
 		bool isRunning(void);
 		void set_on_field(enemy enemy);
 		bool move_enemy(enemy& enemy);
-		void move_shot(const shot& shot);
+		bool move_shot(shot& shot);
 		void loadLevel(int n);
 		level& getLevel(void);
 		list<enemy>& getEnemies(void);
@@ -47,6 +47,7 @@ namespace game {
 		list<tower>& getTowers(void);
 		bool is_adding_tower(void);
 		void set_tower(sf::Vector2i pos);
+		list<shot>& getShots(void);
 	private:
 		int lvl_no;
 		level lvl;

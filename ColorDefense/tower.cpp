@@ -83,3 +83,15 @@ void tower::set_set(bool set) {
 bool tower::is_set(void) {
 	return this->set;
 }
+
+shot tower::shoot(enemy* en) {
+	shot ret = shot(this->color,en,convertToPixelCoords(this->position));
+	ret.setPosition(this->position);
+
+
+	return ret;
+}
+
+bool tower::is_ready(void) {
+	return (shot_c++ % 15) == 0;
+}

@@ -108,11 +108,19 @@ void drawTowers(gamelogic& gl, sf::RenderWindow& window) {
 	}
 }
 
+void drawShots(gamelogic& gl, sf::RenderWindow& window) {
+	auto shots = gl.getShots();
+	for(auto it = shots.begin(); it != shots.end(); ++it) {
+		window.draw(it->getShape());
+	}
+}
+
 void drawEverything(gamelogic& gl, sf::RenderWindow& window) {
 	window.clear(sf::Color::White);
 	window.draw(gl.getLevel().getTileMap());
 	drawEnemies(gl, window);
 	drawTowers(gl,window);
+	drawShots(gl,window);
 	if(gl.showDialog()) {
 		vector<sf::Drawable*> dialogue = gl.createDialogue();
 		for(vector<sf::Drawable*>::iterator it = dialogue.begin(); it < dialogue.end(); ++it) { 

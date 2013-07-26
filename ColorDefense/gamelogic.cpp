@@ -46,6 +46,24 @@ void gamelogic::update(void) {
 					break;
 			}
 		}
+
+		if(!towers.empty() && !enemies.empty() && !adding_tower) {
+			for(auto it = towers.begin(); it != towers.end(); ++it) {
+				auto x = enemies.begin();//dummy erster gegner
+				if(it->is_ready()) shots.push_back(it->shoot(&*x));
+			}
+		}
+
+
+		//moving shots
+		if(!shots.empty()) {
+			for(auto it= shots.begin(); it != shots.end(); ++it) {
+				bool removedShot = this->move_shot(*it);
+				if(removedShot) it = shots.begin();
+				if(shots.empty()) break;
+			}
+
+		}
 	}
 #pragma endregion
 #pragma region LVLFINISHED
@@ -96,10 +114,11 @@ bool gamelogic::move_enemy(enemy& enemy) {
 	}
 }
 
-void gamelogic::move_shot(const shot& shot) {
+bool gamelogic::move_shot(shot& shot) {
 	//shot weiterbewegen richtung enemy oder richtung sein ziel
 	//ziel davor ausrechnen, damit shot nicht bloed fliegt (gerade statt komische parabel oda so xD)
 
+	 
 	//if shot.pos == target _-> target changeColor!!
 	//shot aus liste entfernen
 
@@ -109,7 +128,9 @@ void gamelogic::move_shot(const shot& shot) {
 	// | Y | . | Y: Enemy position at shot impact
 	//
 	// Y = X + time/speed
-
+	bool remove = shot.move();
+	if(remove) shots.remove(shot);
+	return remove;
 }
 
 void gamelogic::loadLevel(int n) {
@@ -208,4 +229,8 @@ void gamelogic::set_tower(sf::Vector2i pos) {
 		target->setOccupied(true);
 	}
 	
+}
+
+list<shot>& gamelogic::getShots(void) {
+	return this->shots;
 }

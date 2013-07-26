@@ -1,6 +1,7 @@
 #pragma once
 #include <SFML/Graphics.hpp>
 #include "util.hpp"
+#include "shot.hpp"
 namespace game {
 class tower {
 public:
@@ -26,6 +27,8 @@ public:
 	void updateColor(void);
 	bool is_set(void);
 	void set_set(bool set);
+	shot shoot(enemy* en);
+	bool is_ready(void);
 private:
 	int shooting_rate;
 	sf::Vector2i position;
@@ -42,5 +45,7 @@ private:
 	// Sprite only stores a pointer to the texture,
 	// so we need to keep the texture around.
 	sf::Texture texture;
+
+	int shot_c;
 };
 }
