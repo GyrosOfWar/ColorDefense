@@ -40,6 +40,12 @@ void handleEvents(sf::Window& window, game::gamelogic& gl) {
 			switch(e.key.code) {
 			case sf::Keyboard::Space:
 				debugDraw = !debugDraw; break;
+			case sf::Keyboard::B: 
+				gl.add_tower(tower(0)); break;
+			case sf::Keyboard::W: 
+				gl.add_tower(tower(0xffffff)); break;
+			case sf::Keyboard::G: 
+				gl.add_tower(tower(0xff00)); break;
 			default: break;
 			}
 			break;
@@ -49,6 +55,9 @@ void handleEvents(sf::Window& window, game::gamelogic& gl) {
 				if(gl.showDialog() && m_pos.x > 225 && m_pos.x < 375 && m_pos.y > 300 && m_pos.y < 375) {
 					if(gl.is_finished()) window.close();
 					else gl.next_lvl();
+				}
+				if(gl.is_adding_tower()) {
+					gl.set_tower(m_pos);
 				}
 				break;
 			}
@@ -92,10 +101,18 @@ void drawEnemies(gamelogic& gl, sf::RenderWindow& window) {
 	}
 }
 
+void drawTowers(gamelogic& gl, sf::RenderWindow& window) {
+	auto towers = gl.getTowers();
+	for(auto it = towers.begin(); it != towers.end(); ++it) {
+		if(it->is_set()) window.draw(it->getShape());
+	}
+}
+
 void drawEverything(gamelogic& gl, sf::RenderWindow& window) {
 	window.clear(sf::Color::White);
 	window.draw(gl.getLevel().getTileMap());
 	drawEnemies(gl, window);
+	drawTowers(gl,window);
 	if(gl.showDialog()) {
 		vector<sf::Drawable*> dialogue = gl.createDialogue();
 		for(vector<sf::Drawable*>::iterator it = dialogue.begin(); it < dialogue.end(); ++it) { 

@@ -10,7 +10,7 @@ public:
 	int getTileNumber(void) const;
 	sf::Sprite getSprite(void) const;
 	void setSprite(sf::Sprite sprite);
-	const void setOccupied(bool occ);
+	void setOccupied(bool occ);
 protected:
 	bool passable;
 	bool buildable;

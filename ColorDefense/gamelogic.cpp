@@ -9,6 +9,7 @@ gamelogic::gamelogic(void) {
 	this->finished = false;
 	lvl_no = 0;
 	this->next_lvl();
+	this->adding_tower = false;
 }
 
 gamelogic::~gamelogic(void) { }
@@ -180,4 +181,31 @@ void gamelogic::next_lvl(void) {
 
 bool gamelogic::is_finished(void) {
 	return this->finished;
+}
+
+void gamelogic::add_tower(tower t) {
+	if(adding_tower) towers.pop_back();
+	this->towers.push_back(t);
+	this->adding_tower = true;
+}
+
+list<tower>& gamelogic::getTowers(void) {
+	return this->towers;
+}
+
+bool gamelogic::is_adding_tower(void) {
+	return this->adding_tower;
+}
+
+void gamelogic::set_tower(sf::Vector2i pos) {
+	auto it = towers.end();
+	it--;
+	it->setPosition(pos);
+	tile* target = (tile*) lvl.getTileAt(convertToCellCoords(sf::Vector2f(pos)));
+	if(target->isBuildable() && !target->isOccupied()) {
+		it->set_set(true);
+		this->adding_tower = false;
+		target->setOccupied(true);
+	}
+	
 }

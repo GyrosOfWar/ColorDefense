@@ -6,6 +6,7 @@
 #include "shot.hpp"
 #include "wave.hpp"
 #include "animation.hpp"
+#include "tower.hpp"
 #include <algorithm>
 #include <list>
 #include <sstream>
@@ -42,17 +43,23 @@ namespace game {
 		vector<sf::Drawable*> createDialogue(void);
 		void next_lvl(void);
 		bool is_finished(void);
+		void add_tower(tower t);
+		list<tower>& getTowers(void);
+		bool is_adding_tower(void);
+		void set_tower(sf::Vector2i pos);
 	private:
 		int lvl_no;
 		level lvl;
 		wave current_wave;
 		list<enemy> enemies;
 		list<shot> shots;
+		list<tower> towers;
 		bool running;
 		bool bshowDialog;
 		bool finished;
 		vector<sf::Drawable*> dialogue;
 		dialouge_struct Sdialogue;
+		bool adding_tower;
 	};
 
 }

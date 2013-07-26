@@ -4,12 +4,12 @@
 namespace game {
 class tower {
 public:
-	tower(void);
+	tower(int color);
 	~tower(void);
 	int getShootingRate(void) const;
 	void setShootingRate(int rate);
 	
-	// sets the osition in tile coordinates ([0 .. CELLX-1], [0, CELLY-1])
+	// sets the position in tile coordinates ([0 .. CELLX-1], [0, CELLY-1])
 	sf::Vector2i getPosition(void) const;
 	// sets the position in tile coordinates ([0 .. CELLX-1], [0, CELLY-1])
 	void setPosition(sf::Vector2i vec);
@@ -21,10 +21,22 @@ public:
 
 	sf::Sprite getSprite(void) const;
 	void setSprite(sf::Sprite s);
+
+	sf::RectangleShape getShape(void);
+	void updateColor(void);
+	bool is_set(void);
+	void set_set(bool set);
 private:
 	int shooting_rate;
 	sf::Vector2i position;
 	int color;
+
+	bool set;
+
+	sf::Color color_real;
+
+	sf::RectangleShape shape;
+
 	//grafik
 	sf::Sprite sprite;
 	// Sprite only stores a pointer to the texture,
