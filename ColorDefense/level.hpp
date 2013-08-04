@@ -9,6 +9,7 @@
 #include "blocked_tile.hpp"
 #include "path.hpp"
 #include <list>
+#include <map>
 
 namespace game {
 	// Forward declarations

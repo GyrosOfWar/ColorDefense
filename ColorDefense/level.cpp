@@ -124,7 +124,7 @@ sf::Vector2i level::getEndTileCoords() const {
 }
 
 void level::makePath(void) {
-	auto start = this->getStartTileCoords();
+	/*auto start = this->getStartTileCoords();
 	auto end = this->getEndTileCoords();
 	auto pos = start;
 	auto lastPos = sf::Vector2i(-1, -1);
@@ -171,7 +171,31 @@ void level::makePath(void) {
 	//}
 	//startTile = pointBehindFirstPoint;
 
-	if(!foundEnd) throw "Could not find an end tile!";
+	if(!foundEnd) throw "Could not find an end tile!"; */
+
+
+	auto startPosition = this->getStartTileCoords();
+	auto endPosition = this->getEndTileCoords();
+	auto currentPosition = startPosition;
+	sf::Vector2i lastPos (-1, -1);
+	enemyPath.addPoint(startPosition);
+	bool foundEnd = false;
+
+	while(!foundEnd) {
+		auto x = currentPosition.x;
+		auto y = currentPosition.y;
+		std::map<sf::Vector2i, const tile*> neighbors;
+		neighbors[sf::Vector2i(x-1, y)] = getTileAt(x-1, y);
+		neighbors[sf::Vector2i(x+1, y)] = getTileAt(x+1, y);
+		neighbors[sf::Vector2i(x, y-1)] = getTileAt(x, y-1);
+		neighbors[sf::Vector2i(x, y+1)] = getTileAt(x, y+1);
+
+		for(auto it = neighbors.begin(); it != neighbors.end(); ++it) {
+			auto pos = it->first;
+			auto tile = it->second;
+		}
+	}
+
 }
 
 path level::getEnemyPath(void) {
@@ -188,9 +212,9 @@ void level::createWaves(int lvl) {
 
 	string str;
 
-	while(getline(in,str)) {
+	while(getline(in,str))
 		waves.push_back(wave(str, startTile));  // Process the line.
-	}
+
 	in.close();
 }
 
