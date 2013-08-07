@@ -5,7 +5,7 @@
 namespace game {
 class tower {
 public:
-	tower(int color);
+	tower(int color, int range = 2);
 	~tower(void);
 	int getShootingRate(void) const;
 	void setShootingRate(int rate);
@@ -29,6 +29,13 @@ public:
 	void set_set(bool set);
 	shot shoot(enemy* en);
 	bool is_ready(void);
+	void set_range(int range);
+	int get_range(void);
+	enemy* get_current_target(void);
+	void set_current_target(enemy* target);
+	void set_has_current_target(bool has_current_target);
+	bool get_has_current_target(void);
+
 private:
 	int shooting_rate;
 	sf::Vector2i position;
@@ -47,5 +54,10 @@ private:
 	sf::Texture texture;
 
 	int shot_c;
+
+	int range;
+	enemy* current_target;
+	bool has_current_target;
+
 };
 }

@@ -3,11 +3,12 @@
 
 using namespace game;
 
-tower::tower(int color) { 
+tower::tower(int color, int range) { 
 	this->color = color;
 	updateColor();
 	this->shape = sf::RectangleShape(sf::Vector2f((TILEHEIGHT / 2) - 2.0f, (TILEHEIGHT / 2) - 2.0f));
 	
+	this->range = 2;
 	shape.setFillColor(color_real);
 	shape.setOutlineColor(sf::Color::Black);
 	shape.setOutlineThickness(2.0f);
@@ -94,4 +95,25 @@ shot tower::shoot(enemy* en) {
 
 bool tower::is_ready(void) {
 	return (shot_c++ % 50) == 0;
+}
+
+
+enemy* tower::get_current_target(void) {
+	return current_target;
+}
+
+void tower::set_has_current_target(bool has_current_target) {
+	this->has_current_target = has_current_target;
+}
+bool tower::get_has_current_target(void) {
+	return this->has_current_target;
+}
+
+void tower::set_current_target(enemy* target) {//calculates current target, if there is none in range returns false
+	this->current_target = target;
+	this->has_current_target = true;
+}
+
+int tower::get_range(void) {
+	return this->range;
 }

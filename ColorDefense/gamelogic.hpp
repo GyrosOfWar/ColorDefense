@@ -48,6 +48,8 @@ namespace game {
 		bool is_adding_tower(void);
 		void set_tower(sf::Vector2i pos);
 		list<shot>& getShots(void);
+		void check_target_for_tower(tower* tw);
+		bool check_in_range(tower* tw, enemy* e);
 	private:
 		int lvl_no;
 		level lvl;
