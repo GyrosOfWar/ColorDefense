@@ -22,7 +22,7 @@ namespace game {
 		void insertPoint(float x, float y, int position);
 		void insertPoint(sf::Vector2i v, int position);
 
-		sf::Vector2i getPoint(int index);
+		sf::Vector2i getPoint(int index) const;
 	private:
 		vector<sf::Vector2i> points;
 	};

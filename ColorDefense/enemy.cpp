@@ -7,6 +7,7 @@ using namespace game;
 enemy::enemy(int color, sf::Vector2i startPos): anim(animation(convertToPixelCoords(startPos), convertToPixelCoords(startPos), sf::CircleShape(23.0f), 1.0f)) {
 	this->color = color;
 	updateColor();
+	// Prepare CircleShape for animation
 	shape = sf::CircleShape((TILEHEIGHT / 3) - 2.0f);
 	shape.setFillColor(color_real);
 	shape.setOutlineColor(sf::Color::Black);
@@ -100,4 +101,16 @@ bool enemy::animFinished(void) const {
 
 bool enemy::isAnimating(void) const {
 	return _isAnimating;
+}
+
+sf::Vector2f enemy::getPositionAt(int numTicks, const path& path) const {
+	// Calculate how often spot gets incremented in n ticks on the game loop
+	int current = this->spot;
+	// there are 60 (FPS) ticks per second, we move 1 tile per second, so spot gets incremented once a second
+	// So in 60 ticks, we move one spot forward. The next spot should thus be current + numTicks / FPS.
+	int newSpot = current + numTicks / FPS;
+	// TODO handle potential out of bounds errors
+	auto newPos = path.getPoint(newSpot);
+	return sf::Vector2f(newPos.x, newPos.y);
+
 }

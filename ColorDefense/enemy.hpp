@@ -3,6 +3,7 @@
 #include "Logger.hpp"
 #include "animation.hpp"
 #include "util.hpp"
+#include "path.hpp"
 
 #include <sstream>
 #include <iomanip>  
@@ -30,6 +31,8 @@ namespace game {
 		void moveTo(int x, int y, bool animate);
 		bool animFinished(void) const;
 		bool isAnimating(void) const;
+		sf::Vector2f getPositionAt(int ticks, const path& path) const;
+
 	private:
 		int color;
 		sf::Vector2i position;
