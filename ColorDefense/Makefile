@@ -1,6 +1,6 @@
 CC = clang++
 CPPFLAGS = -Wall -std=c++11 -g
-OBJECTFILES = main.o Logger.o stdafx.o enemy.o wave.o level.o tile.o passable_tile.o buildable_tile.o blocked_tile.o tile_map.o util.o gamelogic.o shot.o tower.o
+OBJECTFILES = main.o Logger.o stdafx.o enemy.o wave.o level.o tile.o passable_tile.o buildable_tile.o blocked_tile.o tile_map.o util.o gamelogic.o shot.o tower.o path.o animation.o
 
 default: all
 
@@ -48,6 +48,12 @@ shot.o: shot.cpp shot.hpp
 
 tower.o: tower.cpp tower.hpp
 	$(CC) $(CPPFLAGS) -c tower.cpp
+
+path.o: path.cpp path.hpp
+	$(CC) $(CPPFLAGS) -c path.cpp
+
+animation.o: animation.cpp animation.hpp
+	$(CC) $(CPPFLAGS) -c animation.cpp
 
 all: $(OBJECTFILES)
 	$(CC) $(OBJECTFILES) -o ColorDefense -lsfml-graphics -lsfml-window -lsfml-system

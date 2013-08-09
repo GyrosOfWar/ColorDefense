@@ -95,35 +95,12 @@ void gamelogic::check_target_for_tower(tower* tw) {
 
 }
 
-bool gamelogic::check_in_range(tower* tw, enemy* e) {//returns true if enemy is still in range
-	sf::Vector2i e_pos = e->getTilePosition();
-	sf::Vector2i t_pos = tw->getPosition();
-	for(int i = 0; i < tw->get_range(); ++i) {
-		//straigt vertical
-		if(e_pos.x == t_pos.x) {
-			//straigt top
-			if((t_pos.y-i) == e_pos.y) return true;
-			//straigt bot
-			if((t_pos.y+i) == e_pos.y) return true;
-		}
-		//straight horizontal
-		if(e_pos.y == t_pos.y) {
-			//straigt left
-			if((t_pos.x-i) == e_pos.x) return true;
-			//straigt right
-			if((t_pos.x+i) == e_pos.x) return true;
-		}
-
-		//"diagonal"
-		int j = tw->get_range() - i;
-
-		if((t_pos.y+i) == e_pos.y && (t_pos.x-j) == e_pos.x) return true; //down left
-		if((t_pos.y-i) == e_pos.y && (t_pos.x+j) == e_pos.x) return true; //up right
-		if((t_pos.x+i) == e_pos.x && (t_pos.y-j) == e_pos.y) return true; //right down
-		if((t_pos.x-i) == e_pos.x && (t_pos.y+j) == t_pos.y) return true; //left up
-
-	}
-	return false;
+//returns true if enemy is still in range
+bool gamelogic::check_in_range(tower* tw, enemy* e) {
+	auto e_pos = e->getTilePosition();
+	auto t_pos = tw->getPosition();
+	int distance = abs(e_pos.x - t_pos.x) + abs(e_pos.y - t_pos.y);
+	return distance <= tw->get_range();
 }
 
 void gamelogic::set_on_field(enemy enemy) {
