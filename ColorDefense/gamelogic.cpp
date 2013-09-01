@@ -54,7 +54,11 @@ void gamelogic::update(void) {
 
 
 				auto x = enemies.begin();//dummy erster gegner
-				if(it->get_has_current_target() && it->is_ready()) shots.push_back(it->shoot(it->get_current_target()));
+				if(it->get_has_current_target() && it->is_ready()) {
+					auto target = it->get_current_target();
+					auto targetPosition = target->getPositionAt(60, lvl.getEnemyPath());
+					shots.push_back(it->shoot(target, targetPosition));
+				}
 			}
 		}
 
@@ -78,8 +82,6 @@ void gamelogic::update(void) {
 		}
 	}
 #pragma endregion
-
-
 }
 
 void gamelogic::check_target_for_tower(tower* tw) {

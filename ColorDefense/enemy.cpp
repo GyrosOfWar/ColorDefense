@@ -111,6 +111,6 @@ sf::Vector2f enemy::getPositionAt(int numTicks, const path& path) const {
 	int newSpot = current + numTicks / FPS;
 	// TODO handle potential out of bounds errors
 	auto newPos = path.getPoint(newSpot);
-	return sf::Vector2f(newPos.x, newPos.y);
+	return convertToPixelCoords(newPos);
 
 }

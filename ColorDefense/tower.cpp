@@ -85,8 +85,8 @@ bool tower::is_set(void) {
 	return this->set;
 }
 
-shot tower::shoot(enemy* en) {
-	shot ret = shot(this->color,en,convertToPixelCoords(this->position));
+shot tower::shoot(enemy* en, sf::Vector2f target_pos) {
+	shot ret = shot(this->color, convertToPixelCoords(this->position), target_pos, en);
 	ret.setPosition(this->position);
 
 

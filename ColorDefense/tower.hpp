@@ -27,7 +27,7 @@ public:
 	void updateColor(void);
 	bool is_set(void);
 	void set_set(bool set);
-	shot shoot(enemy* en);
+	shot shoot(enemy* en, sf::Vector2f target_pos);
 	bool is_ready(void);
 	void set_range(int range);
 	int get_range(void);
