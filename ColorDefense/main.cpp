@@ -6,6 +6,7 @@
 #include "util.hpp"
 #include "tower.hpp"
 #include "animation.hpp"
+#include "button.hpp"
 
 #include <sstream>
 #include <string>
@@ -19,6 +20,8 @@ Logger* logger = Logger::get();
 bool debugDraw = false;
 system_clock::time_point lastTime;
 const milliseconds frameTime(1000/FPS);
+bool game_is_running;
+vector<clickable> clickables;
 
 // Handles keyboard and mouse inputs
 void handleEvents(sf::Window& window, game::gamelogic& gl) {
@@ -51,13 +54,18 @@ void handleEvents(sf::Window& window, game::gamelogic& gl) {
 			break;
 		case sf::Event::MouseButtonReleased:
 			{
-				sf::Vector2i m_pos = sf::Mouse::getPosition(window);
+				sf::Vector2i m_pos_i = sf::Mouse::getPosition(window);
+				sf::Vector2f m_pos = sf::Vector2f(m_pos_i);
+
+				for(auto it = clickables.begin(); it != clickables.end(); ++it) {
+					if(it->clicked(m_pos)) game_is_running = true;
+				}
 				if(gl.showDialog() && m_pos.x > 225 && m_pos.x < 375 && m_pos.y > 300 && m_pos.y < 375) {
 					if(gl.is_finished()) window.close();
 					else gl.next_lvl();
 				}
 				if(gl.is_adding_tower()) {
-					gl.set_tower(m_pos);
+					gl.set_tower(m_pos_i);
 				}
 				break;
 			}
@@ -122,7 +130,24 @@ void drawEverything(gamelogic& gl, sf::RenderWindow& window) {
 	if(debugDraw) drawCells(window, gl);
 
 }
+void draw_menu(sf::RenderWindow& window) {
+	window.clear(sf::Color::White);
+	button start_game = button("start game", sf::Vector2f(1,1), sf::Vector2f(100,100));
+	button end = button("end", sf::Vector2f(200,200), sf::Vector2f(300,300));
+	clickables.push_back(start_game);
+	clickables.push_back(end);
+	vector<sf::Drawable*> buttons = start_game.get_graphics();
+	for(vector<sf::Drawable*>::iterator it = buttons.begin(); it != buttons.end(); ++it) {
+		window.draw(**it);
+	}
+	buttons = end.get_graphics();
+	for(vector<sf::Drawable*>::iterator it = buttons.begin(); it != buttons.end(); ++it) {
+		window.draw(**it);
+	}
+}
+
 int main() {
+	game_is_running = false;
 	sf::RenderWindow window(
 		sf::VideoMode(SCREENWIDTH, SCREENHEIGHT),
 		"ColorDefense",
@@ -133,9 +158,15 @@ int main() {
 	gamelogic gl;
 
 	while(window.isOpen()) {
-		updateGameState(gl);
-		handleEvents(window, gl);
-		drawEverything(gl, window);
+		if(game_is_running) {
+			updateGameState(gl);
+			handleEvents(window, gl);
+			drawEverything(gl, window);
+		}
+		else {
+			handleEvents(window, gl);
+			draw_menu(window);
+		}
 
 		window.display();
 	}
